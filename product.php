@@ -75,6 +75,7 @@ class SmartPhone extends Product{
   
 }
 
+//funksione manipulim  me file
 function saveProductsToFile($array){
   $myfile = fopen("WebsiteData/products.txt", "w") or die("Unable to open file!");
   foreach($array as $product){
@@ -108,7 +109,7 @@ function productsFromfile(){
 
 
 
-//testing
+//testime
 $images = ['images/product-item1.jpg','images/product-item2.jpg'];
 
 $phone1 = new SmartPhone(1,1500,10,"Iphone 11","Apple",date('Y-m-d H:i:s'), $images);
