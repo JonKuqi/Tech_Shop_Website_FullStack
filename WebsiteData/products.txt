@@ -1,2 +1,0 @@
-1|Apple|Iphone 11|10|1500|2024-03-29 23:24:12|images/product-item1.jpg>images/product-item2.jpg
-2|Apple|Iphone 10|6|3000|2024-03-29 23:24:12|images/product-item1.jpg>images/product-item2.jpg
