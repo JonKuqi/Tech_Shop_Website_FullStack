@@ -108,7 +108,7 @@
     <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
       <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index-2.html">
+          <a class="navbar-brand" href="index.php">
             <img src="images/main-logo.png" class="logo">
           </a>
           <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@
           </button>
           <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
             <div class="offcanvas-header px-4 pb-0">
-              <a class="navbar-brand" href="index-2.html">
+              <a class="navbar-brand" href="index.php">
                 <img src="images/main-logo.png" class="logo">
               </a>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -225,233 +225,93 @@
     <div class="shopify-grid padding-large">
       <div class="container">
         <div class="row">
+
+
+          <!-- Paraqitja e produkteve-->
           <main class="col-md-9">
             <div class="filter-shop d-flex justify-content-between">
               <div class="showing-product">
-                <p>Showing 1–9 of 55 results</p>
+                <p>Showing 1–9 of <?php $number ?> results</p>
               </div>
               <div class="sort-by">
-                <select id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
-                  <option value="">Default sorting</option>
-                  <option value="">Name (A - Z)</option>
-                  <option value="">Name (Z - A)</option>
-                  <option value="">Price (Low-High)</option>
-                  <option value="">Price (High-Low)</option>
-                  <option value="">Rating (Highest)</option>
-                  <option value="">Rating (Lowest)</option>
-                  <option value="">Model (A - Z)</option>
-                  <option value="">Model (Z - A)</option>   
+                <form id="sortingForm" action="shop.php" method="post" >
+                <select name="sortimi" onchange="this.form.submit()" id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
+                  <option value="default">Default sorting</option>
+                  <option value="A-Z" name="A-Z">Name (A - Z)</option>
+                  <option value="Z-A" name="Z-A">Name (Z - A)</option>
+                  <option value="price low-high" name="price low-high">Price (Low-High)</option>
+                  <option value="price high-low" name="price high-low">Price (High-Low)</option>
+                  <option value="rating-highest" name="rating-highest">Rating (Highest)</option>
+                  <option value="rating-lowest" name="rating-lowest">Rating (Lowest)</option>
+                  <option value="relevance" name="relevance">Relevance</option>
+                
                 </select>
+                
+                </form>
               </div>
             </div>
             <div class="product-content product-store d-flex justify-content-between flex-wrap">
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item1.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3 pb-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 10</a>
-                    </h3>
-                    <span class="item-price text-primary">$980</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item2.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 11</a>
-                    </h3>
-                    <span class="item-price text-primary">$110</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item3.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 8</a>
-                    </h3>
-                    <span class="item-price text-primary">$780</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item4.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 13</a>
-                    </h3>
-                    <span class="item-price text-primary">$1500</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item6.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Pink watch</a>
-                    </h3>
-                    <span class="item-price text-primary">$870</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item7.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Heavy watch</a>
-                    </h3>
-                    <span class="item-price text-primary">$680</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item8.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">spotted watch</a>
-                    </h3>
-                    <span class="item-price text-primary">$750</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item10.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Black Watch</a>
-                    </h3>
-                    <span class="item-price text-primary">$750</span>
-                  </div>
-                </div>                  
-              </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="product-card position-relative pe-3 pb-3">
-                  <div class="image-holder">
-                    <img src="images/product-item5.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <div class="btn-left">
-                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                        <svg class="cart-outline position-absolute">
-                          <use xlink:href="#cart-outline"></use>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 12</a>
-                    </h3>
-                    <span class="item-price text-primary">$1300</span>
-                  </div>
-                </div>                  
-              </div>
+
+<?php  
+
+include("Data-Objects/fileManipulationFunctions.php");
+$products = arrayProductsFromFile();
+setImagesOnProducts($products);
+$default = $products;
+$sorted = [];
+
+// Default sorting
+
+if(isset($_POST['sortimi'])){
+if($_POST['sortimi'] == "default"){
+    $newProducts = $products;
+}
+elseif($_POST['sortimi'] == "A-Z"){
+    foreach($products as $p){
+        $sorted[$p->getId()] = $p->getName();
+    } 
+    asort($sorted); 
+}
+elseif($_POST['sortimi'] == "Z-A"){
+    foreach($products as $p){
+        $sorted[$p->getId()] = $p->getName();
+    } 
+    arsort($sorted); 
+}
+elseif($_POST['sortimi'] == "price low-high"){
+    foreach($products as $p){
+        $sorted[$p->getId()] = $p->getPrice();
+    } 
+    asort($sorted); 
+}
+elseif($_POST['sortimi'] == "price high-low"){
+    foreach($products as $p){
+        $sorted[$p->getId()] = $p->getPrice();
+    } 
+    arsort($sorted); 
+}
+
+$newProducts = [];
+foreach($sorted as $key => $value) {
+    foreach($products as $p) {
+        if($p->getId() == $key) {
+            array_push($newProducts, $p);
+            break;
+        }
+    }
+}
+}
+
+$products = $newProducts;
+    
+    foreach($products as $p){
+      $p->showInShop();
+    }
+
+
+
+?>
+
             </div>
             <nav class="navigation paging-navigation text-center padding-medium" role="navigation">
               <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
@@ -793,6 +653,26 @@
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+    <script>
+document.getElementById("sortingForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var formData = new FormData(this); // Serialize form data
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "shopSorting.php", true); // Specify the PHP script
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Handle the response here (if needed)
+            console.log(xhr.responseText); // Log the response for debugging
+        } else {
+            console.error('Request failed:', xhr.status); // Log any errors
+        }
+    };
+
+    xhr.send(formData); // Send the form data via AJAX
+});
+</script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:48 GMT -->

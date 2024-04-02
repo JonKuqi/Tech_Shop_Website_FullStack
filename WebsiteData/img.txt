@@ -1,0 +1,10 @@
+imgid, pid, path
+1|1|images/product-item1.jpg
+2|2|images/product-item2.jpg
+3|3|images/product-item3.jpg
+4|4|images/product-item4.jpg
+5|5|images/product-item6.jpg
+6|6|images/product-item7.jpg
+7|7|images/product-item8.jpg
+8|8|images/product-item9.jpg
+9|9|images/product-item5.jpg

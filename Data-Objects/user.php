@@ -12,17 +12,23 @@ class User{
     private $payment;
     private $cartProducts = array();
 
-    public function __construct($id, $username, $password, Adress $address, $first_name, $last_name, $telephone, $email, UserPayment $payment) {
+    public function __construct($id, $username, $password, $first_name, $last_name, $telephone, $email) {
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
-        $this->address = $address;
+        //$this->address = $address;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->telephone = $telephone;
         $this->email = $email;
-        $this->payment = $payment;
+        //$this->payment = $payment;
 
+    }
+
+    public function registerUser(){
+        $file = fopen("../WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
+        fwrite($file, $this->formatToFile());
+        fclose($file);
     }
 
     public function __destruct() {
@@ -124,5 +130,8 @@ class UserPayment {
     public function setExpiryDate($expiry_date) { $this->expiry_date = $expiry_date; }
 }
 
+
+$user = new User(10,"jon","1234","Jon","Kuqi","+38344342685","jonkuqi04@gmail.com");
+$user->registerUser();
 
 ?>

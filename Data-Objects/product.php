@@ -2,18 +2,18 @@
 
 date_default_timezone_set('Europe/Belgrade');
 
-class Product {
-    private $pid;
-    private $sku;
-    private $price;
-    private $quantity;
-    private $time_added;
-    private $name;
-    private $discount; // prej 0 ne 1
-    private $tags = array();
-    private $reviews = array();
+abstract class Product {
+    protected $pid;
+    protected $sku;
+    protected $price;
+    protected $quantity;
+    protected $time_added;
+    protected $name;
+    protected $discount; // prej 0 ne 1
+    protected $tags = array();
+    protected $reviews = array();
 
-    public function __construct($pid, $sku, $price, $quantity, $time_added, $name, $discount) {
+    public function __construct(int $pid,int $sku,float $price, int $quantity, $time_added, $name,float $discount) {
         $this->pid = $pid;
         $this->sku = $sku;
         $this->price = $price;
@@ -23,10 +23,11 @@ class Product {
         $this->discount = $discount;
     }
 
+    public abstract function showInShop();
     public function __destruct() {
         echo "<script>console.log('Destruktori')</script>";
     }
-
+    public abstract function formatToFile();
     public function addTag(Tag $tag){ array_push($this->tags,$tag); }
     public function addReview(Review $review){ array_push($this->reviews, $review);}
 
@@ -55,10 +56,10 @@ class SmartPhone extends Product {
     private $short_description;
     private $long_description;
 
-    public function __construct($pid, $sku, $price, $quantity, $time_added, $name, $discount, $brand, $images, $short_description, $long_description) {
+    public function __construct($pid, $sku, $price, $quantity, $time_added, $name, $discount, $brand, $short_description, $long_description) {
         parent::__construct($pid, $sku, $price, $quantity, $time_added, $name, $discount);
         $this->brand = $brand;
-        $this->images = $images;
+       // $this->images = $images;
         $this->short_description = $short_description;
         $this->long_description = $long_description;
     }
@@ -67,7 +68,7 @@ class SmartPhone extends Product {
         parent::__destruct();
         echo "<script>console.log('Destruktori')</script>";
     }
-
+  
     public function formatToFile(){ 
       return parent::getId().'|'.
              parent::getSku().'|'.
@@ -78,6 +79,38 @@ class SmartPhone extends Product {
              parent::getDiscount().'|'.
             "$this->brand|$this->short_description|$this->long_description\n";
     }
+
+    public function showInShop(){
+        echo '  <div class="col-lg-4 col-md-6">
+        <div class="product-card position-relative pe-3 pb-3">
+          <div class="image-holder">
+            <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
+          </div>
+          <div class="cart-concern position-absolute">
+            <div class="cart-button d-flex">
+              <div class="btn-left">
+                <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                <svg class="cart-outline position-absolute">
+                  <use xlink:href="#cart-outline"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-detail d-flex justify-content-between pt-3 pb-3">
+            <h3 class="card-title text-uppercase">
+              <a href="#">'.$this->getName().'</a>
+            </h3>
+            <span class="item-price text-primary">'.$this->getPrice().'</span>
+          </div>
+        </div>                  
+      </div> ';
+  
+      
+    }
+    public function addImage(String $path){
+        array_push($this->images, $path);
+    }
+
 
 //getters dhe setters
     public function getBrand() { return $this->brand; }
@@ -104,6 +137,94 @@ class SmartPhone extends Product {
     public function getDiscount() { return parent::getDiscount(); }
     public function setDiscount($discount) { parent::setDiscount($discount); }
 }
+
+class SmartWatch extends Product{   
+    private $brand;
+    private $images = array();
+    private $short_description;
+    private $long_description;
+
+    public function __construct($pid, $sku, $price, $quantity, $time_added, $name, $discount, $brand, $short_description, $long_description) {
+        parent::__construct($pid, $sku, $price, $quantity, $time_added, $name, $discount);
+        $this->brand = $brand;
+       // $this->images = $images;
+        $this->short_description = $short_description;
+        $this->long_description = $long_description;
+    }
+
+    public function __destruct() {
+        parent::__destruct();
+        echo "<script>console.log('Destruktori')</script>";
+    }
+
+    public function formatToFile(){ 
+      return parent::getId().'|'.
+             parent::getSku().'|'.
+             parent::getPrice().'|'.
+             parent::getQuantity().'|'.
+             parent::getTimeAdded().'|'.
+             parent::getName().'|'.
+             parent::getDiscount().'|'.
+            "$this->brand|$this->short_description|$this->long_description\n";
+    }
+
+    public function showInShop(){
+        echo '  <div class="col-lg-4 col-md-6">
+        <div class="product-card position-relative pe-3 pb-3">
+          <div class="image-holder">
+            <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
+          </div>
+          <div class="cart-concern position-absolute">
+            <div class="cart-button d-flex">
+              <div class="btn-left">
+                <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                <svg class="cart-outline position-absolute">
+                  <use xlink:href="#cart-outline"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-detail d-flex justify-content-between pt-3 pb-3">
+            <h3 class="card-title text-uppercase">
+              <a href="#">'.$this->getName().'</a>
+            </h3>
+            <span class="item-price text-primary">'.$this->getPrice().'</span>
+          </div>
+        </div>                  
+      </div> ';
+    }
+    public function addImage(String $path){
+        array_push($this->images,$path);
+    }
+
+
+    
+//getters dhe setters
+    public function getBrand() { return $this->brand; }
+    public function setBrand($brand) { $this->brand = $brand; }
+    public function getImages() { return $this->images; }
+    public function setImages($images) { $this->images = $images; }
+    public function getShortDescription() { return $this->short_description; }
+    public function setShortDescription($short_description) { $this->short_description = $short_description; }
+    public function getLongDescription() { return $this->long_description; }
+    public function setLongDescription($long_description) { $this->long_description = $long_description; }
+
+    public function getId() { return parent::getId(); }
+    public function setId($pid) { parent::setId($pid); }
+    public function getSku() { return parent::getSku(); }
+    public function setSku($sku) { parent::setSku($sku); }
+    public function getPrice() { return parent::getPrice(); }
+    public function setPrice($price) { parent::setPrice($price); }
+    public function getQuantity() { return parent::getQuantity(); }
+    public function setQuantity($quantity) { parent::setQuantity($quantity); }
+    public function getTimeAdded() { return parent::getTimeAdded(); }
+    public function setTimeAdded($time_added) { parent::setTimeAdded($time_added); }
+    public function getName() { return parent::getName(); }
+    public function setName($name) { parent::setName($name); }
+    public function getDiscount() { return parent::getDiscount(); }
+    public function setDiscount($discount) { parent::setDiscount($discount); }
+}
+
 
 //Tagu
 class Tag{
