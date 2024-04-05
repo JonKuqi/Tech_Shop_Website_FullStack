@@ -103,11 +103,11 @@ class SmartPhone extends Product {
             <h3 class="card-title text-uppercase">
               <a href="#">'.$this->getName().'</a>
             </h3>
-            <span class="item-price text-primary">';
+            <span class="item-price text-primary" style="font-size:25px">';
             if($this->getDiscount() != 0.0){
-                   echo '<p style="color:red; text-decoration: line-through;">'.$this->getPrice().'€</p> '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+                   echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
             }else{
-              echo $this->getPrice();
+              echo $this->getPrice()."€";
             }    
      echo '</span>
           </div>
@@ -178,30 +178,40 @@ class SmartWatch extends Product{
     }
 
     public function showInShop(){
-        echo '  <div class="col-lg-4 col-md-6">
-        <div class="product-card position-relative pe-3 pb-3">
-          <div class="image-holder">
-            <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
-          </div>
-          <div class="cart-concern position-absolute">
-            <div class="cart-button d-flex">
-              <div class="btn-left">
-                <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                <svg class="cart-outline position-absolute">
-                  <use xlink:href="#cart-outline"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div class="card-detail d-flex justify-content-between pt-3 pb-3">
-            <h3 class="card-title text-uppercase">
-              <a href="#">'.$this->getName().'</a>
-            </h3>
-            <span class="item-price text-primary">'.$this->getPrice().'</span>
-          </div>
-        </div>                  
-      </div> ';
-    }
+      $finalPrice = $this->getPrice();
+      
+     echo '  <div class="col-lg-4 col-md-6">
+     <div class="product-card position-relative pe-3 pb-3">
+       <div class="image-holder">
+         <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
+       </div>
+       <div class="cart-concern position-absolute">
+         <div class="cart-button d-flex">
+           <div class="btn-left">
+             <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+             <svg class="cart-outline position-absolute">
+               <use xlink:href="#cart-outline"></use>
+             </svg>
+           </div>
+         </div>
+       </div>
+       <div class="card-detail d-flex justify-content-between pt-3 pb-3">
+         <h3 class="card-title text-uppercase">
+           <a href="#">'.$this->getName().'</a>
+         </h3>
+         <span class="item-price text-primary" style="font-size:25px">';
+         if($this->getDiscount() != 0.0){
+                echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+         }else{
+           echo $this->getPrice()."€";
+         }    
+  echo '</span>
+       </div>
+     </div>                  
+   </div> ';
+
+   
+ }
     public function addImage(String $path){
         array_push($this->images,$path);
     }
