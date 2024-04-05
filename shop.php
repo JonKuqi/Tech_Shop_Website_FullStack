@@ -291,7 +291,7 @@ elseif($_POST['sortimi'] == "price high-low"){
         $sorted[$p->getId()] = $p->getPrice();
     } 
     arsort($sorted); 
-    $byName=$false;
+    $byName=false;
 }
 $newProducts = [];
 if($byName){
