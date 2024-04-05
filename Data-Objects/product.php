@@ -12,6 +12,7 @@ abstract class Product {
     protected $discount; // prej 0 ne 1
     protected $tags = array();
     protected $reviews = array();
+    public static $tax = 0.18;
 
     public function __construct(int $pid,int $sku,float $price, int $quantity, $time_added, $name,float $discount) {
         $this->pid = $pid;
@@ -81,6 +82,8 @@ class SmartPhone extends Product {
     }
 
     public function showInShop(){
+         $finalPrice = $this->getPrice();
+         
         echo '  <div class="col-lg-4 col-md-6">
         <div class="product-card position-relative pe-3 pb-3">
           <div class="image-holder">
@@ -100,7 +103,13 @@ class SmartPhone extends Product {
             <h3 class="card-title text-uppercase">
               <a href="#">'.$this->getName().'</a>
             </h3>
-            <span class="item-price text-primary">'.$this->getPrice().'</span>
+            <span class="item-price text-primary">';
+            if($this->getDiscount() != 0.0){
+                   echo '<p style="color:red; text-decoration: line-through;">'.$this->getPrice().'€</p> '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+            }else{
+              echo $this->getPrice();
+            }    
+     echo '</span>
           </div>
         </div>                  
       </div> ';
