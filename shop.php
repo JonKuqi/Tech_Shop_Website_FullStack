@@ -236,11 +236,11 @@
               <div class="sort-by">
                 <form id="sortingForm" action="shop.php" method="post" >
                 <select name="sortimi" onchange="this.form.submit()" id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
-                  <option value="default">Default sorting</option>
-                  <option value="A-Z" name="A-Z">Name (A - Z)</option>
-                  <option value="Z-A" name="Z-A">Name (Z - A)</option>
+                  <option value="default">Sort Products</option>
                   <option value="price low-high" name="price low-high">Price (Low-High)</option>
                   <option value="price high-low" name="price high-low">Price (High-Low)</option>
+                  <option value="A-Z" name="A-Z">Name (A - Z)</option>
+                  <option value="Z-A" name="Z-A">Name (Z - A)</option>
                   <option value="rating-highest" name="rating-highest">Rating (Highest)</option>
                   <option value="rating-lowest" name="rating-lowest">Rating (Lowest)</option>
                   <option value="relevance" name="relevance">Relevance</option>
@@ -261,37 +261,53 @@ $default = $products;
 $sorted = [];
 
 // Default sorting
-
+$newProducts=$products;
+$byName = true;
 if(isset($_POST['sortimi'])){
 if($_POST['sortimi'] == "default"){
     $newProducts = $products;
 }
 elseif($_POST['sortimi'] == "A-Z"){
     foreach($products as $p){
-        $sorted[$p->getId()] = $p->getName();
+      array_push($sorted, $p->getName());
+      
     } 
-    asort($sorted); 
+    sort($sorted); 
 }
 elseif($_POST['sortimi'] == "Z-A"){
     foreach($products as $p){
-        $sorted[$p->getId()] = $p->getName();
+      array_push($sorted, $p->getName());
     } 
-    arsort($sorted); 
+    rsort($sorted); 
+
 }
 elseif($_POST['sortimi'] == "price low-high"){
     foreach($products as $p){
         $sorted[$p->getId()] = $p->getPrice();
     } 
     asort($sorted); 
+    $byName = false;
 }
 elseif($_POST['sortimi'] == "price high-low"){
     foreach($products as $p){
         $sorted[$p->getId()] = $p->getPrice();
     } 
     arsort($sorted); 
+    $byName = false;
 }
 
 $newProducts = [];
+if($byName){
+      foreach($sorted as $v){
+        foreach($products as $p){
+        if($v == $p->getName()){
+          array_push($newProducts,$p);
+          break;
+        }
+      }
+   }
+
+}else{
 foreach($sorted as $key => $value) {
     foreach($products as $p) {
         if($p->getId() == $key) {
@@ -300,6 +316,8 @@ foreach($sorted as $key => $value) {
         }
     }
 }
+}
+
 }
 
 $products = $newProducts;
@@ -654,24 +672,16 @@ $products = $newProducts;
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script>
-document.getElementById("sortingForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    var formData = new FormData(this); // Serialize form data
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("POST", "shopSorting.php", true); // Specify the PHP script
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            // Handle the response here (if needed)
-            console.log(xhr.responseText); // Log the response for debugging
-        } else {
-            console.error('Request failed:', xhr.status); // Log any errors
+function SubForm (){
+    $.ajax({
+        url: '/Person/Edit/@Model.Id/',
+        type: 'post',
+        data: $('#sortingForm').serialize(),
+        success: function(){
+            alert("worked");
         }
-    };
-
-    xhr.send(formData); // Send the form data via AJAX
-});
+    });
+}
 </script>
   </body>
 
