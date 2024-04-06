@@ -2,16 +2,16 @@
 include("product.php");
 $product = new SmartPhone(1,"1050","2500","10","2024","Iphone",0.2,"Iphone","Short","Long Desc.");
 
-$pathImg = "../images/product-item1.jpg";
+$pathImg = "images/product-item1.jpg";
 function registerProduct($product){
-    $file = fopen("../WebsiteData/product.txt", 'a');
+    $file = fopen("WebsiteData/product.txt", 'a');
     fwrite($file,$product->formatToFIle());
     fclose($file);
 }
 
 //img_id, pid, path
 function saveArrayImages($product,$imgiD,$path ){
-    $file = fopen("../WebsiteData/img.txt", 'a');
+    $file = fopen("WebsiteData/img.txt", 'a');
     fwrite($file, $imgiD."|".$product->getId()."|".$path."\n");
     fclose($file);
 }
@@ -19,7 +19,7 @@ function saveArrayImages($product,$imgiD,$path ){
 
 function arrayProductsFromFile(){
     $arrayProducts = array();
-    $file = fopen("C:/xampp/htdocs/Tech_shop_website_gr.6/WebsiteData/product.txt", 'r');
+    $file = fopen("WebsiteData/product.txt", 'r');
 
     while(!feof($file)) {  
      $line = fgets($file);
@@ -40,7 +40,7 @@ return $arrayProducts;
 
 
 function setImagesOnProducts($products){
-    $file = fopen("C:/xampp/htdocs/Teste Projekti/WebsiteData/img.txt", 'r');
+    $file = fopen("WebsiteData/img.txt", 'r');
     while(!feof($file)) {  
         $line = fgets($file);
         $parts = explode("|",$line);
