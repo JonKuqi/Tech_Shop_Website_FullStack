@@ -236,7 +236,7 @@
               <div class="sort-by">
                 <form id="sortingForm" action="shop.php" method="post" >
                 <select name="sortimi" onchange="this.form.submit()" id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
-                  <option value="default" name="default">Sorting Mode</option>
+                  <option value="default" name="default">Sort</option>
                   <option value="price low-high" name="price low-high">Price (Low-High)</option>
                   <option value="price high-low" name="price high-low">Price (High-Low)</option>
                   <option value="A-Z" name="A-Z">Name (A - Z)</option>
@@ -256,14 +256,14 @@
 
 include("Data-Objects/fileManipulationFunctions.php");
 $products = arrayProductsFromFile();
+//lexohen nga file produktet dhe imazhet per secilen
 setImagesOnProducts($products);
-$default = $products;
-$sorted = [];
+$sorted = new array();
 
-// Default sorting
+
 $newProducts = $products;
 $byName = true;
-if(isset($_POST['sortimi']) && !isset($_POST['search'])){
+if(isset($_POST['sortimi'])){
 if($_POST['sortimi'] == "default"){
     $newProducts = $products;
 }
@@ -318,31 +318,8 @@ foreach($sorted as $key => $value) {
 
 }
 
-
-//Searchi
-include("Data-Objects/search.php");
-if(isset($_POST['search'])){
-  $search = $_POST['search'];
-  $searchedProducts = searchProducts($search);
-  $newProducts =[];
-
-  foreach($searchedProducts as $key => $value) {
-    foreach($products as $p) {
-        if($p->getId() == $key) {
-            array_push($newProducts, $p);
-            break;
-        }
-    }
-  }
-
-
-}
-
-$products=$newProducts;
-if(empty($products)){
-  echo "No results found, please try different products.";
-} else {
-  foreach($products as $p){
+$products = $newProducts; 
+    foreach($products as $p){
       $p->showInShop();
   }
 }
