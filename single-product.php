@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   
-<!-- Mirrored from demo.templatesjungle.com/ministore/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:48 GMT -->
+<!-- Mirrored from demo.templatesjungle.com/ministore/single-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:59 GMT -->
 <head>
     <title>Ministore</title>
     <meta charset="utf-8">
@@ -21,6 +21,15 @@
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
+    
+   <style>
+
+#SingleProduct-size{
+   height: 719px;
+   float:right;
+   margin-right: 4vh;
+ }
+ </style>
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -33,14 +42,8 @@
       <symbol xmlns="http://www.w3.org/2000/svg" id="cart" viewBox="0 0 16 16">
         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
       </symbol>
-      <svg xmlns="http://www.w3.org/2000/svg" id="chevron-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-      </svg>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="chevron-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="cart-outline" viewBox="0 0 16 16">
-        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      <symbol xmlns="http://www.w3.org/2000/svg" id="star-fill" viewBox="0 0 16 16">
+        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
       </symbol>
       <symbol xmlns="http://www.w3.org/2000/svg" id="facebook" viewBox="0 0 24 24">
         <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" />
@@ -108,7 +111,7 @@
     <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
       <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.php">
+          <a class="navbar-brand" href="index-2.html">
             <img src="images/main-logo.png" class="logo">
           </a>
           <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +121,7 @@
           </button>
           <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
             <div class="offcanvas-header px-4 pb-0">
-              <a class="navbar-brand" href="index.php">
+              <a class="navbar-brand" href="index-2.html">
                 <img src="images/main-logo.png" class="logo">
               </a>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -165,7 +168,7 @@
                       <a href="single-post.html" class="dropdown-item">Single Post</a>
                     </li>
                     <li>
-                      <a href="single-product.php" class="dropdown-item">Single Product</a>
+                      <a href="single-product.html" class="dropdown-item">Single Product</a>
                     </li>
                     <li>
                       <a href="contact.html" class="dropdown-item">Contact</a>
@@ -205,269 +208,384 @@
         </div>
       </nav>
     </header>
-    <section class="hero-section position-relative bg-light-blue padding-medium">
-      <div class="hero-content">
-        <div class="container">
-          <div class="row">
-            <div class="text-center padding-large no-padding-bottom">
-              <h1 class="display-2 text-uppercase text-dark">Shop</h1>
-              <div class="breadcrumbs">
-                <span class="item">
-                  <a href="index-2.html">Home ></a>
-                </span>
-                <span class="item">Shop</span>
+<?php
+
+//Logjika e faqes
+
+include("Data-Objects/fileManipulationFunctions.php");
+
+//Qetu mirret produkti prej sesionit
+$product = new SmartPhone(5,1500,1500,10,"2024","Iphone 15",0.2,"Apple","Short description", "Long description");
+$products = [$product];
+setImagesOnProducts($products);
+
+$category = "Undefined";
+if ($product instanceof SmartPhone) {
+  $category = "Smart Phone";
+}elseif($product instanceof SmartWatch){
+  $category = "Smart Watch";
+}
+
+
+
+?>
+
+    <section id="selling-product" class="single-product padding-xlarge">
+      <div class="container">
+        <div class="row mt-5">
+          <div class="col-lg-6">
+            <div class="product-preview mb-3">
+            <div class="product-preview mb-3">
+
+
+                  <img src="<?php echo $product->getImages()[0]; ?>" alt="single-product" class="img-fluid" id="SingleProduct-size">
+
+
+
+             </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="product-info">
+              <div class="element-header">
+                <h3 itemprop="name" class="display-7 text-uppercase"><?php echo $product->getName(); ?></h3>
+                <div class="rating-container d-flex align-items-center">
+                  <div class="rating" data-rating="1" onclick=rate(1)>
+                    <svg class="star star-fill">
+                      <use xlink:href="#star-fill"></use>
+                    </svg>
+                    <span class="rating-count ps-2">5.2</span>
+                  </div>
+                </div>
+              </div>
+              <div class="product-price pt-3 pb-3">
+                <strong class="text-primary display-6 fw-bold"><?php echo ($product->getPrice()-($product->getPrice()*$product->getDiscount())); ?>€</strong>
+              </div>
+              <p><?php echo $product->getShortDescription(); ?></p>
+              <div class="cart-wrap padding-small">
+                <div class="color-options product-select">
+                  <div class="color-toggle" data-option-index="0">
+                    <h4 class="item-title text-uppercase text-dark text-decoration-underline">Color:</h4>
+                    <ul class="select-list list-unstyled d-flex">
+                      <li class="select-item pe-3" data-val="Green" title="Green">
+                        <a href="#">Green</a>
+                      </li>
+                      <li class="select-item pe-3" data-val="Orange" title="Orange">
+                        <a href="#">Orange</a>
+                      </li>
+                      <li class="select-item pe-3" data-val="Red" title="Red">
+                        <a href="#">Red</a>
+                      </li>
+                      <li class="select-item" data-val="Black" title="Black">
+                        <a href="#">Black</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="swatch product-select" data-option-index="1">
+                  <h4 class="item-title text-uppercase text-dark text-decoration-underline">Size:</h4>
+                  <ul class="select-list list-unstyled d-flex">
+                    <li data-value="S" class="select-item pe-3">
+                      <a href="#">XL</a>
+                    </li>
+                    <li data-value="M" class="select-item pe-3">
+                      <a href="#">L</a>
+                    </li>
+                    <li data-value="L" class="select-item pe-3">
+                      <a href="#">M</a>
+                    </li>
+                    <li data-value="L" class="select-item">
+                      <a href="#">S</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="product-quantity">
+                  <div class="stock-number text-dark"><?php echo $product->getQuantity(); ?>  in stock</div>
+                  <div class="stock-button-wrap pt-3">
+
+                    <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="">
+                              -
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                        <span class="input-group-btn">
+                            <button type="button" onclick="incrementQuantity()" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
+                                +
+                            </button>
+                        </span>
+                    </div>
+                    <div class="qty-button d-flex flex-wrap pt-3">
+                      <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
+                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="meta-product py-2">
+                <div class="meta-item d-flex align-items-baseline">
+                  <h4 class="item-title no-margin pe-2">SKU:</h4>
+                  <ul class="select-list list-unstyled d-flex">
+                    <li data-value="S" class="select-item"><?php echo $product->getSku(); ?></li>
+                  </ul>
+                </div>
+                <div class="meta-item d-flex align-items-baseline">
+                  <h4 class="item-title no-margin pe-2">Category: </h4>
+                  <ul class="select-list list-unstyled d-flex">
+                    <li data-value="S" class="select-item">
+                      <a href="#"><?php echo $category; ?></a>
+                    </li>
+                    
+                  </ul>
+                </div>
+                <div class="meta-item d-flex align-items-baseline">
+                  <h4 class="item-title no-margin pe-2">Tags:</h4>
+                  <ul class="select-list list-unstyled d-flex">
+                    <li data-value="S" class="select-item">
+                      <a href="#">Classic</a>,
+                    </li>
+                    <li data-value="S" class="select-item">
+                      <a href="#"> Modern</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <div class="shopify-grid padding-large">
+    <section class="product-info-tabs">
       <div class="container">
         <div class="row">
-
-
-          <!-- Paraqitja e produkteve-->
-          <main class="col-md-9">
-            <div class="filter-shop d-flex justify-content-between">
-              <div class="showing-product">
-                <p>Showing 1–9 of <?php $number ?> results</p>
-              </div>
-              <div class="sort-by">
-                <form id="sortingForm" action="shop.php" method="post" >
-                <select name="sortimi" onchange="this.form.submit()" id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
-                  <option value="default" name="default">Sorting Mode</option>
-                  <option value="price low-high" name="price low-high">Price (Low-High)</option>
-                  <option value="price high-low" name="price high-low">Price (High-Low)</option>
-                  <option value="A-Z" name="A-Z">Name (A - Z)</option>
-                  <option value="Z-A" name="Z-A">Name (Z - A)</option>
-                  <option value="rating-highest" name="rating-highest">Rating (Highest)</option>
-                  <option value="rating-lowest" name="rating-lowest">Rating (Lowest)</option>
-                  <option value="relevance" name="relevance">Relevance</option>
+          <div class="tabs-listing">
+            <nav>
+              <div class="nav nav-tabs d-flex flex-wrap justify-content-center" id="nav-tab" role="tablist"><button class="nav-link text-uppercase pe-5" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="true">Reviews</button>
+                <button class="nav-link active text-uppercase pe-5" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false" >Description</button>
+               
                 
-                </select>
-                
-                </form>
-              </div>
-            </div>
-            <div class="product-content product-store d-flex justify-content-between flex-wrap">
-
-<?php  
-
-include("Data-Objects/fileManipulationFunctions.php");
-$products = arrayProductsFromFile();
-setImagesOnProducts($products);
-$default = $products;
-$sorted = [];
-
-// Default sorting
-$newProducts = $products;
-$byName = true;
-if(isset($_POST['sortimi']) && !isset($_POST['search'])){
-if($_POST['sortimi'] == "default"){
-    $newProducts = $products;
-}
-elseif($_POST['sortimi'] == "A-Z"){
-    foreach($products as $p){
-        array_push($sorted, $p->getName());
-    } 
-    sort($sorted); 
-}
-elseif($_POST['sortimi'] == "Z-A"){
-    foreach($products as $p){
-      array_push($sorted, $p->getName());
-    } 
-    rsort($sorted); 
-}
-elseif($_POST['sortimi'] == "price low-high"){
-    foreach($products as $p){
-        $sorted[$p->getId()] = $p->getPrice();
-    } 
-    asort($sorted); 
-    $byName=false;
-}
-elseif($_POST['sortimi'] == "price high-low"){
-    foreach($products as $p){
-        $sorted[$p->getId()] = $p->getPrice();
-    } 
-    arsort($sorted); 
-    $byName=false;
-}
-$newProducts = [];
-if($byName){
-  foreach($sorted as $s){
-      foreach($products as $p){
-        if($p->getName() == $s){
-          array_push($newProducts, $p);
-          break;
-        }
-      }
-  }
-
-}else{
-foreach($sorted as $key => $value) {
-    foreach($products as $p) {
-        if($p->getId() == $key) {
-            array_push($newProducts, $p);
-            break;
-        }
-    }
-}
-}
-
-
-}
-
-
-//Searchi
-include("Data-Objects/search.php");
-if(isset($_POST['search'])){
-  $search = $_POST['search'];
-  $searchedProducts = searchProducts($search);
-  $newProducts =[];
-
-  foreach($searchedProducts as $key => $value) {
-    foreach($products as $p) {
-        if($p->getId() == $key) {
-            array_push($newProducts, $p);
-            break;
-        }
-    }
-  }
-
-
-}
-
-$products=$newProducts;
-if(empty($products)){
-  echo "No results found, please try different products.";
-} else {
-  foreach($products as $p){
-      $p->showInShop();
-  }
-}
-
-
-?>
-
-            </div>
-            <nav class="navigation paging-navigation text-center padding-medium" role="navigation">
-              <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
-                <a href="#">
-                  <svg class="chevron-left pe-3">
-                    <use xlink:href="#chevron-left"></use>
-                  </svg>
-                </a>
-                <span aria-current="page" class="page-numbers current pe-3">1</span>
-                <a class="page-numbers pe-3" href="#">2</a>
-                <a class="page-numbers pe-3" href="#">3</a>
-                <a class="page-numbers pe-3" href="#">4</a>
-                <a class="page-numbers" href="#">5</a>
-                <a href="#">
-                  <svg class="chevron-right ps-3">
-                    <use xlink:href="#chevron-right"></use>
-                  </svg>
-                </a>
               </div>
             </nav>
-          </main>
-          <aside class="col-md-3">
-            <div class="sidebar">
-              <div class="widget-menu">
-                <div class="widget-search-bar">
-
-
- <!--  Forma e search -->
- <form role="search" method="post" class="d-flex" action="shop.php" id="searchForm">
-    <input class="search-field" placeholder="Search" type="search" name="search">
-    <div class="search-icon bg-dark" id="searchIcon">
-        <a href="#">
-            <svg class="search text-light">
-                <use xlink:href="#search"></use>
-            </svg>
-        </a>
-    </div>
-</form>
-
-
-                </div> 
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active border-top border-bottom padding-small" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <p>Product Description</p>
+                <p><?php echo $product->getLongDescription(); ?></p>
+                
               </div>
-              <div class="widget-product-categories pt-5">
-                <h5 class="widget-title text-decoration-underline text-uppercase">Categories</h5>
-                <ul class="product-categories sidebar-list list-unstyled">
-                  <li class="cat-item">
-                    <a href="https://demo.templatesjungle.com/collections/categories">All</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Phones</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Accessories</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Tablets</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Watches</a>
-                  </li>
-                </ul>
+              <div class="tab-pane fade border-top border-bottom padding-small" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab">
+                <p>It is Comfortable and Best</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
               </div>
-              <div class="widget-product-tags pt-3">
-                <h5 class="widget-title text-decoration-underline text-uppercase">Tags</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="#">White</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Cheap</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Mobile</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Modern</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="widget-product-brands pt-3">
-                <h5 class="widget-title text-decoration-underline text-uppercase">Brands</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="#">Apple</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Samsung</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Huwai</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="widget-price-filter pt-3">
-                <h5 class="widget-titlewidget-title text-decoration-underline text-uppercase">Filter By Price</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="#">Less than $10</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$10- $20</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$20- $30</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$30- $40</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$40- $50</a>
-                  </li>
-                </ul>
+              <div class="tab-pane fade border-top border-bottom padding-small" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+                <div class="review-box d-flex flex-wrap">
+                  <div class="col-lg-6 d-flex flex-wrap">
+                    <div class="col-md-2">
+                      <div class="image-holder">
+                        <img src="images/review-item1.jpg" alt="review" class="img-fluid">
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="review-content">
+                        <div class="rating-container d-flex align-items-center">
+                          <div class="rating" data-rating="1" onclick="rate(1)">
+                            <i class="icon icon-star"></i>
+                          </div>
+                          <div class="rating" data-rating="2" onclick="rate(1)">
+                            <i class="icon icon-star"></i>
+                          </div>
+                          <div class="rating" data-rating="3" onclick="rate(1)">
+                            <i class="icon icon-star"></i>
+                          </div>
+                          <div class="rating" data-rating="4" onclick="rate(1)">
+                            <i class="icon icon-star-half"></i>
+                          </div>
+                          <div class="rating" data-rating="5" onclick="rate(1)">
+                            <i class="icon icon-star-empty"></i>
+                          </div>
+                          <span class="rating-count">(3.5)</span>
+                        </div>
+                        <div class="review-header">
+                          <span class="author-name">Tina Johnson</span>
+                          <span class="review-date">– 03/07/2023</span>
+                        </div>
+                        <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 d-flex flex-wrap">
+                    <div class="col-md-2">
+                      <div class="image-holder">
+                        <img src="images/review-item2.jpg" alt="review" class="img-fluid">
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="review-content">
+                        <div class="rating-container d-flex align-items-center">
+                          <div class="rating" data-rating="1" onclick="rate(1)">
+                            <i class="icon icon-star"></i>
+                          </div>
+                          <div class="rating" data-rating="2" onclick="rate(1)">
+                            <i class="icon icon-star"></i>
+                          </div>
+                          <div class="rating" data-rating="3" onclick="rate(1)">
+                            <i class="icon icon-star"></i>
+                          </div>
+                          <div class="rating" data-rating="4" onclick="rate(1)">
+                            <i class="icon icon-star-half"></i>
+                          </div>
+                          <div class="rating" data-rating="5" onclick="rate(1)">
+                            <i class="icon icon-star-empty"></i>
+                          </div>
+                          <span class="rating-count">(3.5)</span>
+                        </div>
+                        <div class="review-header">
+                          <span class="author-name">Jenny Willis</span>
+                          <span class="review-date">– 03/06/2022</span>
+                        </div>
+                        <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </aside>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+    <section id="related-products" class="product-store position-relative padding-large">
+      <div class="container">
+        <div class="row">
+          <div class="display-header d-flex justify-content-between pb-3">
+            <h2 class="display-7 text-dark text-uppercase">Related Products</h2>
+            <div class="btn-right">
+              <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+            </div>
+          </div>
+          <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item1.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <div class="btn-left">
+                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                        <svg class="cart-outline position-absolute">
+                          <use xlink:href="#cart-outline"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 10</a>
+                    </h3>
+                    <span class="item-price text-primary">$980</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item2.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <div class="btn-left">
+                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                        <svg class="cart-outline position-absolute">
+                          <use xlink:href="#cart-outline"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 11</a>
+                    </h3>
+                    <span class="item-price text-primary">$1100</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item3.jpg" alt="product-item" class="img-fluid">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <div class="btn-left">
+                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                        <svg class="cart-outline position-absolute">
+                          <use xlink:href="#cart-outline"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 8</a>
+                    </h3>
+                    <span class="item-price text-primary">$780</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item4.jpg" alt="product-item" class="product-image">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <div class="btn-left">
+                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                        <svg class="cart-outline position-absolute">
+                          <use xlink:href="#cart-outline"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 13</a>
+                    </h3>
+                    <span class="item-price text-primary">$1500</span>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="product-card position-relative">
+                  <div class="image-holder">
+                    <img src="images/product-item5.jpg" alt="product-item" class="product-image">
+                  </div>
+                  <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                      <div class="btn-left">
+                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                        <svg class="cart-outline position-absolute">
+                          <use xlink:href="#cart-outline"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                      <a href="#">Iphone 12</a>
+                    </h3>
+                    <span class="item-price text-primary">$1300</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination position-absolute text-center"></div>
+    </section>
     <section id="subscribe" class="container-grid padding-large position-relative overflow-hidden">
       <div class="container">
         <div class="row">
@@ -696,37 +814,19 @@ if(empty($products)){
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+
     <script>
-document.getElementById("sortingForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    var formData = new FormData(this); // Serialize form data
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("POST", "shopSorting.php", true); // Specify the PHP script
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            // Handle the response here (if needed)
-            console.log(xhr.responseText); // Log the response for debugging
-        } else {
-            console.error('Request failed:', xhr.status); // Log any errors
-        }
-    };
-
-    xhr.send(formData); // Send the form data via AJAX
-});
-</script>
-<script>
-    // Add an event listener to the search icon
-    document.getElementById('searchIcon').addEventListener('click', function(event) {
-        // Prevent the default behavior of the anchor tag
-        event.preventDefault();
-        
-        // Submit the form programmatically
-        document.getElementById('searchForm').submit();
-    });
+function incrementQuantity() {
+    var quantityInput = document.getElementById("quantity");
+    var max = parseInt(quantityInput.max);
+    var currentValue = parseInt(quantityInput.value);
+    if (currentValue < max) {
+        quantityInput.value = currentValue + 1;
+    }
+}
 </script>
   </body>
 
-<!-- Mirrored from demo.templatesjungle.com/ministore/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:48 GMT -->
+<!-- Mirrored from demo.templatesjungle.com/ministore/single-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 20:00:01 GMT -->
 </html>
