@@ -263,7 +263,7 @@ $sorted = [];
 // Default sorting
 $newProducts = $products;
 $byName = true;
-if(isset($_POST['sortimi'])){
+if(isset($_POST['sortimi']) && !isset($_POST['search'])){
 if($_POST['sortimi'] == "default"){
     $newProducts = $products;
 }
@@ -318,10 +318,35 @@ foreach($sorted as $key => $value) {
 
 }
 
-$products = $newProducts; 
-    foreach($products as $p){
-      $p->showInShop();
+
+//Searchi
+include("Data-Objects/search.php");
+if(isset($_POST['search'])){
+  $search = $_POST['search'];
+  $searchedProducts = searchProducts($search);
+  $newProducts =[];
+
+  foreach($searchedProducts as $key => $value) {
+    foreach($products as $p) {
+        if($p->getId() == $key) {
+            array_push($newProducts, $p);
+            break;
+        }
     }
+  }
+
+
+}
+
+$products=$newProducts;
+if(empty($products)){
+  echo "No results found, please try different products.";
+} else {
+  foreach($products as $p){
+      $p->showInShop();
+  }
+}
+
 
 ?>
 
@@ -350,16 +375,21 @@ $products = $newProducts;
             <div class="sidebar">
               <div class="widget-menu">
                 <div class="widget-search-bar">
-                  <form role="search" method="get" class="d-flex">
-                    <input class="search-field" placeholder="Search" type="search">
-                    <div class="search-icon bg-dark">
-                      <a href="#">
-                        <svg class="search text-light">
-                          <use xlink:href="#search"></use>
-                        </svg>
-                      </a>
-                    </div>
-                  </form>
+
+
+ <!--  Forma e search -->
+ <form role="search" method="post" class="d-flex" action="shop.php" id="searchForm">
+    <input class="search-field" placeholder="Search" type="search" name="search">
+    <div class="search-icon bg-dark" id="searchIcon">
+        <a href="#">
+            <svg class="search text-light">
+                <use xlink:href="#search"></use>
+            </svg>
+        </a>
+    </div>
+</form>
+
+
                 </div> 
               </div>
               <div class="widget-product-categories pt-5">
@@ -685,6 +715,16 @@ document.getElementById("sortingForm").addEventListener("submit", function(event
 
     xhr.send(formData); // Send the form data via AJAX
 });
+</script>
+<script>
+    // Add an event listener to the search icon
+    document.getElementById('searchIcon').addEventListener('click', function(event) {
+        // Prevent the default behavior of the anchor tag
+        event.preventDefault();
+        
+        // Submit the form programmatically
+        document.getElementById('searchForm').submit();
+    });
 </script>
   </body>
 
