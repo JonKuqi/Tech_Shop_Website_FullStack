@@ -1,1 +1,2 @@
-10|jon|1234|Jon|Kuqi|+38344342685|jonkuqi04@gmail.com
+1|jonkuqi|12345678|Jon|Kuçi|+38344342685|jon.kuci@student.uni-pr.edu
+2|kaltrinakrasniqi|12345678|Kaltrina|Krasniqi|+Num|kaltrina.krasniqi13@student.uni-pr.edu

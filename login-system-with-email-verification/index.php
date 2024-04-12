@@ -381,8 +381,9 @@
         </div>
       </nav>
     </header>
-  
-    <div id="palidhje">
+    
+  <!-- QKa asht kjo id -->
+    <div id="palidhje" >
     <div class="main">
 
         <!-- Login Area -->

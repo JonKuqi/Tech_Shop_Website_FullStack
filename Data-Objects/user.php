@@ -26,7 +26,7 @@ class User{
     }
 
     public function registerUser(){
-        $file = fopen("../WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
+        $file = fopen("WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
         fwrite($file, $this->formatToFile());
         fclose($file);
     }
@@ -129,9 +129,5 @@ class UserPayment {
     public function setAccountNumber($account_number) { $this->account_number = $account_number; }
     public function setExpiryDate($expiry_date) { $this->expiry_date = $expiry_date; }
 }
-
-
-$user = new User(10,"jon","1234","Jon","Kuqi","+38344342685","jonkuqi04@gmail.com");
-$user->registerUser();
 
 ?>

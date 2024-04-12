@@ -1,3 +1,71 @@
+<?php
+
+//Logjika e faqes
+
+include("Data-Objects/fileManipulationFunctions.php");
+
+$products = arrayProductsFromFile();
+$users = arrayUsersFromFile();
+
+//Qetu mirret produkti prej sesionit
+$product = $products[0];
+setImagesOnProducts($products);
+
+$category = "Undefined";
+if ($product instanceof SmartPhone) {
+  $category = "Smart Phone";
+}elseif($product instanceof SmartWatch){
+  $category = "Smart Watch";
+}
+
+
+
+//Leaving a review
+
+$currentUser = $users[0];
+$reviews = arrayReviewsFromFile();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  $context = $_POST['context'];
+  $rating = $_POST['rate'];
+  
+ $newReview = new Review($reviews[count($reviews)-1]->getId()+1,$product,$currentUser, intval($rating),$context);
+ $newReview->registerReview();
+ echo '<script>alert("You have succesfully added a review!");</script>';
+ header("Refresh:0");
+}
+
+
+
+//Reviews
+
+
+//$review = new Review(1, $product, $users[0],5.0,"Amaizing Product");
+
+
+
+$productReviews = [];
+
+foreach($reviews as $r){
+  if($product->getId() == $r->getProduct()->getId()){
+    array_push($productReviews, $r);
+  }
+}
+$sumRating = 0;
+
+foreach($productReviews as $r){
+  $sumRating+=$r->getRating();
+}
+$productRating = $sumRating/count($productReviews);
+
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
   
@@ -30,6 +98,83 @@
    margin-right: 4vh;
  }
  </style>
+<style>
+        .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+        .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+            width: 16px !important;
+            height: 4px !important;
+            border-radius: 5px !important;
+            margin: 0 6px !important;
+        }
+
+        .swiper-pagination {
+            bottom: 2px !important;
+        }
+
+        .swiper-wrapper {
+            height: max-content !important;
+            width: max-content !important;
+            padding-bottom: 64px !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #4F46E5 !important;
+        }
+        
+        .swiper-slide.swiper-slide-active>.slide_active\:border-indigo-600 {
+            --tw-border-opacity: 1 !important;
+            border-color: rgb(79 70 229 / var(--tw-border-opacity)) !important;
+            padding:10px !important;
+        }
+
+        .swiper-slide.swiper-slide-active>.group .slide_active\:text-gray-800 {
+            ---tw-text-opacity: 1 !important;
+            color: rgb(31 41 55 / var(--tw-text-opacity)) !important;
+            padding:10px !important;
+        }
+
+
+
+
+        .rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+    </style>
+
+
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -208,27 +353,7 @@
         </div>
       </nav>
     </header>
-<?php
 
-//Logjika e faqes
-
-include("Data-Objects/fileManipulationFunctions.php");
-
-//Qetu mirret produkti prej sesionit
-$product = new SmartPhone(5,1500,1500,10,"2024","Iphone 15",0.2,"Apple","Short description", "Long description");
-$products = [$product];
-setImagesOnProducts($products);
-
-$category = "Undefined";
-if ($product instanceof SmartPhone) {
-  $category = "Smart Phone";
-}elseif($product instanceof SmartWatch){
-  $category = "Smart Watch";
-}
-
-
-
-?>
 
     <section id="selling-product" class="single-product padding-xlarge">
       <div class="container">
@@ -254,7 +379,7 @@ if ($product instanceof SmartPhone) {
                     <svg class="star star-fill">
                       <use xlink:href="#star-fill"></use>
                     </svg>
-                    <span class="rating-count ps-2">5.2</span>
+                    <span class="rating-count ps-2"><?php echo $productRating ?></span>
                   </div>
                 </div>
               </div>
@@ -378,76 +503,122 @@ if ($product instanceof SmartPhone) {
                 <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
               </div>
               <div class="tab-pane fade border-top border-bottom padding-small" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
-                <div class="review-box d-flex flex-wrap">
-                  <div class="col-lg-6 d-flex flex-wrap">
-                    <div class="col-md-2">
-                      <div class="image-holder">
-                        <img src="images/review-item1.jpg" alt="review" class="img-fluid">
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="review-content">
-                        <div class="rating-container d-flex align-items-center">
-                          <div class="rating" data-rating="1" onclick="rate(1)">
-                            <i class="icon icon-star"></i>
+
+<!--review section -->
+              <section class="py-24 ">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 ">
+                <span class="text-sm text-gray-500 font-medium text-center block mb-2"></span>
+                <h2 class="text-4xl text-center font-bold text-gray-900 ">Product Reviews</h2>
+            </div>
+            <!--Slider wrapper-->
+
+
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper w-max">
+
+
+
+
+
+                <?php 
+          //Ketu behen show reviews
+
+          foreach($productReviews as $pr){
+           $pr->shfaq();
+          }
+          
+          
+          
+          ?>
+
+                    
+
+
+
+
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+
+    </section>
+    <br>
+<br>
+
+    <h2 class="text-4xl text-center font-bold text-gray-900 "style="text-align:left;">Leave a Review</h2>
+
+    <form method="post" class="form-group padding-small">
+                        <p style="text-align:center;">You need to be logged in to leave a review *</p>
+                          <div class="row">
+                            <div class="col-lg-12 mb-3">
+                              
+                            </div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8">
+                            <textarea class="form-control ps-3 pt-3" id="comment" name="context" placeholder="Write your review here *"></textarea>
+                            <div class="container1">
+                              <!-- Stars -->
+  
+                              <div class="rate">
+    <input type="radio" id="star5" name="rate" value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input type="radio" id="star4" name="rate" value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input type="radio" id="star3" name="rate" value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input type="radio" id="star2" name="rate" value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input type="radio" id="star1" name="rate" value="1" />
+    <label for="star1" title="text">1 star</label>
+  </div>
+
+  <script>
+  // Get all labels inside .rate
+  var labels = document.querySelectorAll('.rate label');
+
+  // Add click event listener to each label
+  labels.forEach(function(label) {
+    label.addEventListener('click', function(event) {
+      // Prevent the default action (form submission)
+      event.preventDefault();
+      
+      // Get the associated radio button
+      var associatedInputId = label.getAttribute('for');
+      var associatedInput = document.getElementById(associatedInputId);
+      
+      // Check the associated radio button
+      if (associatedInput) {
+        associatedInput.checked = true;
+      }
+    });
+  });
+</script>
+
+
+                            </div>
+
+</div>
+<div class="col-lg-2"></div>
+<div class="col-lg-2"></div>
+                            <div class="col-lg-8 mt-3">
+                              <button class="btn btn-medium btn-black text-uppercase btn-rounded-none" style="color:white" type="submit">Post Review </button>
+                            </div>
+                            <div class="col-lg-2"></div>
                           </div>
-                          <div class="rating" data-rating="2" onclick="rate(1)">
-                            <i class="icon icon-star"></i>
-                          </div>
-                          <div class="rating" data-rating="3" onclick="rate(1)">
-                            <i class="icon icon-star"></i>
-                          </div>
-                          <div class="rating" data-rating="4" onclick="rate(1)">
-                            <i class="icon icon-star-half"></i>
-                          </div>
-                          <div class="rating" data-rating="5" onclick="rate(1)">
-                            <i class="icon icon-star-empty"></i>
-                          </div>
-                          <span class="rating-count">(3.5)</span>
-                        </div>
-                        <div class="review-header">
-                          <span class="author-name">Tina Johnson</span>
-                          <span class="review-date">– 03/07/2023</span>
-                        </div>
-                        <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 d-flex flex-wrap">
-                    <div class="col-md-2">
-                      <div class="image-holder">
-                        <img src="images/review-item2.jpg" alt="review" class="img-fluid">
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="review-content">
-                        <div class="rating-container d-flex align-items-center">
-                          <div class="rating" data-rating="1" onclick="rate(1)">
-                            <i class="icon icon-star"></i>
-                          </div>
-                          <div class="rating" data-rating="2" onclick="rate(1)">
-                            <i class="icon icon-star"></i>
-                          </div>
-                          <div class="rating" data-rating="3" onclick="rate(1)">
-                            <i class="icon icon-star"></i>
-                          </div>
-                          <div class="rating" data-rating="4" onclick="rate(1)">
-                            <i class="icon icon-star-half"></i>
-                          </div>
-                          <div class="rating" data-rating="5" onclick="rate(1)">
-                            <i class="icon icon-star-empty"></i>
-                          </div>
-                          <span class="rating-count">(3.5)</span>
-                        </div>
-                        <div class="review-header">
-                          <span class="author-name">Jenny Willis</span>
-                          <span class="review-date">– 03/06/2022</span>
-                        </div>
-                        <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+           </form>
+
+
+     
+
+
+
+
+
+
+
+
+
               </div>
             </div>
           </div>
@@ -825,6 +996,38 @@ function incrementQuantity() {
         quantityInput.value = currentValue + 1;
     }
 }
+</script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 32,
+        loop: true,
+        centeredSlides: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+
+        },
+        autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 32,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 32,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 32,
+        },
+      },
+    });
 </script>
   </body>
 
