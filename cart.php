@@ -1,3 +1,41 @@
+<?php
+include("Data-Objects/fileManipulationFunctions.php");
+
+$users = arrayUsersFromFile();
+$products = arrayProductsFromFile();
+
+
+//Produket dhe useri duhen marr nga sessioni
+$product1 = $products[0];
+$currentUser = $users[0];
+
+
+//Quantity duhet mu marr nga sessioni ne Single Product
+$quantity = 10;
+
+
+//Punon
+//addProductToShopingCard($product1, $currentUser, $quantity);
+
+$allCartsItems = arrayShopingCartFromFile();
+
+$userCart = [];
+
+foreach($allCartsItems as $c){
+  if($c->getUser()->getId() == $currentUser->getId()){
+    array_Push($userCart,$c);
+  }
+}
+
+
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
   
@@ -232,6 +270,12 @@
                 <h3 class="cart-title col-lg-4 pb-3">Subtotal</h3>
               </div>
             </div>
+
+
+
+
+
+
             <div class="cart-item border-top border-bottom padding-small">
               <div class="row align-items-center"> 
                 <div class="col-lg-4 col-md-3">
@@ -259,7 +303,7 @@
                       <div class="qty-field">
                         <div class="qty-number d-flex">
                           <div class="quntity-button incriment-button">+</div>
-                          <input class="spin-number-output bg-light no-margin" type="text" readonly="" value="0">
+                          <input class="spin-number-output bg-light no-margin" type="text" value="0">
                           <div class="quntity-button decriment-button">-</div>
                         </div>
                         <div class="regular-price"></div>
@@ -284,6 +328,10 @@
                 </div>
               </div>
             </div>
+
+
+
+
             <div class="cart-item border-top border-bottom padding-small">
               <div class="row align-items-center">
                 <div class="col-lg-4 col-md-3">
@@ -311,7 +359,7 @@
                       <div class="qty-field">
                         <div class="qty-number d-flex">
                           <div class="quntity-button incriment-button">+</div>
-                          <input class="spin-number-output bg-light no-margin" type="text" readonly="" value="0">
+                          <input class="spin-number-output bg-light no-margin" type="text" value="0">
                           <div class="quntity-button decriment-button">-</div>
                         </div>
                         <div class="regular-price"></div>
@@ -336,6 +384,19 @@
                 </div>
               </div>
             </div>
+
+
+<?php 
+
+foreach($userCart as $c){
+  $c->shfaq();
+}
+
+?>
+
+
+
+            
           </div>
           <div class="cart-totals bg-grey padding-medium">
             <h2 class="display-7 text-uppercase text-dark pb-4">Cart Totals</h2>
@@ -596,11 +657,33 @@
         </div>
       </div>
     </div>
+    
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the input field and increment/decrement buttons
+      var inputField = document.querySelector('.spin-number-output');
+      var incrementButton = document.querySelector('.incriment-button');
+      var decrementButton = document.querySelector('.decriment-button');
+  
+      // Add click event listener to increment button
+      incrementButton.addEventListener('click', function() {
+          var value = parseInt(inputField.value);
+          inputField.value = value + 1;
+      });
+  
+      // Add click event listener to decrement button
+      decrementButton.addEventListener('click', function() {
+          var value = parseInt(inputField.value);
+          if (value > 0) {
+              inputField.value = value - 1;
+          }
+      });
+  });</script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:50 GMT -->

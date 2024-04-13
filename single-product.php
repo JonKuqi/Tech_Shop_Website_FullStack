@@ -9,7 +9,7 @@ $users = arrayUsersFromFile();
 
 //Qetu mirret produkti prej sesionit
 $product = $products[0];
-setImagesOnProducts($products);
+
 
 $category = "Undefined";
 if ($product instanceof SmartPhone) {

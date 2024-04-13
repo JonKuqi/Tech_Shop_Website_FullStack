@@ -56,7 +56,7 @@ foreach($matrix as $pid => $arrayNames){
     foreach($arrayNames as $name){
        
        foreach($arraySearch as $searchWord){
-         if($name == $searchWord){
+         if(str_contains($name, $searchWord)){
             $count++;
          }
           

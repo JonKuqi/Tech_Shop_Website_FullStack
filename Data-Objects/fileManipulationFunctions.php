@@ -1,7 +1,7 @@
 <?php
 
 include("review.php"); //review i include users edhe products
-
+include("shoping-order.php");
 //$product = new SmartPhone(1,"1050","2500","10","2024","Iphone",0.2,"Iphone","Short","Long Desc.");
 
 //$pathImg = "images/product-item1.jpg";
@@ -40,8 +40,10 @@ function arrayProductsFromFile(){
     
 }
 fclose($file);
+setImagesOnProducts($arrayProducts);
 return $arrayProducts;
 }
+
 
 
 function setImagesOnProducts($products){
@@ -120,8 +122,76 @@ function arrayReviewsFromFile(){
 
 
 
+function addProductCookie(Product $product){
+    $oldProducts = isset($_COOKIE['productsVisited']) ? unserialize($_COOKIE['products']) : array();
+ 
+    array_push($oldProducts, $product->getName());
+    array_push($oldProducts, $product->getBrand());
+    $categoru = "Undefined";
+    if($product instanceof SmartPhone){
+        $category = ["smart phone"];
+    }
+    if($product instanceof SmartWatch){
+        $category = ["smart watch"];
+    }
 
 
+    $newProducts = serialize($oldProducts);   
+    setcookie('productsVisited', $newProducts, time() + (86400 *2), '/'); // Per dy dit, sheja "/" tregon qe munet mu qas n krejt file
 
+}
+
+function arrayShopingCartFromFile(){
+    $arrayShopingCart = array();
+
+    $file = fopen("WebsiteData/shoping_cart.txt", 'r');
+    $products = arrayProductsFromFile();
+    $users = arrayUsersFromFile();
+  
+    while(!feof($file)) {  
+        $line = fgets($file);
+        $parts = explode("|",$line);
+        if(isset($parts[0]) && isset($parts[1])&& isset($parts[2])){
+            $product = null;
+            $user = null;
+  
+            foreach($products as $p){
+                if($p->getId() == $parts[2]){
+                    $product = $p;
+                    break; 
+                }
+            }
+  
+            foreach($users as $u){
+                if($u->getId() == $parts[1]){
+                    $user = $u;
+                    break; 
+                }
+            }
+  
+            if($product && $user) {
+                $item = new ShopingCart($parts[0], $user, $product, $parts[3]);
+                array_push($arrayShopingCart, $item);
+            }
+        }
+    }
+  
+    fclose($file);
+    return $arrayShopingCart;
+  }
+  
+
+
+  
+function addProductToShopingCard(Product $product, User $currentUser, $quantity){
+    $arrayShopingCarts = arrayShopingCartFromFile();
+    $id = intval($arrayShopingCarts[count($arrayShopingCarts)-1]->getId());
+    $shopingCardItem = new ShopingCart($id+1,$currentUser,$product,$quantity);
+    $file = fopen("WebsiteData/shoping_cart.txt",'a') or die("Error gjate hapjes...");
+    fwrite($file, $shopingCardItem->formatToFile());
+    fclose($file);
+  }
+  
+  
 
 ?>

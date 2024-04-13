@@ -41,6 +41,8 @@ abstract class Product {
     public function getTimeAdded() { return $this->time_added; }
     public function getName() { return $this->name; }
     public function getDiscount() { return $this->discount; }
+    public abstract function getBrand();
+    public abstract function getImages();
 
     public function setId($pid) { $this->pid = $pid; }
     public function setSku($sku) { $this->sku = $sku; }
