@@ -39,3 +39,45 @@ namespace PHPMailer\PHPMailer;
  * @author Jim Jagielski (jimjag) <jimjag@gmail.com>
  * @author Andy Prevost (codeworxtech) <codeworxtech@users.sourceforge.net>
  */
+
+class POP3
+{
+    /**
+     * The POP3 PHPMailer Version number.
+     *
+     * @var string
+     */
+    const VERSION = '6.9.1';
+
+    /**
+     * Default POP3 port number.
+     *
+     * @var int
+     */
+    const DEFAULT_PORT = 110;
+
+    /**
+     * Default timeout in seconds.
+     *
+     * @var int
+     */
+    const DEFAULT_TIMEOUT = 30;
+
+    /**
+     * POP3 class debug output mode.
+     * Debug output level.
+     * Options:
+     * @see POP3::DEBUG_OFF: No output
+     * @see POP3::DEBUG_SERVER: Server messages, connection/server errors
+     * @see POP3::DEBUG_CLIENT: Client and Server messages, connection/server errors
+     *
+     * @var int
+     */
+    public $do_debug = self::DEBUG_OFF;
+
+    /**
+     * POP3 mail server hostname.
+     *
+     * @var string
+     */
+    public $host;
