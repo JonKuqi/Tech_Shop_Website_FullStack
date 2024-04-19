@@ -362,4 +362,104 @@ class POP3
         $this->connected = false;
         $this->pop_conn  = false;
     }
+  /**
+     * Get a response from the POP3 server.
+     *
+     * @param int $size The maximum number of bytes to retrieve
+     *
+     * @return string
+     */
+    protected function getResponse($size = 128)
+    {
+        $response = fgets($this->pop_conn, $size);
+        if ($this->do_debug >= self::DEBUG_SERVER) {
+            echo 'Server -> Client: ', $response;
+        }
+
+        return $response;
+    }
+
+    /**
+     * Send raw data to the POP3 server.
+     *
+     * @param string $string
+     *
+     * @return int
+     */
+    protected function sendString($string)
+    {
+        if ($this->pop_conn) {
+            if ($this->do_debug >= self::DEBUG_CLIENT) { //Show client messages when debug >= 2
+                echo 'Client -> Server: ', $string;
+            }
+
+            return fwrite($this->pop_conn, $string, strlen($string));
+        }
+
+        return 0;
+    }
+
+    /**
+     * Checks the POP3 server response.
+     * Looks for for +OK or -ERR.
+     *
+     * @param string $string
+     *
+     * @return bool
+     */
+    protected function checkResponse($string)
+    {
+        if (strpos($string, '+OK') !== 0) {
+            $this->setError("Server reported an error: $string");
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add an error to the internal error store.
+     * Also display debug output if it's enabled.
+     *
+     * @param string $error
+     */
+    protected function setError($error)
+    {
+        $this->errors[] = $error;
+        if ($this->do_debug >= self::DEBUG_SERVER) {
+            echo '<pre>';
+            foreach ($this->errors as $e) {
+                print_r($e);
+            }
+            echo '</pre>';
+        }
+    }
+
+    /**
+     * Get an array of error messages, if any.
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * POP3 connection error handler.
+     *
+     * @param int    $errno
+     * @param string $errstr
+     * @param string $errfile
+     * @param int    $errline
+     */
+    protected function catchWarning($errno, $errstr, $errfile, $errline)
+    {
+        $this->setError(
+            'Connecting to the POP3 server raised a PHP warning:' .
+            "errno: $errno errstr: $errstr; errfile: $errfile; errline: $errline"
+        );
+    }
+}
 
