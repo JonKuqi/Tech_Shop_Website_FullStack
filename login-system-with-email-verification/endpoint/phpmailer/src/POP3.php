@@ -267,3 +267,99 @@ class POP3
         ); //Timeout (seconds)
         //Restore the error handler
         restore_error_handler();
+         //Did we connect?
+        if (false === $this->pop_conn) {
+            //It would appear not...
+            $this->setError(
+                "Failed to connect to server $host on port $port. errno: $errno; errstr: $errstr"
+            );
+
+            return false;
+        }
+
+        //Increase the stream time-out
+        stream_set_timeout($this->pop_conn, $tval, 0);
+
+        //Get the POP3 server response
+        $pop3_response = $this->getResponse();
+        //Check for the +OK
+        if ($this->checkResponse($pop3_response)) {
+            //The connection is established and the POP3 server is talking
+            $this->connected = true;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Log in to the POP3 server.
+     * Does not support APOP (RFC 2828, 4949).
+     *
+     * @param string $username
+     * @param string $password
+     *
+     * @return bool
+     */
+    public function login($username = '', $password = '')
+    {
+        if (!$this->connected) {
+            $this->setError('Not connected to POP3 server');
+            return false;
+        }
+        if (empty($username)) {
+            $username = $this->username;
+        }
+        if (empty($password)) {
+            $password = $this->password;
+        }
+
+        //Send the Username
+        $this->sendString("USER $username" . static::LE);
+        $pop3_response = $this->getResponse();
+        if ($this->checkResponse($pop3_response)) {
+            //Send the Password
+            $this->sendString("PASS $password" . static::LE);
+            $pop3_response = $this->getResponse();
+            if ($this->checkResponse($pop3_response)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Disconnect from the POP3 server.
+     */
+    public function disconnect()
+    {
+        // If could not connect at all, no need to disconnect
+        if ($this->pop_conn === false) {
+            return;
+        }
+
+        $this->sendString('QUIT' . static::LE);
+
+        // RFC 1939 shows POP3 server sending a +OK response to the QUIT command.
+        // Try to get it.  Ignore any failures here.
+        try {
+            $this->getResponse();
+        } catch (Exception $e) {
+            //Do nothing
+        }
+
+        //The QUIT command may cause the daemon to exit, which will kill our connection
+        //So ignore errors here
+        try {
+            @fclose($this->pop_conn);
+        } catch (Exception $e) {
+            //Do nothing
+        }
+
+        // Clean up attributes.
+        $this->connected = false;
+        $this->pop_conn  = false;
+    }
+
