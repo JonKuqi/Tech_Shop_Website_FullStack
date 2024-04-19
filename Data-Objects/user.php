@@ -8,7 +8,7 @@ class User{
     private $first_name;
     private $last_name;
     private $telephone;
-    private $email;
+    private $email; 
     private $payment;
     private $cartProducts = array();
 
@@ -26,9 +26,15 @@ class User{
     }
 
     public function registerUser(){
+
         $file = fopen("WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
         fwrite($file, $this->formatToFile());
         fclose($file);
+
+        
+
+
+
     }
 
     public function __destruct() {

@@ -1,3 +1,93 @@
+<?php  
+
+include("Data-Objects/fileManipulationFunctions.php");
+$products = arrayProductsFromFile();
+
+$default = $products;
+$sorted = [];
+
+// Default sorting
+$newProducts = $products;
+$byName = true;
+if(isset($_POST['sortimi']) && !isset($_POST['search'])){
+if($_POST['sortimi'] == "default"){
+    $newProducts = $products;
+}
+elseif($_POST['sortimi'] == "A-Z"){
+    foreach($products as $p){
+        array_push($sorted, $p->getName());
+    } 
+    sort($sorted); 
+}
+elseif($_POST['sortimi'] == "Z-A"){
+    foreach($products as $p){
+      array_push($sorted, $p->getName());
+    } 
+    rsort($sorted); 
+}
+elseif($_POST['sortimi'] == "price low-high"){
+    foreach($products as $p){
+        $sorted[$p->getId()] = $p->getPrice();
+    } 
+    asort($sorted); 
+    $byName=false;
+}
+elseif($_POST['sortimi'] == "price high-low"){
+    foreach($products as $p){
+        $sorted[$p->getId()] = $p->getPrice();
+    } 
+    arsort($sorted); 
+    $byName=false;
+}
+$newProducts = [];
+if($byName){
+  foreach($sorted as $s){
+      foreach($products as $p){
+        if($p->getName() == $s){
+          array_push($newProducts, $p);
+          break;
+        }
+      }
+  }
+
+}else{
+foreach($sorted as $key => $value) {
+    foreach($products as $p) {
+        if($p->getId() == $key) {
+            array_push($newProducts, $p);
+            break;
+        }
+    }
+}
+}
+
+
+}
+
+
+//Searchi
+include("Data-Objects/search.php");
+if(isset($_POST['search'])){
+  $search = $_POST['search'];
+  $searchedProducts = searchProducts($search);
+  $newProducts =[];
+
+  foreach($searchedProducts as $key => $value) {
+    foreach($products as $p) {
+        if($p->getId() == $key) {
+            array_push($newProducts, $p);
+            break;
+        }
+    }
+  }
+
+
+}
+
+
+
+
+?>
 <!DOCTYPE html>
 <html>
   
@@ -252,92 +342,12 @@
             </div>
             <div class="product-content product-store d-flex justify-content-between flex-wrap">
 
-<?php  
-
-include("Data-Objects/fileManipulationFunctions.php");
-$products = arrayProductsFromFile();
-setImagesOnProducts($products);
-$default = $products;
-$sorted = [];
-
-// Default sorting
-$newProducts = $products;
-$byName = true;
-if(isset($_POST['sortimi']) && !isset($_POST['search'])){
-if($_POST['sortimi'] == "default"){
-    $newProducts = $products;
-}
-elseif($_POST['sortimi'] == "A-Z"){
-    foreach($products as $p){
-        array_push($sorted, $p->getName());
-    } 
-    sort($sorted); 
-}
-elseif($_POST['sortimi'] == "Z-A"){
-    foreach($products as $p){
-      array_push($sorted, $p->getName());
-    } 
-    rsort($sorted); 
-}
-elseif($_POST['sortimi'] == "price low-high"){
-    foreach($products as $p){
-        $sorted[$p->getId()] = $p->getPrice();
-    } 
-    asort($sorted); 
-    $byName=false;
-}
-elseif($_POST['sortimi'] == "price high-low"){
-    foreach($products as $p){
-        $sorted[$p->getId()] = $p->getPrice();
-    } 
-    arsort($sorted); 
-    $byName=false;
-}
-$newProducts = [];
-if($byName){
-  foreach($sorted as $s){
-      foreach($products as $p){
-        if($p->getName() == $s){
-          array_push($newProducts, $p);
-          break;
-        }
-      }
-  }
-
-}else{
-foreach($sorted as $key => $value) {
-    foreach($products as $p) {
-        if($p->getId() == $key) {
-            array_push($newProducts, $p);
-            break;
-        }
-    }
-}
-}
 
 
-}
 
 
-//Searchi
-include("Data-Objects/search.php");
-if(isset($_POST['search'])){
-  $search = $_POST['search'];
-  $searchedProducts = searchProducts($search);
-  $newProducts =[];
 
-  foreach($searchedProducts as $key => $value) {
-    foreach($products as $p) {
-        if($p->getId() == $key) {
-            array_push($newProducts, $p);
-            break;
-        }
-    }
-  }
-
-
-}
-
+<?php 
 $products=$newProducts;
 if(empty($products)){
   echo "No results found, please try different products.";
@@ -346,9 +356,12 @@ if(empty($products)){
       $p->showInShop();
   }
 }
-
-
 ?>
+
+
+
+
+
 
             </div>
             <nav class="navigation paging-navigation text-center padding-medium" role="navigation">

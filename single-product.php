@@ -7,8 +7,16 @@ include("Data-Objects/fileManipulationFunctions.php");
 $products = arrayProductsFromFile();
 $users = arrayUsersFromFile();
 
-//Qetu mirret produkti prej sesionit
+if (isset($_GET['product'])) $linkchoice=$_GET['product'];
+else $linkchoice='';
+
 $product = $products[0];
+
+foreach($products as $p){
+  if($p->getId() == $linkchoice){
+      $product = $p;
+  }
+}
 
 
 $category = "Undefined";
@@ -57,8 +65,9 @@ $sumRating = 0;
 foreach($productReviews as $r){
   $sumRating+=$r->getRating();
 }
+if(count($productReviews)>0){
 $productRating = $sumRating/count($productReviews);
-
+}else{$productRating = "Undefined";}
 
 
 
