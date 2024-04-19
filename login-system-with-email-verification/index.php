@@ -1,5 +1,13 @@
 <?php include ('./conn/conn.php') ?>
 
+<?php
+if (isset($_POST['submit'])) {
+    $backgroundStyle = $_POST['backgroundStyle'];
+    setcookie('backgroundStyle', $backgroundStyle, time() + (86400 * 30), "/"); // Ruaj zgjedhjen në cookie për 30 ditë
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -407,6 +415,18 @@
                 </form>
             </div>
 
+            <form method="post" action="" id="forma">
+            <label for="backgroundStyle" style="color:white;">Choose Background Style:</label>
+            <br>
+            <select name="backgroundStyle" id="backgroundStyle">
+            <option value="background1">Background Style </option>
+            <option value="background2">Background Style </option>
+            <option value="background3">Background Style </option>
+            <option value="background4">Background Style </option>
+            </select>
+            <input type="submit" name="submit" value="Apply Background">
+            </form>
+
         </div>
 
 
@@ -453,7 +473,7 @@
 
     </div>
 
-    <script>
+ <script>
         const loginForm = document.getElementById('loginForm');
         const registrationForm = document.getElementById('registrationForm');
 
@@ -463,12 +483,15 @@
         function showRegistrationForm() {
             registrationForm.style.display = "";
             loginForm.style.display = "none";
+            forma.style.display = "none";
         }
 
         function showLoginForm() {
             registrationForm.style.display = "none";
             loginForm.style.display = "";
         }
+        
+       
 
         function sendVerificationCode() {
             const registrationElements = document.querySelectorAll('.registration');
@@ -484,6 +507,34 @@
         }
 
     </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var backgroundStyle = getCookie('backgroundStyle');
+        if (backgroundStyle) {
+            document.body.style.backgroundImage = "url('images/" + backgroundStyle + ".jpg')";
+        }
+    });
+
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+  </script>
+
+
+        
 
     <!-- Bootstrap Js -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
