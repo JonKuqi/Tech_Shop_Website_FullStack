@@ -80,9 +80,49 @@ if(isset($_POST['search'])){
         }
     }
   }
-
-
 }
+
+$products=$newProducts;
+
+
+//Filtrimi
+$phoneCheck ="";
+$watchCheck = "";
+$laptopCheck = "";
+
+if(isset($_POST['category'])){
+  $category = $_POST['category'];
+    $temp = [];
+     foreach($category as $value){
+       if($value == "phone"){
+        $phoneCheck = "checked";
+          foreach($products as $p){
+            if($p instanceof SmartPhone){
+              array_push($temp, $p);
+            }
+          }
+       }
+       if($value == "watch"){
+        $watchCheck="checked";
+        foreach($products as $p){
+          if($p instanceof SmartWatch){
+            array_push($temp, $p);
+          }
+        }
+      }
+      //if($value == "laptop"){
+      //  $laptopCheck = "checked";
+      //  foreach($products as $p){
+       //   if($p instanceof SmartWatch){
+       //     array_push($temp, $p);
+       //   }
+       // }
+      //}
+
+     }
+
+   $products = $temp;
+ }
 
 
 
@@ -111,8 +151,83 @@ if(isset($_POST['search'])){
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
+
+
+<style>
+  .checkbox-wrapper-20 {
+    --slider-height: 8px !important;
+    --slider-width: calc(var(--slider-height) * 4) !important;
+    --switch-height: calc(var(--slider-height) * 3) !important;
+    --switch-width: var(--switch-height) !important;
+    --switch-shift: var(--slider-height) !important;
+    --transition: all 0.2s ease !important;
+
+    --switch-on-color: #ef0460 !important;
+    --slider-on-color: #fc5d9b !important;
+
+    --switch-off-color: #eeeeee !important;
+    --slider-off-color: #c5c5c5 !important;
+  }
+
+  .checkbox-wrapper-20 .switch {
+    display: block !important;
+  }
+    
+  .checkbox-wrapper-20 .switch .slider {
+    position: relative !important;
+    display: inline-block !important;
+    height: var(--slider-height) !important;
+    width: var(--slider-width) !important;
+    border-radius: var(--slider-height) !important;
+    cursor: pointer !important;
+    background: var(--slider-off-color) !important;
+    transition: var(--transition) !important;
+  }
+      
+  .checkbox-wrapper-20 .switch .slider:after {
+    background: var(--switch-off-color) !important;
+    position: absolute !important;
+    left: calc(-1 * var(--switch-shift)) !important;
+    top: calc((var(--slider-height) - var(--switch-height)) / 2) !important;
+    display: block !important;
+    width: var(--switch-height) !important;
+    height: var(--switch-width) !important;
+    border-radius: 50% !important;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, .2) !important;
+    content: '' !important;
+    transition: var(--transition) !important;
+  }
+    
+  .checkbox-wrapper-20 .switch label {
+    margin-right: 7px !important;
+  }
+    
+  .checkbox-wrapper-20 .switch .input {
+    display: none !important;
+  }
+      
+  .checkbox-wrapper-20 .switch .input ~ .label {
+    margin-left: var(--slider-height) !important;
+  }
+         
+  .checkbox-wrapper-20 .switch .input:checked ~ .slider:after {
+    left: calc(var(--slider-width) - var(--switch-width) + var(--switch-shift)) !important;
+  }
+    
+  .checkbox-wrapper-20 .switch .input:checked ~ .slider {
+    background: var(--slider-on-color) !important;
+  }
+
+  .checkbox-wrapper-20 .switch .input:checked ~ .slider:after {
+    background: var(--switch-on-color) !important;
+  }
+</style>
+
+
+
   </head>
   <body>
+    
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <symbol id="search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
         <path fill="currentColor" d="M19 3C13.488 3 9 7.488 9 13c0 2.395.84 4.59 2.25 6.313L3.281 27.28l1.439 1.44l7.968-7.969A9.922 9.922 0 0 0 19 23c5.512 0 10-4.488 10-10S24.512 3 19 3zm0 2c4.43 0 8 3.57 8 8s-3.57 8-8 8s-8-3.57-8-8s3.57-8 8-8z" />
@@ -324,7 +439,7 @@ if(isset($_POST['search'])){
                 <p>Showing 1–9 of <?php $number ?> results</p>
               </div>
               <div class="sort-by">
-                <form id="sortingForm" action="shop.php" method="post" >
+      <form id="sortingForm" action="shop.php" method="post" >
                 <select name="sortimi" onchange="this.form.submit()" id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
                   <option value="default" name="default">Sorting Mode</option>
                   <option value="price low-high" name="price low-high">Price (Low-High)</option>
@@ -337,7 +452,9 @@ if(isset($_POST['search'])){
                 
                 </select>
                 
-                </form>
+  </form>
+ 
+  
               </div>
             </div>
             <div class="product-content product-store d-flex justify-content-between flex-wrap">
@@ -348,7 +465,7 @@ if(isset($_POST['search'])){
 
 
 <?php 
-$products=$newProducts;
+
 if(empty($products)){
   echo "No results found, please try different products.";
 } else {
@@ -402,27 +519,43 @@ if(empty($products)){
     </div>
 </form>
 
-
+<!--FILTRIMI -->
+<form method="post" class="d-flex" action="shop.php"> 
                 </div> 
               </div>
               <div class="widget-product-categories pt-5">
+              <h4 class="widget-title text-uppercase">Filter</h4>
                 <h5 class="widget-title text-decoration-underline text-uppercase">Categories</h5>
                 <ul class="product-categories sidebar-list list-unstyled">
-                  <li class="cat-item">
-                    <a href="https://demo.templatesjungle.com/collections/categories">All</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Phones</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Accessories</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Tablets</a>
-                  </li>
-                  <li class="cat-item">
-                    <a href="#">Watches</a>
-                  </li>
+                <br>
+      
+                <div class="checkbox-wrapper-20">
+          <div class="switch">
+           <input id="phone" name = "category[]" value ="phone"  class="input" type="checkbox" <?php echo $phoneCheck; ?> />
+          <label for="phone" class="slider"></label>&nbsp&nbspSmart Phone
+        </div> 
+        <br>
+        <div class="checkbox-wrapper-20">
+          <div class="switch">
+           <input id="watch" name = "category[]" value ="watch"  class="input" type="checkbox" <?php echo $watchCheck; ?> />
+          <label for="watch" class="slider"></label>&nbsp&nbspSmart Watches
+        </div> 
+        <br>
+        <div class="checkbox-wrapper-20">
+          <div class="switch">
+           <input id="laptop" name = "category[]" value ="laptop" class="input" type="checkbox" <?php echo $laptopCheck; ?> />
+          <label for="laptop" class="slider"></label>&nbsp&nbspLaptop
+        </div> 
+        <br>
+        
+
+        <button type="submit">Filtro</button>
+        
+</form>
+
+               
+
+
                 </ul>
               </div>
               <div class="widget-product-tags pt-3">
