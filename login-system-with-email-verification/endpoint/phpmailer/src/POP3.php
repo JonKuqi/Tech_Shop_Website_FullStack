@@ -231,3 +231,39 @@ class POP3
 
         return false;
     }
+        /**
+     * Connect to a POP3 server.
+     *
+     * @param string   $host
+     * @param int|bool $port
+     * @param int      $tval
+     *
+     * @return bool
+     */
+    public function connect($host, $port = false, $tval = 30)
+    {
+        //Are we already connected?
+        if ($this->connected) {
+            return true;
+        }
+
+        //On Windows this will raise a PHP Warning error if the hostname doesn't exist.
+        //Rather than suppress it with @fsockopen, capture it cleanly instead
+        set_error_handler([$this, 'catchWarning']);
+
+        if (false === $port) {
+            $port = static::DEFAULT_PORT;
+        }
+
+        //Connect to the POP3 server
+        $errno = 0;
+        $errstr = '';
+        $this->pop_conn = fsockopen(
+            $host, //POP3 Host
+            $port, //Port #
+            $errno, //Error Number
+            $errstr, //Error Message
+            $tval
+        ); //Timeout (seconds)
+        //Restore the error handler
+        restore_error_handler();
