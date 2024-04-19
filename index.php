@@ -4,7 +4,6 @@
 include("Data-Objects/fileManipulationFunctions.php");
 
 $products = arrayProductsFromFile();
-
 $smartPhones  = []; $smartWatches = [];
 foreach($products as $p){
   if($p instanceof SmartPhone){
@@ -14,6 +13,12 @@ foreach($products as $p){
     array_push($smartWatches,$p);
  }
 }
+
+
+include("Data-Objects/recomendProducts.php");
+
+$recommendProducts = recommendProducts($products);
+
 
 
 
@@ -365,6 +370,32 @@ foreach($products as $p){
           </div>
         </div>
       </div>
+    </section>
+    <section id="mobile-products" class="product-store position-relative padding-large no-padding-top">
+      <div class="container">
+        <div class="row">
+          <div class="display-header d-flex justify-content-between pb-3">
+            <h2 class="display-7 text-dark text-uppercase">Recomended Products</h2>
+            <div class="btn-right">
+              <a href="shop.php" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+            </div>
+          </div>
+          <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+             <!-- Php Rekomandimet  -->
+             
+              <?php
+                foreach($recommendProducts as $r){
+                  $r->showInIndex();
+                }
+              ?>
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination position-absolute text-center"></div>
     </section>
     <section id="mobile-products" class="product-store position-relative padding-large no-padding-top">
       <div class="container">

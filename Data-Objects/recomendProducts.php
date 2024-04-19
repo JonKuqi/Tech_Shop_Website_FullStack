@@ -2,18 +2,61 @@
 include("Data-Objects/search.php");
 
 
-function recommendProducts($products){
 
-//cookie zgjat nje dit
+function addProductCookie(Product $product) {
 
-if(isset($_COOKIE['productsVisited'])) {
-    $productsVisited = unserialize($_COOKIE['productsVisited']);      
-    $stringToSearch = implode(" ", $productsVisited);
+    $oldProducts = isset($_COOKIE['productsVisited']) ? unserialize($_COOKIE['productsVisited']) : array();
 
-   $recomendProducts = searchProducts($stringToSearch);
+    array_push($oldProducts, $product->getName());
+    array_push($oldProducts, $product->getBrand());
+
+    $category = "Undefined";
+    if ($product instanceof SmartPhone) {
+        $category = "smart phone";
+    }
+    if ($product instanceof SmartWatch) {
+        $category = "smart watch";
+    }
+    array_push($oldProducts, $category);
+
+    $newProducts = serialize($oldProducts);   
+    setcookie('productsVisited', $newProducts, time() + (86400 * 2), '/'); //simboli "/" e ben te qasshme nga qdo file
+
 }
+
+function recommendProducts($products){
+    
+//cookie zgjat dy dit
+//$recomendProducts = $products;
+
+$recomendProducts = $products;
+
+if(isset($_COOKIE['productsVisited']) || !empty($_COOKIE['productsVisited'])) {
+
+    $productsVisited = unserialize($_COOKIE['productsVisited']);    
+  
+    $stringToSearch = implode(" ", $productsVisited);
+   
+    $searchedProducts = searchProducts($stringToSearch);
+    $recomendProducts =[];
+     
+    
+
+    foreach($searchedProducts as $key => $value) {
+      foreach($products as $p) {
+          if($p->getId() == $key) {
+              array_push($recomendProducts, $p);
+              break;
+          }
+      }
+    }
+}
+  
 
 return $recomendProducts;
+
 }
+
+
 
 ?>

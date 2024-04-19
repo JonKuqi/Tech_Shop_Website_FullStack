@@ -87,7 +87,7 @@ class SmartPhone extends Product {
       $finalPrice = $this->getPrice();
      echo '  <div class="col-lg-4 col-md-6">
      <div class="product-card position-relative pe-3 pb-3">
-     <a href="single-product.php?product='.$this->getId().'".>
+     <a href="single-product.php?product='.$this->getId().'">
        <div class="image-holder">
          <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
        </div>
@@ -103,7 +103,7 @@ class SmartPhone extends Product {
        </div>
        <div class="card-detail d-flex justify-content-between pt-3 pb-3">
          <h3 class="card-title text-uppercase">
-           <a href="single-product.php">'.$this->getName().'</a>
+           <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
          </h3>
          <span class="item-price text-primary" style="font-size:25px">';
          if($this->getDiscount() != 0.0){
@@ -122,7 +122,7 @@ class SmartPhone extends Product {
     
     public function showInIndex(){
       echo '  <div class="swiper-slide"><div class="product-card position-relative">
-      <a href = "single-product.php">
+      <a href ="single-product.php?product='.$this->getId().'">
 <div class="image-holder">
   <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
 </div>
@@ -133,7 +133,7 @@ class SmartPhone extends Product {
 </div>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
   <h3 class="card-title text-uppercase">
-    <a href="single-product.php">'.$this->getName().'</a>
+    <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
   </h3>
   <span class="item-price text-primary" style="font-size:25px">';
   if($this->getDiscount() != 0.0){
@@ -230,7 +230,7 @@ class SmartWatch extends Product{
        </div>
        <div class="card-detail d-flex justify-content-between pt-3 pb-3">
          <h3 class="card-title text-uppercase">
-           <a href="single-product.php">'.$this->getName().'</a>
+           <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
          </h3>
          <span class="item-price text-primary" style="font-size:25px">';
          if($this->getDiscount() != 0.0){
@@ -248,7 +248,7 @@ class SmartWatch extends Product{
  }
  public function showInIndex(){
   echo '  <div class="swiper-slide"><div class="product-card position-relative">
-  <a href = "single-product.php">
+  <a href = "single-product.php?product='.$this->getId().'">
 <div class="image-holder">
 <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
 </div>
@@ -259,7 +259,7 @@ class SmartWatch extends Product{
 </div>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
 <h3 class="card-title text-uppercase">
-<a href="single-product.php">'.$this->getName().'</a>
+<a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
 </h3>
 <span class="item-price text-primary" style="font-size:25px">';
 if($this->getDiscount() != 0.0){

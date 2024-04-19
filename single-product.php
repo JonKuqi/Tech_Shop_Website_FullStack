@@ -17,6 +17,8 @@ foreach($products as $p){
       $product = $p;
   }
 }
+include("Data-Objects/recomendProducts.php");
+addProductCookie($product);
 
 
 $category = "Undefined";

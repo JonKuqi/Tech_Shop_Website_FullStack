@@ -122,25 +122,6 @@ function arrayReviewsFromFile(){
 
 
 
-function addProductCookie(Product $product){
-    $oldProducts = isset($_COOKIE['productsVisited']) ? unserialize($_COOKIE['products']) : array();
- 
-    array_push($oldProducts, $product->getName());
-    array_push($oldProducts, $product->getBrand());
-    $categoru = "Undefined";
-    if($product instanceof SmartPhone){
-        $category = ["smart phone"];
-    }
-    if($product instanceof SmartWatch){
-        $category = ["smart watch"];
-    }
-
-
-    $newProducts = serialize($oldProducts);   
-    setcookie('productsVisited', $newProducts, time() + (86400 *2), '/'); // Per dy dit, sheja "/" tregon qe munet mu qas n krejt file
-
-}
-
 function arrayShopingCartFromFile(){
     $arrayShopingCart = array();
 
