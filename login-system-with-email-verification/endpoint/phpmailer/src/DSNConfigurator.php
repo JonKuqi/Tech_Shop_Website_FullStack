@@ -161,3 +161,58 @@ class DSNConfigurator
             $mailer->Password = $config['pass'];
         }
     }
+
+     /**
+     * Configure options.
+     *
+     * @param PHPMailer $mailer  PHPMailer instance
+     * @param array     $options Options
+     *
+     * @throws Exception If option is unknown
+     */
+    private function configureOptions(PHPMailer $mailer, $options)
+    {
+        $allowedOptions = get_object_vars($mailer);
+
+        unset($allowedOptions['Mailer']);
+        unset($allowedOptions['SMTPAuth']);
+        unset($allowedOptions['Username']);
+        unset($allowedOptions['Password']);
+        unset($allowedOptions['Hostname']);
+        unset($allowedOptions['Port']);
+        unset($allowedOptions['ErrorInfo']);
+
+        $allowedOptions = \array_keys($allowedOptions);
+
+        foreach ($options as $key => $value) {
+            if (!in_array($key, $allowedOptions)) {
+                throw new Exception(
+                    sprintf(
+                        'Unknown option: "%s". Allowed values: "%s"',
+                        $key,
+                        implode('", "', $allowedOptions)
+                    )
+                );
+            }
+
+            switch ($key) {
+                case 'AllowEmpty':
+                case 'SMTPAutoTLS':
+                case 'SMTPKeepAlive':
+                case 'SingleTo':
+                case 'UseSendmailOptions':
+                case 'do_verp':
+                case 'DKIM_copyHeaderFields':
+                    $mailer->$key = (bool) $value;
+                    break;
+                case 'Priority':
+                case 'SMTPDebug':
+                case 'WordWrap':
+                    $mailer->$key = (int) $value;
+                    break;
+                default:
+                    $mailer->$key = $value;
+                    break;
+            }
+        }
+    }
