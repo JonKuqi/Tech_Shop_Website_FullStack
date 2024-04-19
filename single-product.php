@@ -265,7 +265,7 @@ $productRating = $sumRating/count($productReviews);
     <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
       <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index-2.html">
+          <a class="navbar-brand" href="index.php">
             <img src="images/main-logo.png" class="logo">
           </a>
           <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -275,7 +275,7 @@ $productRating = $sumRating/count($productReviews);
           </button>
           <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
             <div class="offcanvas-header px-4 pb-0">
-              <a class="navbar-brand" href="index-2.html">
+              <a class="navbar-brand" href="index.php">
                 <img src="images/main-logo.png" class="logo">
               </a>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -310,7 +310,7 @@ $productRating = $sumRating/count($productReviews);
                       <a href="blog.html" class="dropdown-item">Blog</a>
                     </li>
                     <li>
-                      <a href="shop.html" class="dropdown-item">Shop</a>
+                      <a href="shop.php" class="dropdown-item">Shop</a>
                     </li>
                     <li>
                       <a href="cart.html" class="dropdown-item">Cart</a>
@@ -640,7 +640,7 @@ $productRating = $sumRating/count($productReviews);
           <div class="display-header d-flex justify-content-between pb-3">
             <h2 class="display-7 text-dark text-uppercase">Related Products</h2>
             <div class="btn-right">
-              <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+              <a href="shop.php" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
             </div>
           </div>
           <div class="swiper product-swiper">
