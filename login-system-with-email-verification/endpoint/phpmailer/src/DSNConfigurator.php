@@ -65,3 +65,66 @@ class DSNConfigurator
 
         return $mailer;
     }
+
+ /**
+     * Parse DSN string.
+     *
+     * @param string $dsn DSN
+     *
+     * @throws Exception If DSN is malformed
+     *
+     * @return array Configuration
+     */
+    private function parseDSN($dsn)
+    {
+        $config = $this->parseUrl($dsn);
+
+        if (false === $config || !isset($config['scheme']) || !isset($config['host'])) {
+            throw new Exception('Malformed DSN');
+        }
+
+        if (isset($config['query'])) {
+            parse_str($config['query'], $config['query']);
+        }
+
+        return $config;
+    }
+
+    /**
+     * Apply configuration to mailer.
+     *
+     * @param PHPMailer $mailer PHPMailer instance
+     * @param array     $config Configuration
+     *
+     * @throws Exception If scheme is invalid
+     */
+    private function applyConfig(PHPMailer $mailer, $config)
+    {
+        switch ($config['scheme']) {
+            case 'mail':
+                $mailer->isMail();
+                break;
+            case 'sendmail':
+                $mailer->isSendmail();
+                break;
+            case 'qmail':
+                $mailer->isQmail();
+                break;
+            case 'smtp':
+            case 'smtps':
+                $mailer->isSMTP();
+                $this->configureSMTP($mailer, $config);
+                break;
+            default:
+                throw new Exception(
+                    sprintf(
+                        'Invalid scheme: "%s". Allowed values: "mail", "sendmail", "qmail", "smtp", "smtps".',
+                        $config['scheme']
+                    )
+                );
+        }
+
+        if (isset($config['query'])) {
+            $this->configureOptions($mailer, $config['query']);
+        }
+    }
