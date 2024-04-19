@@ -161,7 +161,7 @@ class DSNConfigurator
             $mailer->Password = $config['pass'];
         }
     }
-<<<<<<< HEAD
+
 
     
     /**
@@ -190,7 +190,6 @@ class DSNConfigurator
         return false;
     }
 }
-=======
 
      /**
      * Configure options.
@@ -246,7 +245,8 @@ class DSNConfigurator
             }
         }
     }
-    /**
+
+      /**
      * Parse a URL.
      * Wrapper for the built-in parse_url function to work around a bug in PHP 5.5.
      *
@@ -272,4 +272,4 @@ class DSNConfigurator
         return false;
     }
 }
->>>>>>> eec7f6102f8e05864e18e8d6ff8381ceecbe10d9
+   
