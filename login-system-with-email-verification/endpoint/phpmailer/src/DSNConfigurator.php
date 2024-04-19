@@ -161,6 +161,36 @@ class DSNConfigurator
             $mailer->Password = $config['pass'];
         }
     }
+<<<<<<< HEAD
+
+    
+    /**
+     * Parse a URL.
+     * Wrapper for the built-in parse_url function to work around a bug in PHP 5.5.
+     *
+     * @param string $url URL
+     *
+     * @return array|false
+     */
+    protected function parseUrl($url)
+    {
+        if (\PHP_VERSION_ID >= 50600 || false === strpos($url, '?')) {
+            return parse_url($url);
+        }
+
+        $chunks = explode('?', $url);
+        if (is_array($chunks)) {
+            $result = parse_url($chunks[0]);
+            if (is_array($result)) {
+                $result['query'] = $chunks[1];
+            }
+            return $result;
+        }
+
+        return false;
+    }
+}
+=======
 
      /**
      * Configure options.
@@ -216,3 +246,30 @@ class DSNConfigurator
             }
         }
     }
+    /**
+     * Parse a URL.
+     * Wrapper for the built-in parse_url function to work around a bug in PHP 5.5.
+     *
+     * @param string $url URL
+     *
+     * @return array|false
+     */
+    protected function parseUrl($url)
+    {
+        if (\PHP_VERSION_ID >= 50600 || false === strpos($url, '?')) {
+            return parse_url($url);
+        }
+
+        $chunks = explode('?', $url);
+        if (is_array($chunks)) {
+            $result = parse_url($chunks[0]);
+            if (is_array($result)) {
+                $result['query'] = $chunks[1];
+            }
+            return $result;
+        }
+
+        return false;
+    }
+}
+>>>>>>> eec7f6102f8e05864e18e8d6ff8381ceecbe10d9
