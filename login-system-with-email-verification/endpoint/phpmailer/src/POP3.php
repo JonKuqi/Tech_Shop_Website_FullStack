@@ -81,3 +81,39 @@ class POP3
      * @var string
      */
     public $host;
+
+    
+    /**
+     * POP3 port number.
+     *
+     * @var int
+     */
+    public $port;
+
+    /**
+     * POP3 Timeout Value in seconds.
+     *
+     * @var int
+     */
+    public $tval;
+
+    /**
+     * POP3 username.
+     *
+     * @var string
+     */
+    public $username;
+
+    /**
+     * POP3 password.
+     *
+     * @var string
+     */
+    public $password;
+
+    /**
+     * Resource handle for the POP3 connection socket.
+     *
+     * @var resource
+     */
+    protected $pop_conn;
