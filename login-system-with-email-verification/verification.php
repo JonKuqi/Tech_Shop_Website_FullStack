@@ -30,7 +30,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url("https://images.unsplash.com/photo-1485470733090-0aae1788d5af?q=80&w=1517&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+            background-image: url("https://mrwallpaper.com/images/hd/solid-grey-background-with-lighting-5syi2eo8uj4gmvry.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;

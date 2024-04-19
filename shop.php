@@ -388,7 +388,7 @@ if(isset($_POST['category'])){
                         </a>
                       </li>
                       <li class="pe-3">
-                        <a href="#">
+                      <a href="login-system-with-email-verification/index.php">
                           <svg class="user">
                             <use xlink:href="#user"></use>
                           </svg>
