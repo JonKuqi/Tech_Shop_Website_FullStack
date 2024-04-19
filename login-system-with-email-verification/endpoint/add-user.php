@@ -89,3 +89,41 @@ if (isset($_POST['register'])) {
         echo "Error: " . $e->getMessage();
     }
 }
+
+if (isset($_POST['verify'])) {
+
+    try {
+        $userVerificationID = $_POST['user_verification_id'];
+        $verificationCode = $_POST['verification_code'];
+    
+        $stmt = $conn->prepare("SELECT `verification_code` FROM `tbl_user` WHERE `tbl_user_id` = :user_verification_id");
+        $stmt->execute([
+            'user_verification_id' => $userVerificationID,
+        ]);
+        $codeExist = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($codeExist && $codeExist['verification_code'] == $verificationCode) {
+            session_destroy();
+            echo "
+            <script>
+                alert('Registered Successfully.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/';
+            </script>
+            ";
+        } else {
+            $conn->prepare("DELETE FROM `tbl_user` WHERE `tbl_user_id` = :user_verification_id")->execute([
+                'user_verification_id' => $userVerificationID
+            ]);
+
+            echo "
+            <script>
+                alert('Incorrect Verification Code. Register Again.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/';
+            </script>
+            ";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+?>
