@@ -117,3 +117,37 @@ class POP3
      * @var resource
      */
     protected $pop_conn;
+
+        /**
+     * Are we connected?
+     *
+     * @var bool
+     */
+    protected $connected = false;
+
+    /**
+     * Error container.
+     *
+     * @var array
+     */
+    protected $errors = [];
+
+    /**
+     * Line break constant.
+     */
+    const LE = "\r\n";
+
+    /**
+     * Debug level for no output.
+     *
+     * @var int
+     */
+    const DEBUG_OFF = 0;
+
+    /**
+     * Debug level to show server -> client messages
+     * also shows clients connection errors or errors from server
+     *
+     * @var int
+     */
+    const DEBUG_SERVER = 1;
