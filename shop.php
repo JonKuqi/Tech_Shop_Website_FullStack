@@ -2,7 +2,7 @@
 
 include("Data-Objects/fileManipulationFunctions.php");
 $products = arrayProductsFromFile();
-var_dump($products);
+
 
 $default = $products;
 $sorted = [];
