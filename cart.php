@@ -5,6 +5,8 @@ $users = arrayUsersFromFile();
 $products = arrayProductsFromFile();
 
 
+
+
 //Produket dhe useri duhen marr nga sessioni
 $product1 = $products[0];
 $currentUser = $users[0];
@@ -17,7 +19,19 @@ $quantity = 10;
 //Punon
 //addProductToShopingCard($product1, $currentUser, $quantity);
 
+if(isset($_POST['remove'])){
+  $idCart = $_POST['idRemove'];
+   
+  removeItemCart($idCart);
+
+}
+
+
+
 $allCartsItems = arrayShopingCartFromFile();
+
+
+
 
 $userCart = [];
 
@@ -28,13 +42,15 @@ foreach($allCartsItems as $c){
 }
 
 
-$remove = "<php echo remove(); ?>";
+
+
 
 
 
 
 function shfaq(ShopingCart $c){
   $singlePrice = $c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount());
+  $subTotal = $singlePrice*$c->getQuantity();
  echo '  
 <div class="cart-item border-top border-bottom padding-small">
 <div class="row align-items-center">
@@ -51,7 +67,7 @@ function shfaq(ShopingCart $c){
          <a href="#">'.$c->getProduct()->getName().'</a>
        </h3>
        <div class="card-price">
-         <span class="money text-primary" data-currency-usd="$1200.00">'.$singlePrice.'</span>
+         <span class="money text-primary" data-currency-usd="$1200.00">$'.$singlePrice.'</span>
        </div>
      </div>
    </div>
@@ -63,7 +79,7 @@ function shfaq(ShopingCart $c){
      <div class="qty-field">
        <div class="qty-number d-flex">
          <div class="quntity-button incriment-button">+</div>
-         <input class="spin-number-output bg-light no-margin" type="text" value="'.$c->getProduct()->quantity.'">
+         <input class="spin-number-output bg-light no-margin" type="text" value="'.$c->getQuantity().'">
          <div class="quntity-button decriment-button">-</div>
        </div>
        <div class="regular-price"></div>
@@ -72,27 +88,31 @@ function shfaq(ShopingCart $c){
    </div>
    <div class="col-lg-4">
      <div class="total-price">
-       <span class="money text-primary">'.($singlePrice*$c->getQuantity()).'</span>
+       <span class="money text-primary">$'.$subTotal.'</span>
      </div>
    </div>   
  </div>             
 </div>
 <div class="col-lg-1 col-md-2">
  <div class="cart-remove">
-   <a href="">
+ <form method="post" action="cart.php">
+ <button type="submit" name="remove" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;">
+  <input type="hidden" name="idRemove" value="'.$c->getId().'"/>
      <svg class="close" width="38px">
        <use xlink:href="#close"></use>
      </svg>
-   </a>
+   
+   </button>
+   </form>
+
  </div>
 </div>
 </div>
 </div>
+';}
 
-';
 
 
-}
 ?>
 
 
@@ -390,64 +410,13 @@ function shfaq(ShopingCart $c){
 
 
 
-            <div class="cart-item border-top border-bottom padding-small">
-              <div class="row align-items-center">
-                <div class="col-lg-4 col-md-3">
-                  <div class="cart-info d-flex flex-wrap align-items-center mb-4">
-                    <div class="col-lg-5">
-                      <div class="card-image">
-                        <img src="images/cart-item2.jpg" alt="cloth" class="img-fluid">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="card-detail">
-                        <h3 class="card-title text-uppercase">
-                          <a href="#">Pink watch</a>
-                        </h3>
-                        <div class="card-price">
-                          <span class="money text-primary" data-currency-usd="$1200.00">$870.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-7">
-                  <div class="row d-flex">
-                    <div class="col-lg-6">
-                      <div class="qty-field">
-                        <div class="qty-number d-flex">
-                          <div class="quntity-button incriment-button">+</div>
-                          <input class="spin-number-output bg-light no-margin" type="text" value="1">
-                          <div class="quntity-button decriment-button">-</div>
-                        </div>
-                        <div class="regular-price"></div>
-                        <div class="quantity-output text-center bg-primary"></div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="total-price">
-                        <span class="money text-primary">$870.00</span>
-                      </div>
-                    </div>   
-                  </div>             
-                </div>
-                <div class="col-lg-1 col-md-2">
-                  <div class="cart-remove">
-                    <a href="#">
-                      <svg class="close" width="38px">
-                        <use xlink:href="#close"></use>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
 
 <?php 
 
+$total = 0;
 foreach($userCart as $c){
   shfaq($c);
+  $total+= (($c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount()))*$c->getQuantity());
 }
 
 ?>
@@ -476,7 +445,7 @@ foreach($userCart as $c){
                     <td data-title="Total">
                       <span class="price-amount amount text-primary ps-5">
                         <bdi>
-                          <span class="price-currency-symbol">$</span>2,370.00</bdi>
+                          <span class="price-currency-symbol">$</span><?php echo $total; ?></bdi>
                       </span>
                     </td>
                   </tr>

@@ -4,6 +4,8 @@
 
 include("Data-Objects/fileManipulationFunctions.php");
 
+
+
 $products = arrayProductsFromFile();
 $users = arrayUsersFromFile();
 
@@ -72,6 +74,12 @@ $productRating = $sumRating/count($productReviews);
 }else{$productRating = "Undefined";}
 
 
+
+
+if(isset($_POST['add-to-cart'])){
+   $quantity = $_POST['quantity'];
+      addProductToShopingCard($product,$currentUser,$quantity);
+}
 
 ?>
 
@@ -399,46 +407,12 @@ $productRating = $sumRating/count($productReviews);
               </div>
               <p><?php echo $product->getShortDescription(); ?></p>
               <div class="cart-wrap padding-small">
-                <div class="color-options product-select">
-                  <div class="color-toggle" data-option-index="0">
-                    <h4 class="item-title text-uppercase text-dark text-decoration-underline">Color:</h4>
-                    <ul class="select-list list-unstyled d-flex">
-                      <li class="select-item pe-3" data-val="Green" title="Green">
-                        <a href="#">Green</a>
-                      </li>
-                      <li class="select-item pe-3" data-val="Orange" title="Orange">
-                        <a href="#">Orange</a>
-                      </li>
-                      <li class="select-item pe-3" data-val="Red" title="Red">
-                        <a href="#">Red</a>
-                      </li>
-                      <li class="select-item" data-val="Black" title="Black">
-                        <a href="#">Black</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="swatch product-select" data-option-index="1">
-                  <h4 class="item-title text-uppercase text-dark text-decoration-underline">Size:</h4>
-                  <ul class="select-list list-unstyled d-flex">
-                    <li data-value="S" class="select-item pe-3">
-                      <a href="#">XL</a>
-                    </li>
-                    <li data-value="M" class="select-item pe-3">
-                      <a href="#">L</a>
-                    </li>
-                    <li data-value="L" class="select-item pe-3">
-                      <a href="#">M</a>
-                    </li>
-                    <li data-value="L" class="select-item">
-                      <a href="#">S</a>
-                    </li>
-                  </ul>
-                </div>
+            
+               <br><br><br>
                 <div class="product-quantity">
                   <div class="stock-number text-dark"><?php echo $product->getQuantity(); ?>  in stock</div>
                   <div class="stock-button-wrap pt-3">
-
+                  <form method="post" action="<?php echo "single-product.php?product=".$product->getId();?>">
                     <div class="input-group product-qty">
                         <span class="input-group-btn">
                             <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="">
@@ -447,18 +421,21 @@ $productRating = $sumRating/count($productReviews);
                         </span>
                         <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
                         <span class="input-group-btn">
-                            <button type="button" onclick="incrementQuantity()" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
+                            <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
                                 +
                             </button>
                         </span>
                     </div>
                     <div class="qty-button d-flex flex-wrap pt-3">
+                 
                       <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
-                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>                      
+                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
+                 </form>                      
                     </div>
                   </div>
                 </div>
               </div>
+              <br><br>
               <div class="meta-product py-2">
                 <div class="meta-item d-flex align-items-baseline">
                   <h4 class="item-title no-margin pe-2">SKU:</h4>
@@ -475,17 +452,8 @@ $productRating = $sumRating/count($productReviews);
                     
                   </ul>
                 </div>
-                <div class="meta-item d-flex align-items-baseline">
-                  <h4 class="item-title no-margin pe-2">Tags:</h4>
-                  <ul class="select-list list-unstyled d-flex">
-                    <li data-value="S" class="select-item">
-                      <a href="#">Classic</a>,
-                    </li>
-                    <li data-value="S" class="select-item">
-                      <a href="#"> Modern</a>
-                    </li>
-                  </ul>
-                </div>
+                
+
               </div>
             </div>
           </div>

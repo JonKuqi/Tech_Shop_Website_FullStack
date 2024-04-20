@@ -173,6 +173,27 @@ function addProductToShopingCard(Product $product, User $currentUser, $quantity)
     fclose($file);
   }
   
-  
 
+
+function removeItemCart(int $id){
+     
+    $items = arrayShopingCartFromFile();
+
+    $newItems = [];
+
+    foreach($items as $i){
+        if($i->getId() != $id){
+          array_push($newItems, $i);
+          
+        }
+    }
+    $file = fopen("WebsiteData/shoping_cart.txt",'w') or die("Error gjate hapjes...");
+    
+    foreach($newItems as $i){
+        fwrite($file,$i->formatTofile());
+    }
+    fclose($file);
+
+  }
+  
 ?>
