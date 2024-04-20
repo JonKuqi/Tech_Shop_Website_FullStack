@@ -782,7 +782,7 @@ if(empty($products)){
               <div class="col-lg-3 col-sm-6 pb-3">
                 <div class="footer-menu">
                   <img src="images/main-logo.png" alt="logo">
-                  <p>Nisi, purus vitae, ultrices nunc. Sit ac sit suscipit hendrerit. Gravida massa volutpat aenean odio erat nullam fringilla.</p>
+                  <p>"Unlock Boundless Possibilities with Cutting-Edge Tech: Your Destination for Innovation and Excellence!"</p>
                   <div class="social-links">
                     <ul class="d-flex list-unstyled">
                       <li>
@@ -826,44 +826,22 @@ if(empty($products)){
               </div>
               <div class="col-lg-2 col-sm-6 pb-3">
                 <div class="footer-menu text-uppercase">
-                  <h5 class="widget-title pb-2">Quick Links</h5>
+                  <h5 class="widget-title pb-2">Speedy Buttons</h5>
                   <ul class="menu-list list-unstyled text-uppercase">
                     <li class="menu-item pb-2">
-                      <a href="index.php">Home</a>
+                      <a href="index.php">Go to Home</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="about.html">About</a>
+                      <a href="about.html">About our shop</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="shop.php">Shop</a>
+                      <a href="shop.php">Visit the shop</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="blog.html">Blogs</a>
+                      <a href="blog.html">View our Blogs</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="contact.html">Contact</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu text-uppercase">
-                  <h5 class="widget-title pb-2">Help & Info Help</h5>
-                  <ul class="menu-list list-unstyled">
-                    <li class="menu-item pb-2">
-                      <a href="#">Track Your Order</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Returns Policies</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Shipping + Delivery</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Contact Us</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Faqs</a>
+                      <a href="contact.html">Contact us</a>
                     </li>
                   </ul>
                 </div>
