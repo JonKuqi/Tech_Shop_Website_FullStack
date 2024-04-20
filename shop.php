@@ -640,7 +640,7 @@ if(empty($products)){
           </div>
           <div class="d-flex flex-wrap">
             <figure class="instagram-item pe-2">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/" class="image-link position-relative">
                 <img src="images/insta-item1.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
@@ -650,7 +650,7 @@ if(empty($products)){
               </a>
             </figure>
             <figure class="instagram-item pe-2">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/" class="image-link position-relative">
                 <img src="images/insta-item2.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
@@ -660,7 +660,7 @@ if(empty($products)){
               </a>
             </figure>
             <figure class="instagram-item pe-2">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/" class="image-link position-relative">
                 <img src="images/insta-item3.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
@@ -670,7 +670,7 @@ if(empty($products)){
               </a>
             </figure>
             <figure class="instagram-item pe-2">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/" class="image-link position-relative">
                 <img src="images/insta-item4.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
@@ -680,7 +680,7 @@ if(empty($products)){
               </a>
             </figure>
             <figure class="instagram-item pe-2">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/" class="image-link position-relative">
                 <img src="images/insta-item5.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
