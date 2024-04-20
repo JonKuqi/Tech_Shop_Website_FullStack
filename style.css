@@ -598,10 +598,12 @@ h3.cart-title {
 .navbar-nav .nav-item a.nav-link {
     color: var(--accent-color);
 }
-.navbar-nav .nav-item a.nav-link.active, 
-.navbar-nav .nav-item a.nav-link:focus, 
+
 .navbar-nav .nav-item a.nav-link:hover {
     color: var(--primary-color);
+}
+.navbar-nav .nav-item a.nav-link:active {
+    color:blue;
 }
 
 /*------------ Offcanvas -------------- */
