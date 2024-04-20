@@ -660,26 +660,55 @@ foreach($userCart as $c){
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Get the input field and increment/decrement buttons
-      var inputField = document.querySelector('.spin-number-output');
-      var incrementButton = document.querySelector('.incriment-button');
-      var decrementButton = document.querySelector('.decriment-button');
+document.addEventListener("DOMContentLoaded", function() {
+    var updateCart = function(inputField, increase) {
+        var value = parseInt(inputField.value);
+        var stockQuantity = 10; // Assuming stock quantity
+        var priceElement = inputField.closest('.cart-item').querySelector('.card-price .money');
+        var totalPriceElement = inputField.closest('.cart-item').querySelector('.total-price .money');
+        var price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
+
+        if (increase) {
+            if (value < stockQuantity) {
+                value++;
+            }
+        } else {
+            if (value > 1) {
+                value--;
+            }
+        }
+
+        inputField.value = value;
+        totalPriceElement.textContent = '$' + (price * value).toFixed(2);
+    };
+
+ 
+    var quantityFields = document.querySelectorAll('.spin-number-output');
+    quantityFields.forEach(function(inputField) {
+        inputField.addEventListener('change', function() {
+            updateCart(inputField, true); // Always increasing the quantity when manually changed
+        });
+    });
+
+ 
+    var incrementButtons = document.querySelectorAll('.incriment-button');
+    incrementButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var inputField = button.parentElement.querySelector('.spin-number-output');
+            updateCart(inputField, true);
+        });
+    });
+
   
-      // Add click event listener to increment button
-      incrementButton.addEventListener('click', function() {
-          var value = parseInt(inputField.value);
-          inputField.value = value + 1;
-      });
-  
-      // Add click event listener to decrement button
-      decrementButton.addEventListener('click', function() {
-          var value = parseInt(inputField.value);
-          if (value > 0) {
-              inputField.value = value - 1;
-          }
-      });
-  });</script>
+    var decrementButtons = document.querySelectorAll('.decriment-button');
+    decrementButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var inputField = button.parentElement.querySelector('.spin-number-output');
+            updateCart(inputField, false);
+        });
+    });
+});
+</script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:50 GMT -->
