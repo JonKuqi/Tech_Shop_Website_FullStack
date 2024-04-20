@@ -68,8 +68,8 @@ foreach($sorted as $key => $value) {
 
 //Searchi
 include("Data-Objects/search.php");
-if(isset($_POST['search'])){
-  $search = $_POST['search'];
+if(isset($_GET['search'])){
+  $search = $_GET['search'];
   $searchedProducts = searchProducts($search);
   $newProducts =[];
 
