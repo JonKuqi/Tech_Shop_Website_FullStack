@@ -70,7 +70,7 @@ public function getTotalPrice(){
      </div>
      <div class="col-lg-1 col-md-2">
        <div class="cart-remove">
-         <a href="#">
+         <a href="">
            <svg class="close" width="38px">
              <use xlink:href="#close"></use>
            </svg>
@@ -90,6 +90,7 @@ public function getTotalPrice(){
     public function getId() { return $this->id; }
     public function getUser() { return $this->user; }
     public function getProduct() { return $this->product; }
+    public function getQuantity() {return $this->quantity;}
 
     public function setId($id) { $this->id = $id; }
     public function setUser($user) { $this->user = $user; }
