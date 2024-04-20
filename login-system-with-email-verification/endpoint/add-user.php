@@ -37,7 +37,7 @@ if (isset($_POST['register'])) {
             $insertStmt->bindParam(':contact_number', $contactNumber, PDO::PARAM_INT);
             $insertStmt->bindParam(':email', $email, PDO::PARAM_STR);
             $insertStmt->bindParam(':username', $username, PDO::PARAM_STR);
-            $insertStmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $insertStmt->bindParam(':password', md5( $password), PDO::PARAM_STR);
             $insertStmt->bindParam(':verification_code', $verificationCode, PDO::PARAM_INT);
             $insertStmt->execute();
     
@@ -100,10 +100,24 @@ if (isset($_POST['verify'])) {
         $stmt->execute([
             'user_verification_id' => $userVerificationID,
         ]);
+       
         $codeExist = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        
+        $stmt = $conn->prepare("SELECT * FROM `tbl_user` WHERE `tbl_user_id` = :user_verification_id");
+        $stmt->execute([
+            'user_verification_id' => $userVerificationID,
+        ]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
         if ($codeExist && $codeExist['verification_code'] == $verificationCode) {
             session_destroy();
+            session_start();
+            $_SESSION['first_name'] = $row['first_name'];
+            $_SESSION['last_name'] = $row['last_name'];
+            $_SESSION['contact_number'] =  $row['contact_number'];
+            $_SESSION['email'] =  $row['email'] ;
+            $_SESSION['username'] =$row['username'];
+
             echo "
             <script>
                 alert('Registered Successfully.');

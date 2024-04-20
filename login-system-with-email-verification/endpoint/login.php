@@ -11,8 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch();
-        $stored_password = $row['password'];
-
+        $password = md5($_POST['password']);
         if ($password === $stored_password) {
             echo "
             <script>
@@ -20,6 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/';
             </script>
             "; 
+            session_start();
+            $_SESSION['first_name'] = $row['first_name'];
+            $_SESSION['last_name'] = $row['last_name'];
+            $_SESSION['contact_number'] =  $row['contact_number'];
+            $_SESSION['email'] =  $row['email'] ;
+            $_SESSION['username'] =$row['username'];
         } else {
             echo "
             <script>
