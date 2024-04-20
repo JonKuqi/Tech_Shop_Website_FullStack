@@ -299,7 +299,7 @@ foreach($allCartsItems as $c){
                       <div class="qty-field">
                         <div class="qty-number d-flex">
                           <div class="quntity-button incriment-button">+</div>
-                          <input class="spin-number-output bg-light no-margin" type="text" value="0">
+                          <input class="spin-number-output bg-light no-margin" type="text" value="1">
                           <div class="quntity-button decriment-button">-</div>
                         </div>
                         <div class="regular-price"></div>
@@ -355,7 +355,7 @@ foreach($allCartsItems as $c){
                       <div class="qty-field">
                         <div class="qty-number d-flex">
                           <div class="quntity-button incriment-button">+</div>
-                          <input class="spin-number-output bg-light no-margin" type="text" value="0">
+                          <input class="spin-number-output bg-light no-margin" type="text" value="1">
                           <div class="quntity-button decriment-button">-</div>
                         </div>
                         <div class="regular-price"></div>
