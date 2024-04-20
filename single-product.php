@@ -315,7 +315,7 @@ $productRating = $sumRating/count($productReviews);
                       <a href="shop.php" class="dropdown-item">Shop</a>
                     </li>
                     <li>
-                      <a href="cart.html" class="dropdown-item">Cart</a>
+                      <a href="cart.php" class="dropdown-item">Cart</a>
                     </li>
                     <li>
                       <a href="checkout.html" class="dropdown-item">Checkout</a>

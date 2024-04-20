@@ -190,10 +190,10 @@ foreach($allCartsItems as $c){
                       <a href="blog.html" class="dropdown-item">Blog</a>
                     </li>
                     <li>
-                      <a href="shop.html" class="dropdown-item">Shop</a>
+                      <a href="shop.php" class="dropdown-item">Shop</a>
                     </li>
                     <li>
-                      <a href="cart.html" class="dropdown-item">Cart</a>
+                      <a href="cart.php" class="dropdown-item">Cart</a>
                     </li>
                     <li>
                       <a href="checkout.html" class="dropdown-item">Checkout</a>
@@ -249,10 +249,6 @@ foreach($allCartsItems as $c){
             <div class="text-center padding-large no-padding-bottom">
               <h1 class="display-2 text-uppercase text-dark">Cart</h1>
               <div class="breadcrumbs">
-                <span class="item">
-                  <a href="index.php">Home ></a>
-                </span>
-                <span class="item">Cart</span>
               </div>
             </div>
           </div>
