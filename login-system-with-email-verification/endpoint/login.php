@@ -25,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['contact_number'] =  $row['contact_number'];
             $_SESSION['email'] =  $row['email'] ;
             $_SESSION['username'] =$row['username'];
+            $_SESSION['logged_in']=true;
         } else {
             echo "
             <script>

@@ -117,6 +117,7 @@ if (isset($_POST['verify'])) {
             $_SESSION['contact_number'] =  $row['contact_number'];
             $_SESSION['email'] =  $row['email'] ;
             $_SESSION['username'] =$row['username'];
+            $_SESSION['logged_in']=true;
 
             echo "
             <script>
