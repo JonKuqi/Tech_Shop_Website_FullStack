@@ -119,6 +119,10 @@ if (isset($_POST['verify'])) {
             $_SESSION['username'] =$row['username'];
             $_SESSION['logged_in']=true;
 
+            $file = fopen("../../WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
+            $sessionString = implode('|', $_SESSION) . "\n";
+            fwrite($file, $sessionString);
+
             echo "
             <script>
                 alert('Registered Successfully.');
