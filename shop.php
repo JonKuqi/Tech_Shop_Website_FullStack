@@ -331,7 +331,7 @@ if(isset($_POST['category'])){
             <div class="offcanvas-body">
               <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link me-4 active" href="#billboard">Home</a>
+                  <a class="nav-link me-4 active" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
                  <a class="nav-link me-4" href="about.html">About Us</a>
@@ -418,7 +418,7 @@ if(isset($_POST['category'])){
               <h1 class="display-2 text-uppercase text-dark">Shop</h1>
               <div class="breadcrumbs">
                 <span class="item">
-                  <a href="index-2.html">Home ></a>
+                  <a href="index.php">Home ></a>
                 </span>
                 <span class="item">Shop</span>
               </div>
@@ -709,35 +709,35 @@ if(empty($products)){
                   <div class="social-links">
                     <ul class="d-flex list-unstyled">
                       <li>
-                        <a href="#">
+                      <a href="https://www.facebook.com/">
                           <svg class="facebook">
                             <use xlink:href="#facebook" />
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href="https://www.instagram.com/">
                           <svg class="instagram">
                             <use xlink:href="#instagram" />
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href="https://twitter.com/?lang=en">
                           <svg class="twitter">
                             <use xlink:href="#twitter" />
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href="https://www.linkedin.com/">
                           <svg class="linkedin">
                             <use xlink:href="#linkedin" />
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href="https://www.youtube.com/">
                           <svg class="youtube">
                             <use xlink:href="#youtube" />
                           </svg>
@@ -752,19 +752,19 @@ if(empty($products)){
                   <h5 class="widget-title pb-2">Quick Links</h5>
                   <ul class="menu-list list-unstyled text-uppercase">
                     <li class="menu-item pb-2">
-                      <a href="#">Home</a>
+                      <a href="index.php">Home</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="#">About</a>
+                      <a href="about.html">About</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="#">Shop</a>
+                      <a href="shop.php">Shop</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="#">Blogs</a>
+                      <a href="blog.html">Blogs</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="#">Contact</a>
+                      <a href="contact.html">Contact</a>
                     </li>
                   </ul>
                 </div>
