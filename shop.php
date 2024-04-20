@@ -124,10 +124,85 @@ if(isset($_POST['category'])){
    $products = $temp;
  }
 
+?>
+
+
+
+<?php
+
+// Funksioni për sterilizimin e të dhënave të kërkimit
+function sterilize($input) {
+  // ktu mi fshi hapsirat e panevojshme
+  $cleaned_input = trim($input);
+  
+  // karakteret e panevojshme mi fshi
+  $cleaned_input = htmlspecialchars($cleaned_input);
+  
+  // rez
+  return $cleaned_input;
+}
+
+//kqyrim a ka bo useri search
+if (isset($_GET['search'])) {
+  // perdorimi i funksionit sterilize
+  $search_query = sterilize($_GET['search']);
+
+  // kqyrim a ekziston cookie
+  if (isset($_COOKIE['recent_searches'])) {
+      $recent_searches = json_decode($_COOKIE['recent_searches'], true);
+
+      // e shtojna searchin e fundit nliste
+      array_unshift($recent_searches, $search_query);
+  } else {
+      // nëse nuk ekziston cookie, e rujme kerkimin per here tpare
+      $recent_searches = [$search_query];
+  }
+
+  // pe konvertojna njson string per me rujt ncookie
+  $recent_searches_json = json_encode($recent_searches);
+
+  setcookie('recent_searches', $recent_searches_json, time() + (86400 * 30), '/');
+}
+
+/*
+
+//me qet pjese tprintimit vec mundesh me vertetu a po ruhen ne cookie
+
+
+if (isset($_COOKIE['recent_searches'])) {
+  $recent_searches = json_decode($_COOKIE['recent_searches'], true);
+  if (!empty($recent_searches)) {
+      echo '<h2>Kërkimet e Fundit:</h2>';
+      echo '<ul>';
+      foreach ($recent_searches as $search) {
+          echo '<li>' . htmlspecialchars($search) . '</li>';
+      }
+      echo '</ul>';
+  }
+}
+*/
+
+// shikojm a o dergu kerkesa get per me fshi 
+
+if (isset($_GET['clearCookies'])) {
+  // shikojm a ekziston cookie
+  if (isset($_COOKIE['recent_searches'])) {
+      // pe fshijme cookien
+      setcookie('recent_searches', '', time() - 3600, '/');
+      echo '<script>alert("Cookie u fshi me sukses!");</script>'; 
+  } else {
+      echo '<script>alert("Cookie nuk ekziston.");</script>'; 
+  }
+
+ 
+  echo '<script>window.location.href = window.location.pathname;</script>';
+}
 
 
 
 ?>
+
+
 <!DOCTYPE html>
 <html>
   
@@ -504,7 +579,8 @@ if(empty($products)){
 
 
  <!--  Forma e search -->
- <form role="search" method="post" class="d-flex" action="shop.php" id="searchForm">
+
+ <form role="search" method="get" class="d-flex" action="shop.php" id="searchForm">
     <input class="search-field" placeholder="Search" type="search" name="search">
     <div class="search-icon bg-dark" id="searchIcon">
         <a href="#">
@@ -512,8 +588,12 @@ if(empty($products)){
                 <use xlink:href="#search"></use>
             </svg>
         </a>
+        
     </div>
+   
 </form>
+<a href="?clearCookies=1" style="color:gray;">Click here to delete history from search</a>
+
 
 <!--FILTRIMI -->
 <form method="post" class="d-flex" action="shop.php"> 
