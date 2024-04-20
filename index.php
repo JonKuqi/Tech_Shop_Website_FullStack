@@ -137,25 +137,25 @@ $recommendProducts = recommendProducts($products);
           
           <ul class="cat-list">
             <li class="cat-list-item">
-              <a href="#" title="Mobile Phones">Mobile Phones</a>
+              <a href="shop.php" title="Mobile Phones">Mobile Phones</a>
             </li>
             <li class="cat-list-item">
-              <a href="#" title="Smart Watches">Smart Watches</a>
+              <a href="shop.php" title="Smart Watches">Smart Watches</a>
             </li>
             <li class="cat-list-item">
-              <a href="#" title="Headphones">Headphones</a>
+              <a href="shop.php" title="Headphones">Headphones</a>
             </li>
             <li class="cat-list-item">
-              <a href="#" title="Accessories">Accessories</a>
+              <a href="shop.php" title="Accessories">Accessories</a>
             </li>
             <li class="cat-list-item">
-              <a href="#" title="Monitors">Monitors</a>
+              <a href="shop.php" title="Monitors">Monitors</a>
             </li>
             <li class="cat-list-item">
-              <a href="#" title="Speakers">Speakers</a>
+              <a href="shop.php" title="Speakers">Speakers</a>
             </li>
             <li class="cat-list-item">
-              <a href="#" title="Memory Cards">Memory Cards</a>
+              <a href="shop.php" title="Memory Cards">Memory Cards</a>
             </li>
           </ul>
 
@@ -270,7 +270,8 @@ $recommendProducts = recommendProducts($products);
               <div class="row d-flex align-items-center">
                 <div class="col-md-6">
                   <div class="banner-content">
-                    <h1 class="display-2 text-uppercase text-dark pb-5">Your Products Are Great.</h1>
+                    <h1 class="display-2 text-uppercase text-dark pb-5">Connecting Dreams, One Call at a Time.</h1>
+                    <br>
                     <a href="shop.php" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                   </div>
                 </div>
@@ -287,7 +288,7 @@ $recommendProducts = recommendProducts($products);
               <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-md-6">
                   <div class="banner-content">
-                    <h1 class="display-2 text-uppercase text-dark pb-5">Technology Hack You Won't Get</h1>
+                    <h1 class="display-2 text-uppercase text-dark pb-5">Enhancing Lives Through Technology!</h1>
                     <a href="shop.php" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                   </div>
                 </div>
@@ -325,7 +326,7 @@ $recommendProducts = recommendProducts($products);
               </div>
               <div class="icon-box-content">
                 <h3 class="card-title text-uppercase text-dark">Free delivery</h3>
-                <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
+                <p>Elevate your shopping experience with our unbeatable offer of free delivery."</p>
               </div>
             </div>
           </div>
@@ -338,7 +339,7 @@ $recommendProducts = recommendProducts($products);
               </div>
               <div class="icon-box-content">
                 <h3 class="card-title text-uppercase text-dark">Quality guarantee</h3>
-                <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
+                <p>Quality Assured, Satisfaction Guaranteed!</p>
               </div>
             </div>
           </div>
@@ -351,7 +352,7 @@ $recommendProducts = recommendProducts($products);
               </div>
               <div class="icon-box-content">
                 <h3 class="card-title text-uppercase text-dark">Daily offers</h3>
-                <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
+                <p>Every Day, Unbeatable Deals Await!</p>
               </div>
             </div>
           </div>
@@ -364,7 +365,7 @@ $recommendProducts = recommendProducts($products);
               </div>
               <div class="icon-box-content">
                 <h3 class="card-title text-uppercase text-dark">100% secure payment</h3>
-                <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
+                <p>Secure Payment, Your Peace of Mind Guaranteed!</p>
               </div>
             </div>
           </div>
@@ -662,7 +663,7 @@ $recommendProducts = recommendProducts($products);
           </div>
           <div class="d-flex flex-wrap">
             <figure class="instagram-item pe-2">
-              <a href="https://templatesjungle.com/" class="image-link position-relative">
+              <a href="https://www.instagram.com/" class="image-link position-relative">
                 <img src="images/insta-item1.jpg" alt="instagram" class="insta-image">
                 <div class="icon-overlay position-absolute d-flex justify-content-center">
                   <svg class="instagram">
@@ -723,7 +724,7 @@ $recommendProducts = recommendProducts($products);
               <div class="col-lg-3 col-sm-6 pb-3">
                 <div class="footer-menu">
                   <img src="images/main-logo.png" alt="logo">
-                  <p>Nisi, purus vitae, ultrices nunc. Sit ac sit suscipit hendrerit. Gravida massa volutpat aenean odio erat nullam fringilla.</p>
+                  <p>"Unlock Boundless Possibilities with Cutting-Edge Tech: Your Destination for Innovation and Excellence!"</p>
                   <div class="social-links">
                     <ul class="d-flex list-unstyled">
                       <li>
@@ -767,44 +768,22 @@ $recommendProducts = recommendProducts($products);
               </div>
               <div class="col-lg-2 col-sm-6 pb-3">
                 <div class="footer-menu text-uppercase">
-                  <h5 class="widget-title pb-2">Quick Links</h5>
+                  <h5 class="widget-title pb-2">Speedy Buttons</h5>
                   <ul class="menu-list list-unstyled text-uppercase">
                     <li class="menu-item pb-2">
-                      <a href="index.php">Home</a>
+                      <a href="index.php">Go to Home</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="about.html">About</a>
+                      <a href="about.html">About our shop</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="shop.php">Shop</a>
+                      <a href="shop.php">Visit the shop</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="blog.html">Blogs</a>
+                      <a href="blog.html">View our Blogs</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="contact.html">Contact</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu text-uppercase">
-                  <h5 class="widget-title pb-2">Help & Info Help</h5>
-                  <ul class="menu-list list-unstyled">
-                    <li class="menu-item pb-2">
-                      <a href="#">Track Your Order</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Returns Policies</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Shipping + Delivery</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Contact Us</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Faqs</a>
+                      <a href="contact.html">Contact us</a>
                     </li>
                   </ul>
                 </div>
