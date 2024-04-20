@@ -31,11 +31,15 @@ class User{
         fwrite($file, $this->formatToFile());
         fclose($file);
 
-        
+    }
+    public function registerUserFromLogin(){
 
-
+        $file = fopen("../../WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
+        fwrite($file, $this->formatToFile());
+        fclose($file);
 
     }
+
 
     public function __destruct() {
         echo "<script>console.log('Destruktori')</script>";
