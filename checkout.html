@@ -285,6 +285,27 @@
                         <small class="d-block text-body-secondary">Make your payment directly into our bank account. Please use your Order ID. Your order will shipped after funds have cleared in our account.</small>
                       </span>
                     </label>
+                    <div id="bank-details">
+                      <input type="text" id="provider" placeholder="Provider">
+                      <input type="text" id="account_number" placeholder="Account Number">
+                      <input type="text" id="expiry_date" placeholder="Expiry Date">
+                    </div>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", function() {
+                        var radios = document.getElementsByName('listGroupRadios');
+                        var bankDetails = document.getElementById('bank-details');
+                    
+                        for (var i = 0; i < radios.length; i++) {
+                          radios[i].addEventListener('change', function() {
+                            if (this.id === 'listGroupRadios1') {
+                              bankDetails.style.display = 'block';
+                            } else {
+                              bankDetails.style.display = 'none';
+                            }
+                          });
+                        }
+                      });
+                    </script>
                     <label class="list-group-item d-flex gap-2 border-0">
                       <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios3" value="">
                       <span>

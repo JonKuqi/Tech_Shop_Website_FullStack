@@ -1021,3 +1021,8 @@ figure.instagram-item img.insta-image {
 .post-navigation:focus svg {
     fill: var(--primary-color);
 }
+/* checkout payment*/
+#bank-details {
+  display: none;
+}
+
