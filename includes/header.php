@@ -96,9 +96,6 @@
                   <a class="nav-link me-4" href="about.php">About Us</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="blog.php">Blog</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link me-4" href="shop.php">Shop</a>
                 </li>
                 <li class="nav-item">

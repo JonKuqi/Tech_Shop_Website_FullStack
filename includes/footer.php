@@ -123,9 +123,6 @@
                       <a href="shop.php">Visit the shop</a>
                     </li>
                     <li class="menu-item pb-2">
-                      <a href="blog.html">View our Blogs</a>
-                    </li>
-                    <li class="menu-item pb-2">
                       <a href="contact.html">Contact us</a>
                     </li>
                   </ul>
