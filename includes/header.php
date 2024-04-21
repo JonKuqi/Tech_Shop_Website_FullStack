@@ -128,16 +128,16 @@ if(isset($_GET['logout'])){
                 </li>
             
                
-                <li class="nav-item">
+              <li class="nav-item">
                   <div class="user-items ps-5">
                     <ul class="d-flex justify-content-end list-unstyled">
                       <li class="search-item pe-3">
-                        <a href="#" class="search-button">
-                          <svg class="search">
-                            <use xlink:href="#search"></use>
-                          </svg>
-                        </a>
-                      </li>
+                      <li class="nav-item">
+                  <a class="nav-link me-4" href="login-system-with-email-verification/index.php?logout=1">Log Out</a>
+                      </li>                    
+                    
+              
+                        
                       <li class="pe-3">
                         <a href="login-system-with-email-verification/index.php">
                           <svg class="user">
