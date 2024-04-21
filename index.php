@@ -449,6 +449,16 @@ $recommendProducts = recommendProducts($products);
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+   <script>
+    var swiper = new Swiper('.swiper', {
+  direction: 'horizontal', // Ensure swiper swipes horizontally
+  loop: true, // Enable loop
+  navigation: {
+    nextEl: '.swiper-arrow-next', // Specify the next arrow element
+    prevEl: '.swiper-arrow-prev', // Specify the previous arrow element
+  },
+});
+</script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:35 GMT -->
