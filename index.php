@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("includes/header.php");
 
 include("Data-Objects/fileManipulationFunctions.php");
@@ -30,7 +31,21 @@ include("Data-Objects/recomendProducts.php");
 $recommendProducts = recommendProducts($products);
 
 
+$currentUser = new User(0,"Guest","","","","","");
 
+if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
+$user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
+$password = $_SESSION['password'];
+$first_name = $_SESSION['first_name'];
+$last_name = $_SESSION['last_name'];
+$contact_number = $_SESSION['contact_number'];
+$email = $_SESSION['email'];
+
+
+$currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
+
+}
 
 
 ?>

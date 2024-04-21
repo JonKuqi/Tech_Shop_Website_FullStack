@@ -41,9 +41,9 @@ if ($product instanceof SmartPhone) {
 
 
 
+$currentUser = new User(0,"Guest","","","","","");
+
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
-  echo true;
-  echo "HELOOOOOOOOOOOOO";
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $password = $_SESSION['password'];
