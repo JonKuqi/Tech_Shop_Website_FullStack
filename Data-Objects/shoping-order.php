@@ -18,6 +18,9 @@ class ShopingCart {
     public function formatToFile() {
         return "$this->id|{$this->user->getId()}|{$this->product->getId()}|$this->quantity\n";
     }
+    public function formatForOrder() {
+      return "$this->id|{$this->user->getId()}|{$this->product->getId()}|$this->quantity";
+  }
 
 public function getTotalPrice(){
   return ($this->product->getPrice()+($this->product->getPrice()*$this->product->getDiscount()))*$this->quantity;

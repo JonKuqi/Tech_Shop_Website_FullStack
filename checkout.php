@@ -26,8 +26,8 @@ $email = $_SESSION['email'];
 
 
 $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
-
 }
+
 
 
 $allCartsItems = arrayShopingCartFromFile();
@@ -54,9 +54,57 @@ $subTotal = $total - ($total*TAX);
 
 
 
+
+
 //Order dhe ruajtja ne file
 
+if(isset($_POST['placeOrder'])){
+  $country = $_POST['country'];
+  $adress = $_POST['adress'];
+  $notes = $_POST['notes'];
+  $zip = $_POST['zip'];
+  $city = $_POST['city'];
+   
+  if($_POST['listGroupRadios'] == 'bank'){
+    $payWithBank = true;
+    $provider = $_POST['provider'];
+    $acc_number = $_POST['acc_number'];
+    $expiryDate = $_POST['expiry_date'];
+  }else{
+    $payWithBank = false;
+  }
 
+  
+  $file= fopen("WebsiteData/order.txt","a") or die("Error gjate gjetjes se file...");
+  foreach($userCart as $c){
+    if($payWithBank){
+      $string = $c->formatForOrder();
+      $toWrite = $string."|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
+      fwrite($file, $toWrite);
+
+      //shton user Payment
+      $file2 = fopen("WebsiteData/userPayment.txt","a") or die("Error");
+      $userPayment = new UserPayment($currentUser->getId(),$provider,$acc_number,$expiryDate);
+      fwrite($file2,$userPayment->formatToFile());
+      fclose($file2);
+    }
+    if($payWithBank){
+      $string = $c->formatForOrder();
+      $toWrite = $string."|$country|$city|$adress|$zip|$notes|cashOnDelivery\n";  
+      fwrite($file, $toWrite);
+
+    }
+
+
+  }
+  $fclose($file);
+
+  $userAdress = new Adress($currentUser->getId(),$adress,$city,$country,$zip);
+  $file3 = fopen("WebsiteData/adress.txt","a") or die("Error");
+  fwrite($file3,$userAdress->formatToFile());
+  fclose($file3);
+  
+}
 
 
 
@@ -99,12 +147,14 @@ $subTotal = $total - ($total*TAX);
                 <label for="lname">Last Name*</label>
                 <input type="text" id="lname" name="lastname" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getLastName(); ?>">
                 <label for="cname">Country / Region*</label>
-                <input type="text" id="lname" name="lastname" class="form-control mt-2 mb-4 ps-3" value="">
+                <input type="text" id="lname" name="country" class="form-control mt-2 mb-4 ps-3" value="">
 
                 <label for="city">Town / City *</label>
                 <input type="text" id="city" name="city" class="form-control mt-3 ps-3 mb-4">
                 <label for="address">Address*</label>
                 <input type="text" id="adr" name="address" placeholder="House number and street name" class="form-control mt-3 ps-3 mb-3">
+                <label for="address">Zip*</label>
+                <input type="text" id="adr" name="zip" class="form-control mt-3 ps-3 mb-3">
                
                 <label for="email">Phone *</label>
                 <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getTelephone(); ?>">
@@ -116,7 +166,7 @@ $subTotal = $total - ($total*TAX);
               <h2 class="display-7 text-uppercase text-dark pb-4">Additional Information</h2>
               <div class="billing-details">
                 <label for="fname">Order notes (optional)</label>
-                <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
+                <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery." name="notes"></textarea>
               </div>
               <div class="your-order mt-5">
                 <h2 class="display-7 text-uppercase text-dark pb-4">Cart Totals</h2>
@@ -145,16 +195,16 @@ $subTotal = $total - ($total*TAX);
                   </table>
                   <div class="list-group mt-5 mb-3">
                     <label class="list-group-item d-flex gap-2 border-0">
-                      <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios1" value="" checked>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios1" value="bank" checked>
                       <span>
                         <strong class="text-uppercase">Direct bank transfer</strong>
                         <small class="d-block text-body-secondary">Make your payment directly into our bank account. Please use your Order ID. Your order will shipped after funds have cleared in our account.</small>
                       </span>
                     </label>
                     <div id="bank-details">
-                      <input type="text" id="provider" placeholder="Provider">
-                      <input type="text" id="account_number" placeholder="Account Number">
-                      <input type="text" id="expiry_date" placeholder="Expiry Date">
+                      <input type="text" name="provider" id="provider" placeholder="Provider">
+                      <input type="text" name="acc_number" id="account_number" placeholder="Account Number">
+                      <input type="text" name="expiryDate" id="expiry_date" placeholder="Expiry Date">
                     </div>
                     <script>
                       document.addEventListener("DOMContentLoaded", function() {
@@ -173,14 +223,19 @@ $subTotal = $total - ($total*TAX);
                       });
                     </script>
                     <label class="list-group-item d-flex gap-2 border-0">
-                      <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios3" value="">
+                      <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios3" value="cash">
                       <span>
                         <strong class="text-uppercase">Cash on delivery</strong>
                         <small class="d-block text-body-secondary">Pay with cash upon delivery.</small>
                       </span>
                     </label>
                   </div>
-                  <button type="submit" name="placeOrder" class="btn btn-dark btn-medium text-uppercase btn-rounded-none" style="margin-left: 200px;">Place an order</button>
+                  <div style="display: flex; align-items: center;">
+    <a href="cart.php" style="margin-left:10px;">
+        <button name="goTOCart" class="btn btn-dark btn-medium text-uppercase btn-rounded-none">Go to cart</button>
+    </a>
+    <button type="submit" name="placeOrder" class="btn btn-dark btn-medium text-uppercase btn-rounded-none" style="margin-left: 10px;">Place an order</button>
+</div>
                 </div>
               </div>
             </div>
