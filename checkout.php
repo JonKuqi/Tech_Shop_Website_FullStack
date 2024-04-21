@@ -42,15 +42,27 @@ public function getZip() { return $this->zip; }
 
 
 $currentUser = setAddressAndPayment($currentUser);
-if($currentUser->getAdress() != null){
-   $userCountry = $currentUser->getAddress()->getState();
-   $userStreet = $currentUser->getAddress()->getStreet();
-   $userCityt = $currentUser->getAddress()->getCity();
-   $userZip = $currentUser->getAddress()->getZip();
+  
+if ($currentUser->getAddress() != null) {
+  $userCountry = $currentUser->getAddress()->getState();
+  $userStreet = $currentUser->getAddress()->getStreet();
+  $userCity = $currentUser->getAddress()->getCity();
+  $userZip = $currentUser->getAddress()->getZip();
+} else {
+  $userCountry = "";
+  $userStreet = "";
+  $userCity = "";
+  $userZip = "";
 }
-if($currentUSer->getPayment() != null){
-  $userProvider = $currentUSer->getPayment()->getProvider();
 
+if ($currentUser->getPayment() != null) {
+  $userProvider = $currentUser->getPayment()->getProvider();
+  $userAccountNumber = $currentUser->getPayment()->getAccountNumber();
+  $userExpiryDate = $currentUser->getPayment()->getExpiryDate();
+} else {
+  $userProvider = "";
+  $userAccountNumber = "";
+  $userExpiryDate = "";
 }
 
 
@@ -107,11 +119,7 @@ if(isset($_POST['placeOrder'])){
       $toWrite = $string."|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
       fwrite($file, $toWrite);
 
-      //shton user Payment
-      $file2 = fopen("WebsiteData/userPayment.txt","a") or die("Error");
-      $userPayment = new UserPayment($currentUser->getId(),$provider,$acc_number,$expiryDate);
-      fwrite($file2,$userPayment->formatToFile());
-      fclose($file2);
+  
     }
     if($payWithBank){
       $string = $c->formatForOrder();
@@ -122,16 +130,24 @@ if(isset($_POST['placeOrder'])){
 
 
   }
-  $fclose($file);
-
+  fclose($file);
+if(($currentUser->getAddress() != null)){
   $userAdress = new Adress($currentUser->getId(),$adress,$city,$country,$zip);
   $file3 = fopen("WebsiteData/adress.txt","a") or die("Error");
   fwrite($file3,$userAdress->formatToFile());
   fclose($file3);
-  
+}
+  if($payWithBank && ($currentUser->getPayment() != null)){
+      //shton user Payment
+      $file2 = fopen("WebsiteData/userPayment.txt","a") or die("Error");
+      $userPayment = new UserPayment($currentUser->getId(),$provider,$acc_number,$expiryDate);
+      fwrite($file2,$userPayment->formatToFile());
+      fclose($file2);
+  }
 }
 
-
+echo '<script>alert("You have succesfully Odered!");</script>';
+header("Refresh:0");
 
 
 
@@ -172,14 +188,14 @@ if(isset($_POST['placeOrder'])){
                 <label for="lname">Last Name*</label>
                 <input type="text" id="lname" name="lastname" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getLastName(); ?>">
                 <label for="cname">Country / Region*</label>
-                <input type="text" id="lname" name="country" class="form-control mt-2 mb-4 ps-3" value="">
+                <input type="text" id="lname" name="country" class="form-control mt-2 mb-4 ps-3"value="<?php echo $userCountry; ?>">
 
                 <label for="city">Town / City *</label>
-                <input type="text" id="city" name="city" class="form-control mt-3 ps-3 mb-4">
+                <input type="text" id="city" name="city" class="form-control mt-3 ps-3 mb-4" value="<?php echo $userCity; ?>">
                 <label for="address">Address*</label>
-                <input type="text" id="adr" name="address" placeholder="House number and street name" class="form-control mt-3 ps-3 mb-3">
+                <input type="text" id="adr" name="adress" placeholder="House number and street name" class="form-control mt-3 ps-3 mb-3" value="<?php echo $userStreet; ?>">
                 <label for="address">Zip*</label>
-                <input type="text" id="adr" name="zip" class="form-control mt-3 ps-3 mb-3">
+                <input type="text" id="adr" name="zip" class="form-control mt-3 ps-3 mb-3" value="<?php echo $userZip; ?>">
                
                 <label for="email">Phone *</label>
                 <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getTelephone(); ?>">
@@ -227,9 +243,9 @@ if(isset($_POST['placeOrder'])){
                       </span>
                     </label>
                     <div id="bank-details">
-                      <input type="text" name="provider" id="provider" placeholder="Provider">
-                      <input type="text" name="acc_number" id="account_number" placeholder="Account Number">
-                      <input type="text" name="expiryDate" id="expiry_date" placeholder="Expiry Date">
+                      <input type="text" name="provider" id="provider" placeholder="Provider" value="<?php echo $userProvider; ?>">
+                      <input type="text" name="acc_number" id="account_number" placeholder="Account Number" value="<?php echo $userAccountNumber; ?>">
+                      <input type="text" name="expiry_date" id="expiry_date" placeholder="Expiry Date" value="<?php echo $userExpiryDate; ?>">
                     </div>
                     <script>
                       document.addEventListener("DOMContentLoaded", function() {

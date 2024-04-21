@@ -235,7 +235,7 @@ function setAddressAndPayment($user) {
         $parts = explode("|", $line);
         if (isset($parts[0])) {
             if ($parts[0] == $user->getId()) {
-                $payment = new UserPayment($parts[0], $parts[1], $parts[2], $parts[3], $parts[4]);
+                $payment = new UserPayment($parts[0], $parts[1], $parts[2], $parts[3]);
                 $newUser->setPayment($payment);
             }
         }
