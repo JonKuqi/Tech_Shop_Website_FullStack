@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "
             <script>
                 alert('Login Failed, Incorrect Password!');
-                window.location.href = 'http://localhost/login-system-with-email-verification/login.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/login-system-with-email-verification/index.php';
             </script>
             ";
         }
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "
             <script>
                 alert('Login Failed, User Not Found!');
-                window.location.href = 'http://localhost/login-system-with-email-verification/login.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/login-system-with-email-verification/index.php';
             </script>
             ";
     }
