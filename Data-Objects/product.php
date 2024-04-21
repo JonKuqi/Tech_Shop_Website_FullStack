@@ -23,17 +23,14 @@ abstract class Product {
         $this->name = $name;
         $this->discount = $discount;
     }
-
     public abstract function showInShop();
     public function __destruct() {
         echo "<script>console.log('Destruktori')</script>";
     }
     public abstract function formatToFile();
-   
     public function addReview(Review $review){ array_push($this->reviews, $review);}
-
+    
 //getters dhe setters
-   
     public function getId() { return $this->pid; }
     public function getSku() { return $this->sku; }
     public function getPrice() { return $this->price; }
@@ -287,7 +284,6 @@ echo '</span>
     public function setShortDescription($short_description) { $this->short_description = $short_description; }
     public function getLongDescription() { return $this->long_description; }
     public function setLongDescription($long_description) { $this->long_description = $long_description; }
-
     public function getId() { return parent::getId(); }
     public function setId($pid) { parent::setId($pid); }
     public function getSku() { return parent::getSku(); }

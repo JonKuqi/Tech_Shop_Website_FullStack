@@ -1,10 +1,8 @@
 <?php
 
-include("review.php"); //review i include users edhe products
+include("review.php"); 
 include("shoping-order.php");
-//$product = new SmartPhone(1,"1050","2500","10","2024","Iphone",0.2,"Iphone","Short","Long Desc.");
 
-//$pathImg = "images/product-item1.jpg";
 function registerProduct($product){
     $file = fopen("WebsiteData/product.txt", 'a');
     fwrite($file,$product->formatToFIle());
@@ -205,11 +203,6 @@ function removeItemCart(int $id){
 
 }
 
-
-
-function updateCart($items){
-     
-}  
   
 function setAddressAndPayment($user) {
     $newUser = $user;
