@@ -211,7 +211,39 @@ function updateCart($items){
      
 }  
   
+function setAddressAndPayment($user) {
+    $newUser = $user;
+    $address = null; 
+    $payment = null;
 
+    $file1 = fopen("WebsiteData/adress.txt", 'r');
+    while (!feof($file1)) {
+        $line = fgets($file1);
+        $parts = explode("|", $line);
+        if (isset($parts[0])) {
+            if ($parts[0] == $user->getId()) {
+                $address = new Adress($parts[0], $parts[1], $parts[2], $parts[3], $parts[4]);
+                $newUser->setAddress($address);
+            }
+        }
+    }
+    fclose($file1);
+
+    $file2 = fopen("WebsiteData/userPayment.txt", 'r');
+    while (!feof($file2)) {
+        $line = fgets($file2);
+        $parts = explode("|", $line);
+        if (isset($parts[0])) {
+            if ($parts[0] == $user->getId()) {
+                $payment = new UserPayment($parts[0], $parts[1], $parts[2], $parts[3], $parts[4]);
+                $newUser->setPayment($payment);
+            }
+        }
+    }
+    fclose($file2);
+
+    return $newUser;
+}
 
 
 
