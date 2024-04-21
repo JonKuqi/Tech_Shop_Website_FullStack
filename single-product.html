@@ -246,40 +246,23 @@ Introducing the Pink Digital Watch: a sleek, modern timepiece that seamlessly co
                     </ul>
                   </div>
                 </div>
-                <div class="swatch product-select" data-option-index="1">
-                  <h4 class="item-title text-uppercase text-dark text-decoration-underline">Size:</h4>
-                  <ul class="select-list list-unstyled d-flex">
-                    <li data-value="S" class="select-item pe-3">
-                      <a href="#">XL</a>
-                    </li>
-                    <li data-value="M" class="select-item pe-3">
-                      <a href="#">L</a>
-                    </li>
-                    <li data-value="L" class="select-item pe-3">
-                      <a href="#">M</a>
-                    </li>
-                    <li data-value="L" class="select-item">
-                      <a href="#">S</a>
-                    </li>
-                  </ul>
-                </div>
                 <div class="product-quantity">
                   <div class="stock-number text-dark">2 in stock</div>
                   <div class="stock-button-wrap pt-3">
 
-                    <div class="input-group product-qty">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="">
-                              -
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
-                                +
-                            </button>
-                        </span>
-                    </div>
+                   <div class="input-group product-qty">
+    <span class="input-group-btn">
+        <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="">
+            -
+        </button>
+    </span>
+    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+    <span class="input-group-btn">
+        <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
+            +
+        </button>
+    </span>
+</div>
                     <div class="qty-button d-flex flex-wrap pt-3">
                       <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
                       <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>                      
@@ -746,6 +729,27 @@ Introducing the Pink Digital Watch: a sleek, modern timepiece that seamlessly co
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function() {
+    var quantityInput = document.getElementById('quantity');
+    var stockQuantity = 100; // Example stock quantity, replace with actual value
+
+    document.querySelector('.quantity-right-plus').addEventListener('click', function() {
+        var currentValue = parseInt(quantityInput.value);
+        if (currentValue < stockQuantity) {
+            quantityInput.value = currentValue + 1;
+        } else {
+            alert('Cannot add more than available in stock.');
+        }
+    });
+
+    document.querySelector('.quantity-left-minus').addEventListener('click', function() {
+        var currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+});
+</script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/single-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 20:00:01 GMT -->
