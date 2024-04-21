@@ -1,3 +1,28 @@
+<?php
+
+
+if(isset($_GET['logout'])){
+    if( isset($_SESSION['logged_in'])){
+        
+     session_destroy();
+        unset($_SESSION['logged_in']);
+        unset($_SESSION['username']);
+        unset($_SESSION['password'] );
+        unset($_SESSION['first_name'] );
+        unset($_SESSION['last_name'] );
+        unset($_SESSION['contact_number'] );
+        unset($_SESSION['email'] );
+      
+        header('location: ../login-system-with-email-verification/index.php');
+        exit;
+    }
+}
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
   
