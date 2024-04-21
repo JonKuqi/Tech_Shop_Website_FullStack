@@ -93,7 +93,7 @@
                   <a class="nav-link me-4 active" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="about.html">About Us</a>
+                  <a class="nav-link me-4" href="about.php">About Us</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" href="blog.php">Blog</a>
