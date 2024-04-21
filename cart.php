@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 include("Data-Objects/fileManipulationFunctions.php");
  include("includes/header.php");
 $users = arrayUsersFromFile();
@@ -6,9 +8,10 @@ $products = arrayProductsFromFile();
 
 
 
-
 //Produket dhe useri duhen marr nga sessioni
 $product1 = $products[0];
+
+
 $currentUser = new User(0,"Guest","","","","","");
 
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
@@ -24,7 +27,6 @@ $email = $_SESSION['email'];
 $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
 
 }
-
 
 //Quantity duhet mu marr nga sessioni ne Single Product
 $quantity = 10;
@@ -64,6 +66,16 @@ foreach($allCartsItems as $c){
   }
 }
 
+
+$total = 0;
+foreach($userCart as $c){
+  $total+= (($c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount()))*$c->getQuantity());
+}
+
+
+const TAX = 0.18;
+
+$subTotal = $total - ($total*TAX);
 
 
 
@@ -198,11 +210,11 @@ foreach($userCart as $c){
               <table cellspacing="0" class="table text-uppercase">
                 <tbody>
                   <tr class="subtotal pt-2 pb-2 border-top border-bottom">
-                    <th>Subtotal</th>
+                    <th>Total without tax</th>
                     <td data-title="Subtotal">
                       <span class="price-amount amount text-primary ps-5">
                         <bdi>
-                          <span class="price-currency-symbol">$</span>2,370.00
+                          <span class="price-currency-symbol">$</span><?php echo $subTotal; ?>
                         </bdi>
                       </span>
                     </td>

@@ -1,14 +1,19 @@
-<?php  include("includes/header.php");
+<?php  
+
+session_start();
+
+include("includes/header.php");
 include("Data-Objects/fileManipulationFunctions.php");
 
 
 
-session_start();
+
 
 
 
 //Guest Mode
 $currentUser = new User(0,"Guest","","","","","");
+
 
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
 $user_id = $_SESSION['user_id'];
@@ -49,6 +54,8 @@ $subTotal = $total - ($total*TAX);
 
 
 
+//Order dhe ruajtja ne file
+
 
 
 
@@ -82,31 +89,27 @@ $subTotal = $total - ($total*TAX);
     </section>
     <section class="shopify-cart checkout-wrap padding-large">
       <div class="container">
-        <form class="form-group">
+        <form class="form-group" method="post" action="checkout.php">
           <div class="row d-flex flex-wrap">
             <div class="col-lg-6">
               <h2 class="display-7 text-uppercase text-dark pb-4">Billing Details</h2>
               <div class="billing-details">
                 <label for="fname">First Name*</label>
-                <input type="text" id="fname" name="firstname" class="form-control mt-2 mb-4 ps-3">
+                <input type="text" id="fname" name="firstname" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getFirstName(); ?>">
                 <label for="lname">Last Name*</label>
-                <input type="text" id="lname" name="lastname" class="form-control mt-2 mb-4 ps-3">
+                <input type="text" id="lname" name="lastname" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getLastName(); ?>">
                 <label for="cname">Country / Region*</label>
-                <select class="form-select form-control mt-2 mb-4" aria-label="Default select example">
-                  <option selected="" hidden="">United States</option>
-                  <option value="1">UK</option>
-                  <option value="2">Australia</option>
-                  <option value="3">Canada</option>
-                </select>
+                <input type="text" id="lname" name="lastname" class="form-control mt-2 mb-4 ps-3" value="">
+
                 <label for="city">Town / City *</label>
                 <input type="text" id="city" name="city" class="form-control mt-3 ps-3 mb-4">
                 <label for="address">Address*</label>
                 <input type="text" id="adr" name="address" placeholder="House number and street name" class="form-control mt-3 ps-3 mb-3">
-                <input type="text" id="adr" name="address" placeholder="Appartments, suite, etc." class="form-control ps-3 mb-4">
+               
                 <label for="email">Phone *</label>
-                <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3">
+                <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getTelephone(); ?>">
                 <label for="email">Email address *</label>
-                <input type="text" id="email" name="email" class="form-control mt-2 mb-4 ps-3">
+                <input type="text" id="email" name="email" class="form-control mt-2 mb-4 ps-3" value="<?php echo $currentUser->getEmail(); ?>">
               </div>
             </div>
             <div class="col-lg-6">
@@ -177,7 +180,7 @@ $subTotal = $total - ($total*TAX);
                       </span>
                     </label>
                   </div>
-                  <button type="submit" name="submit" class="btn btn-dark btn-medium text-uppercase btn-rounded-none" style="margin-left: 200px;">Place an order</button>
+                  <button type="submit" name="placeOrder" class="btn btn-dark btn-medium text-uppercase btn-rounded-none" style="margin-left: 200px;">Place an order</button>
                 </div>
               </div>
             </div>
