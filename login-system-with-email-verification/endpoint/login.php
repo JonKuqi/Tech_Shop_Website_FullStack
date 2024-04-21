@@ -11,7 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch();
-        $password = md5($_POST['password']);
+        $stored_password = $row['password'];
+        
         if ($password === $stored_password) {
             echo "
             <script>
