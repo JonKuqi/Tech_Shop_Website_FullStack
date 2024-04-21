@@ -133,13 +133,14 @@ if(isset($_POST['placeOrder'])){
 
   }
   fclose($file);
-if(($currentUser->getAddress() != null)){
+
+if(($currentUser->getAddress() != null) && ($currentUser->getId() != 0 )){
   $userAdress = new Adress($currentUser->getId(),$adress,$city,$country,$zip);
   $file3 = fopen("WebsiteData/adress.txt","a") or die("Error");
   fwrite($file3,$userAdress->formatToFile());
   fclose($file3);
 }
-  if($payWithBank && ($currentUser->getPayment() != null)){
+  if($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 0 )){
       //shton user Payment
       $file2 = fopen("WebsiteData/userPayment.txt","a") or die("Error");
       $userPayment = new UserPayment($currentUser->getId(),$provider,$acc_number,$expiryDate);
