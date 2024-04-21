@@ -204,6 +204,7 @@ if (isset($_GET['clearCookies'])) {
 ?>
 
 
+
 <?php
 session_start();
 
@@ -471,7 +472,8 @@ if(empty($products)){
 
 
 
-  <form method="post" class="d-flex" action="shop.php"> 
+
+<form method="post" class="d-flex" action="shop.php"> 
     <!-- Shfaq numrin e vizitave për kategoritë e zgjedhura -->
     <?php
     if (isset($_SESSION['category_visits'])) {
@@ -480,7 +482,7 @@ if(empty($products)){
         }
     }
     ?> 
-    </form> 
+</form> 
 
 
                 </ul>
