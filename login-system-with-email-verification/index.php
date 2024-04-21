@@ -160,9 +160,9 @@ function validateForm() {
 
     // Validimi për numrin e kontaktit
     var contactNumber = document.getElementById('contactNumber').value;
-    var contactNumberPattern = /^[0-9]{7,11}$/;
+    var contactNumberPattern = /^[0-9]{6,11}$/;
     if (!contactNumberPattern.test(contactNumber)) {
-        alert("Invalid input. Only numbers allowed, 10-11 digits");
+        alert("Invalid input. Only numbers allowed, 6-11 digits");
         return false;
     }
 
@@ -176,9 +176,9 @@ function validateForm() {
 
     // Validimi për emrin e përdoruesit
     var username = document.getElementById('registerUsername').value;
-    var usernamePattern = /^[A-Za-z0-9]{4,16}$/;
+    var usernamePattern = /^[A-Za-z0-9]{3,16}$/;
     if (!usernamePattern.test(username)) {
-        alert("Invalid input. Only letters and numbers allowed, 4-16 characters");
+        alert("Invalid input. Only letters and numbers allowed, 3-16 characters");
         return false;
     }
 
@@ -190,7 +190,7 @@ function validateForm() {
         return false;
     }
 
-    return true; // Kthe true nëse të gjitha validimet janë kaluar
+    return true; 
 }
 </script>
 
