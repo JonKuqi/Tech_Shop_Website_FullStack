@@ -306,7 +306,7 @@ $recommendProducts = recommendProducts($products);
         </div>
       </div>
       <div class="swiper-icon swiper-arrow swiper-arrow-next">
-        <svg class="chevron-left">
+        <svg class="chevron-right">
           <use xlink:href="#chevron-right" />
         </svg>
       </div>
@@ -577,7 +577,7 @@ $recommendProducts = recommendProducts($products);
                 <div class="swiper-slide text-center d-flex justify-content-center">
                   <div class="review-item col-md-10">
                     <i class="icon icon-review"></i>
-                    <blockquote>“Tempus oncu enim pellen tesque este pretium in neque, elit morbi sagittis lorem habi mattis Pellen tesque pretium feugiat vel morbi suspen dise sagittis lorem habi tasse morbi.”</blockquote>
+                    <blockquote>“Couldn't be happier with my recent purchase from Ministore. The quality of the product exceeded my expectations, and the customer service was top-notch. Thank you!”</blockquote>
                     <div class="rating">
                       <svg class="star star-fill">
                         <use xlink:href="#star-fill"></use>
