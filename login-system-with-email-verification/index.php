@@ -140,6 +140,61 @@ if (isset($_POST['submit'])) {
 
 </div>
 
+<script>
+function validateForm() {
+    // Validimi për emrin e parë
+    var firstName = document.getElementById('firstName').value;
+    var firstNamePattern = /^[A-Za-z]{2,32}$/;
+    if (!firstNamePattern.test(firstName)) {
+        alert("Invalid input. Only letters allowed, max length 32");
+        return false;
+    }
+
+    // Validimi për mbiemrin
+    var lastName = document.getElementById('lastName').value;
+    var lastNamePattern = /^[A-Za-z]{2,32}$/;
+    if (!lastNamePattern.test(lastName)) {
+        alert("Invalid input. Only letters allowed, max length 32");
+        return false;
+    }
+
+    // Validimi për numrin e kontaktit
+    var contactNumber = document.getElementById('contactNumber').value;
+    var contactNumberPattern = /^[0-9]{7,11}$/;
+    if (!contactNumberPattern.test(contactNumber)) {
+        alert("Invalid input. Only numbers allowed, 10-11 digits");
+        return false;
+    }
+
+    // Validimi për adresën email
+    var email = document.getElementById('email').value;
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+        alert("Invalid email address");
+        return false;
+    }
+
+    // Validimi për emrin e përdoruesit
+    var username = document.getElementById('registerUsername').value;
+    var usernamePattern = /^[A-Za-z0-9]{4,16}$/;
+    if (!usernamePattern.test(username)) {
+        alert("Invalid input. Only letters and numbers allowed, 4-16 characters");
+        return false;
+    }
+
+    // Validimi për fjalëkalimin
+    var password = document.getElementById('registerPassword').value;
+    var passwordPattern = /^.{8,}$/;
+    if (!passwordPattern.test(password)) {
+        alert("Password must be at least 8 characters long");
+        return false;
+    }
+
+    return true; // Kthe true nëse të gjitha validimet janë kaluar
+}
+</script>
+
+
  <script>
         const loginForm = document.getElementById('loginForm');
         const registrationForm = document.getElementById('registrationForm');
