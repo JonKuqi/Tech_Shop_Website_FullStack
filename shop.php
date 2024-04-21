@@ -468,18 +468,21 @@ if(empty($products)){
         
 </form>
 
-<form method="post" class="d-flex" action="shop.php"> 
-    
+<button id="showFormButton">Shfaq formën për numrin e vizitave</button>
+
+<form id="visitForm" method="post" class="d-flex" action="shop.php" style="display: none;"> 
+    <!-- Pjesa e filtrimit -->
+    <button type="submit">Filtro</button>
+
     <?php
-    if (isset($_SESSION['category_visits'])) {
+    // Shfaq numrin e vizitave për kategoritë e zgjedhura nëse është dërguar forma
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['category_visits'])) {
         foreach ($_SESSION['category_visits'] as $category => $visits) {
-            echo ' <p>Number of visits for ' . $category . ' : ' . $visits . '</p><br>';
+            echo '<p>Numri i vizitave për ' . $category . ': ' . $visits . '</p>';
         }
     }
-    ?> 
- </form> 
-
-               
+    ?>
+</form>     
 
 
                 </ul>
