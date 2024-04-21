@@ -1,3 +1,6 @@
+
+
+
 <?php
 include('../conn/conn.php');
 
@@ -33,19 +36,19 @@ function SaveUserInfo($row) {
         $_SESSION['first_name'],
         $_SESSION['last_name'],
         $_SESSION['contact_number'],
-        $_SESSION['email']
+        $_SESSION['email'],"\n"
     ));
 
     // Shkrimi i të dhënave të sesionit në file
-    fwrite($file, $sessionData);
-    
+    fwrite($file, $sessionData . PHP_EOL);
+    echo "";
     // Mbyllja e file-it
     fclose($file);
+
 
     // Kthimi i një mesazhi për konfirmim
     
 }
-
 if (isset($_POST['register'])) {
     try {
         $firstName = $_POST['first_name'];
@@ -100,16 +103,10 @@ if (isset($_POST['register'])) {
             $mail->send();
             
             session_start();
-            $_SESSION['user_id'] = $row['tbl_user_id'];
-            $_SESSION['username'] =$row['username'];
-            $_SESSION['password'] =$row['password'];
-            $_SESSION['first_name'] = $row['first_name'];
-            $_SESSION['last_name'] = $row['last_name'];
-            $_SESSION['contact_number'] =  $row['contact_number'];
-            $_SESSION['email'] =  $row['email'] ;
-            $_SESSION['logged_in']=true;
+    
+            $userVerificationID = $conn->lastInsertId();
+            $_SESSION['user_verification_id'] = $userVerificationID;
 
-          SaveUserInfo($row);
             echo "
             <script>
                 alert('Check your email for verification code.');
@@ -122,7 +119,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('User Already Exists');
-                window.location.href = 'http://localhost/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/login-system-with-email-verification/index.php';
             </script>
             ";
         }
@@ -162,12 +159,9 @@ if (isset($_POST['verify'])) {
             $_SESSION['contact_number'] =  $row['contact_number'];
             $_SESSION['email'] =  $row['email'] ;
             $_SESSION['logged_in']=true;
+  
+SaveUserInfo($row);
 
-
-            $file = fopen("../../WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
-            $sessionData = implode('|', array($_SESSION['user_id'], $_SESSION['username'], $_SESSION['password'], $_SESSION['first_name'], $_SESSION['last_name'], $_SESSION['contact_number'], $_SESSION['email']));
-
-            fwrite($file, $sessionData);
             echo "
             <script>
                 alert('Registered Successfully.');
@@ -182,7 +176,7 @@ if (isset($_POST['verify'])) {
             echo "
             <script>
                 alert('Incorrect Verification Code. Register Again.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/login-system-with-email-verification/index.php'';
             </script>
             ";
         }
