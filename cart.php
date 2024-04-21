@@ -75,7 +75,7 @@ foreach($userCart as $c){
 }
 
 
-const TAX = 0.18;
+define('TAX', 0.18);
 
 $subTotal = $total - ($total*TAX);
 

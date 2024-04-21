@@ -20,6 +20,10 @@ if($p instanceof OtherBrands){
 }
 }
 
+krsort($smartPhones);
+krsort($smartWatches);
+krsort($laptop);
+krsort($otherBrands);
 
 include("Data-Objects/recomendProducts.php");
 
