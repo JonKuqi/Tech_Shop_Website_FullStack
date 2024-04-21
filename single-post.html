@@ -336,18 +336,22 @@ Welcome to our Laptop Technology Hacks section, where we unveil the secrets to m
                             <div class="col-lg-1 col-sm-3 me-4 mb-3">
                               <img src="images/commentor-item1.jpg" alt="default" class="img-fluid">
                             </div>
-                            <div class="col-lg-10 col-sm-9 author-wrap">
-                              <div class="author-post">
-                                <div class="comment-meta d-flex">
-                                  <div class="author-name fw-bold text-uppercase pe-1">Sam Smith</div>
-                                  <span class="meta-date">Jul 10</span>
-                                </div>
-                                <p class="no-margin">Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus. Tortor diam dignissim amet, in interdum aliquet. Nascetur libero elementum adipiscing mauris maecenas et magna.</p>
-                                <div class="comments-reply">
-                                  <a href="#" class="btn btn-normal text-primary">Reply Now</a>
-                                </div>
-                              </div>
-                            </div>
+                           <div class="col-lg-10 col-sm-9 author-wrap">
+    <div class="author-post">
+        <div class="comment-meta d-flex">
+            <div class="author-name fw-bold text-uppercase pe-1">Sam Smith</div>
+            <span class="meta-date">Jul 10</span>
+        </div>
+        <p class="no-margin">Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus. Tortor diam dignissim amet, in interdum aliquet. Nascetur libero elementum adipiscing mauris maecenas et magna.</p>
+        <div class="comments-reply">
+            <a href="#" class="btn btn-normal text-primary reply-button">Reply Now</a>
+            <form class="reply-form" action="reply.php" method="post" style="display: none;">
+                <textarea name="comment" class="form-control" rows="3" placeholder="Write your comment"></textarea>
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
                           </article>
                           <article class="comment-item d-flex child-comments flex-wrap ps-5 mb-3">
                             <div class="col-lg-1 col-sm-3 me-4 mb-3">
@@ -668,6 +672,14 @@ Welcome to our Laptop Technology Hacks section, where we unveil the secrets to m
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".reply-button").click(function() {
+            $(this).next(".reply-form").toggle();
+        });
+    });
+</script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/single-post.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:59 GMT -->
