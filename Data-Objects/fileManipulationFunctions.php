@@ -200,6 +200,12 @@ function removeItemCart(int $id){
     }
     fclose($file);
 
-  }
+}
+
+
+
+function updateCart($items){
+     
+}  
   
 ?>

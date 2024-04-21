@@ -5,10 +5,10 @@
 include("Data-Objects/fileManipulationFunctions.php");
 
 
-
 $products = arrayProductsFromFile();
 $users = arrayUsersFromFile();
 
+//marrja produktit nga shop 
 if (isset($_GET['product'])) $linkchoice=$_GET['product'];
 else $linkchoice='';
 
@@ -41,6 +41,7 @@ if ($product instanceof SmartPhone) {
 $currentUser = $users[0];
 $reviews = arrayReviewsFromFile();
 
+if(isset($_POST['rate'])){
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $context = $_POST['context'];
@@ -51,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  echo '<script>alert("You have succesfully added a review!");</script>';
  header("Refresh:0");
 }
-
+}
 
 
 //Reviews
@@ -83,7 +84,13 @@ $productRating = $sumRating/count($productReviews);
 if(isset($_POST['add-to-cart'])){
    $quantity = $_POST['quantity'];
       addProductToShopingCard($product,$currentUser,$quantity);
+      echo '<script>alert("You have succesfully added to Cart!");</script>';
+   
 }
+
+
+
+
 
 ?>
 

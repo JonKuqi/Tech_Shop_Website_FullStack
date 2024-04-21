@@ -9,7 +9,21 @@ $products = arrayProductsFromFile();
 
 //Produket dhe useri duhen marr nga sessioni
 $product1 = $products[0];
-$currentUser = $users[0];
+$currentUser = new User(0,"Guest","","","","","");
+
+if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
+$user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
+$password = $_SESSION['password'];
+$first_name = $_SESSION['first_name'];
+$last_name = $_SESSION['last_name'];
+$contact_number = $_SESSION['contact_number'];
+$email = $_SESSION['email'];
+
+
+$currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
+
+}
 
 
 //Quantity duhet mu marr nga sessioni ne Single Product
@@ -27,6 +41,15 @@ if(isset($_POST['remove'])){
 }
 
 
+if(isset($_GET['product'])){
+   foreach($products as $p){
+    if($_GET['product']== $p->getId()){
+          addProductToShopingCard($p,$currentUser,1);
+    }
+   
+}
+}
+
 
 $allCartsItems = arrayShopingCartFromFile();
 
@@ -40,6 +63,7 @@ foreach($allCartsItems as $c){
     array_Push($userCart,$c);
   }
 }
+
 
 
 
@@ -199,6 +223,7 @@ foreach($userCart as $c){
               <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
               <a href="shop.php" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</a>
               <a href="checkout.php" class="btn btn-black btn-medium text-uppercase mb-3 btn-rounded-none">Proceed to checkout</a>
+
             </div>
           </div>
         </div>

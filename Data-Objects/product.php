@@ -94,7 +94,7 @@ class SmartPhone extends Product {
        <div class="cart-concern position-absolute">
          <div class="cart-button d-flex">
            <div class="btn-left">
-             <a href="cart.php" class="btn btn-medium btn-black">Add to Cart</a>
+             <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
              <svg class="cart-outline position-absolute">
                <use xlink:href="#cart-outline"></use>
              </svg>
@@ -128,7 +128,7 @@ class SmartPhone extends Product {
 </div>
 <div class="cart-concern position-absolute">
   <div class="cart-button d-flex">
-    <a href="cart.php" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+    <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
   </div>
 </div>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
@@ -214,14 +214,14 @@ class SmartWatch extends Product{
       $finalPrice = $this->getPrice();
      echo '  <div class="col-lg-4 col-md-6">
      <div class="product-card position-relative pe-3 pb-3">
-     <a href="single-product.php?product='.$this->getId().'".>
+     <a href="single-product.php?product='.$this->getId().'">
        <div class="image-holder">
          <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
        </div>
        <div class="cart-concern position-absolute">
          <div class="cart-button d-flex">
            <div class="btn-left">
-             <a href="cart.php" class="btn btn-medium btn-black">Add to Cart</a>
+             <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
              <svg class="cart-outline position-absolute">
                <use xlink:href="#cart-outline"></use>
              </svg>
@@ -254,7 +254,7 @@ class SmartWatch extends Product{
 </div>
 <div class="cart-concern position-absolute">
 <div class="cart-button d-flex">
-<a href="cart.php" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+<a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
 </div>
 </div>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
@@ -333,19 +333,18 @@ class Laptop extends Product {
            parent::getDiscount().'|'.
           "$this->brand|$this->short_description|$this->long_description\n";
   }
-
   public function showInShop(){
     $finalPrice = $this->getPrice();
    echo '  <div class="col-lg-4 col-md-6">
    <div class="product-card position-relative pe-3 pb-3">
    <a href="single-product.php?product='.$this->getId().'">
-     <div class="image-holder" style="overflow:hidden;" >
-       <img src="'.$this->images[0].'" " alt="product-item" class="img-fluid">
+     <div class="image-holder">
+       <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
      </div>
      <div class="cart-concern position-absolute">
        <div class="cart-button d-flex">
          <div class="btn-left">
-           <a href="cart.php" class="btn btn-medium btn-black">Add to Cart</a>
+           <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
            <svg class="cart-outline position-absolute">
              <use xlink:href="#cart-outline"></use>
            </svg>
@@ -371,6 +370,7 @@ echo '</span>
  
 }
   
+
   public function showInIndex(){
     echo '  <div class="swiper-slide"><div class="product-card position-relative">
     <a href ="single-product.php?product='.$this->getId().'">
@@ -379,7 +379,7 @@ echo '</span>
 </div>
 <div class="cart-concern position-absolute">
 <div class="cart-button d-flex">
-  <a href="cart.php" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+  <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
 </div>
 </div>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
@@ -430,6 +430,9 @@ echo '</span>
   public function getDiscount() { return parent::getDiscount(); }
   public function setDiscount($discount) { parent::setDiscount($discount); }
 }
+
+
+
 class OtherBrands extends Product {
   private $brand;
   private $images = array();
@@ -460,43 +463,44 @@ class OtherBrands extends Product {
           "$this->brand|$this->short_description|$this->long_description\n";
   }
 
-  public function showInShop(){
-    $finalPrice = $this->getPrice();
-   echo '  <div class="col-lg-4 col-md-6">
-   <div class="product-card position-relative pe-3 pb-3">
-   <a href="single-product.php?product='.$this->getId().'">
-     <div class="image-holder">
-       <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
-     </div>
-     <div class="cart-concern position-absolute">
-       <div class="cart-button d-flex">
-         <div class="btn-left">
-           <a href="cart.php" class="btn btn-medium btn-black">Add to Cart</a>
-           <svg class="cart-outline position-absolute">
-             <use xlink:href="#cart-outline"></use>
-           </svg>
-         </div>
+
+public function showInShop(){
+  $finalPrice = $this->getPrice();
+ echo '  <div class="col-lg-4 col-md-6">
+ <div class="product-card position-relative pe-3 pb-3">
+ <a href="single-product.php?product='.$this->getId().'">
+   <div class="image-holder">
+     <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
+   </div>
+   <div class="cart-concern position-absolute">
+     <div class="cart-button d-flex">
+       <div class="btn-left">
+         <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
+         <svg class="cart-outline position-absolute">
+           <use xlink:href="#cart-outline"></use>
+         </svg>
        </div>
      </div>
-     <div class="card-detail d-flex justify-content-between pt-3 pb-3">
-       <h3 class="card-title text-uppercase">
-         <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
-       </h3>
-       <span class="item-price text-primary" style="font-size:25px">';
-       if($this->getDiscount() != 0.0){
-              echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
-       }else{
-         echo $this->getPrice()."€";
-       }    
+   </div>
+   <div class="card-detail d-flex justify-content-between pt-3 pb-3">
+     <h3 class="card-title text-uppercase">
+       <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
+     </h3>
+     <span class="item-price text-primary" style="font-size:25px">';
+     if($this->getDiscount() != 0.0){
+            echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+     }else{
+       echo $this->getPrice()."€";
+     }    
 echo '</span>
-     </div>
-     </a>
-   </div>                  
- </div> ';
+   </div>
+   </a>
+ </div>                  
+</div> ';
 
- 
+
 }
-  
+
   public function showInIndex(){
     echo '  <div class="swiper-slide"><div class="product-card position-relative">
     <a href ="single-product.php?product='.$this->getId().'">
@@ -505,7 +509,7 @@ echo '</span>
 </div>
 <div class="cart-concern position-absolute">
 <div class="cart-button d-flex">
-  <a href="cart.php" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+  <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
 </div>
 </div>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">

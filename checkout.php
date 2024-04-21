@@ -1,4 +1,67 @@
-<?php  include("includes/header.php");?>
+<?php  include("includes/header.php");
+include("Data-Objects/fileManipulationFunctions.php");
+
+
+
+session_start();
+
+
+
+//Guest Mode
+$currentUser = new User(0,"Guest","","","","","");
+
+if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
+$user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
+$password = $_SESSION['password'];
+$first_name = $_SESSION['first_name'];
+$last_name = $_SESSION['last_name'];
+$contact_number = $_SESSION['contact_number'];
+$email = $_SESSION['email'];
+
+
+$currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
+
+}
+
+
+$allCartsItems = arrayShopingCartFromFile();
+$userCart = [];
+
+foreach($allCartsItems as $c){
+  if($c->getUser()->getId() == $currentUser->getId()){
+    array_Push($userCart,$c);
+  }
+}
+
+
+
+
+$total = 0;
+foreach($userCart as $c){
+  $total+= (($c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount()))*$c->getQuantity());
+}
+
+
+const TAX = 0.18;
+
+$subTotal = $total - ($total*TAX);
+
+
+
+
+
+
+
+
+
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
   
@@ -58,11 +121,11 @@
                   <table cellspacing="0" class="table">
                     <tbody>
                       <tr class="subtotal border-top border-bottom pt-2 pb-2 text-uppercase">
-                        <th>Subtotal</th>
+                        <th>Total before tax</th>
                         <td data-title="Subtotal">
                           <span class="price-amount amount text-primary ps-5">
                             <bdi>
-                              <span class="price-currency-symbol">$</span>2,370.00 </bdi>
+                              <span class="price-currency-symbol">$</span><?php echo $subTotal; ?></bdi>
                           </span>
                         </td>
                       </tr>
@@ -71,7 +134,7 @@
                         <td data-title="Total">
                           <span class="price-amount amount text-primary ps-5">
                             <bdi>
-                              <span class="price-currency-symbol">$</span>2,370.00 </bdi>
+                              <span class="price-currency-symbol">$</span><?php echo $total; ?></bdi>
                           </span>
                         </td>
                       </tr>
