@@ -320,7 +320,7 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
           <div class="display-header d-flex justify-content-between pb-3">
             <h2 class="display-7 text-dark text-uppercase">Latest Posts</h2>
             <div class="btn-right">
-              <a href="blog.html" class="btn btn-medium btn-normal text-uppercase">Read Blog</a>
+             
             </div>
           </div>
           <div class="post-grid d-flex flex-wrap justify-content-between">
