@@ -20,11 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </script>
             "; 
             session_start();
+            $_SESSION['user_id'] = $row['tbl_user_id'];
+            $_SESSION['username'] =$row['username'];
+            $_SESSION['password'] =$row['password'];
             $_SESSION['first_name'] = $row['first_name'];
             $_SESSION['last_name'] = $row['last_name'];
             $_SESSION['contact_number'] =  $row['contact_number'];
             $_SESSION['email'] =  $row['email'] ;
-            $_SESSION['username'] =$row['username'];
             $_SESSION['logged_in']=true;
         } else {
             echo "

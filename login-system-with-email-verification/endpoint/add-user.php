@@ -112,17 +112,20 @@ if (isset($_POST['verify'])) {
         if ($codeExist && $codeExist['verification_code'] == $verificationCode) {
             session_destroy();
             session_start();
+            $_SESSION['user_id'] = $row['tbl_user_id'];
+            $_SESSION['username'] =$row['username'];
+            $_SESSION['password'] =$row['password'];
             $_SESSION['first_name'] = $row['first_name'];
             $_SESSION['last_name'] = $row['last_name'];
             $_SESSION['contact_number'] =  $row['contact_number'];
             $_SESSION['email'] =  $row['email'] ;
-            $_SESSION['username'] =$row['username'];
             $_SESSION['logged_in']=true;
 
-            $file = fopen("../../WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
-            $sessionString = implode('|', $_SESSION) . "\n";
-            fwrite($file, $sessionString);
 
+            $file = fopen("../../WebsiteData/users.txt",'a') or die("Error gjate hapjes...");
+            $sessionData = implode('|', array($_SESSION['user_id'], $_SESSION['username'], $_SESSION['password'], $_SESSION['first_name'], $_SESSION['last_name'], $_SESSION['contact_number'], $_SESSION['email']));
+
+            fwrite($file, $sessionData);
             echo "
             <script>
                 alert('Registered Successfully.');
