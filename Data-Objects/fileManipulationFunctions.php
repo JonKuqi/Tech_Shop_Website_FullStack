@@ -178,7 +178,7 @@ function addProductToShopingCard(Product $product, User $currentUser, $quantity)
     $file = fopen("WebsiteData/shoping_cart.txt",'a') or die("Error gjate hapjes...");
     fwrite($file, $shopingCardItem->formatToFile());
     fclose($file);
-  }
+}
   
 
 

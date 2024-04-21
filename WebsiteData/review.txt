@@ -6,3 +6,4 @@
 6|3|1|5|Very good
 7|3|1|5|Very good
 8|3|0|5|Very good
+8|1|7|5|Good phone

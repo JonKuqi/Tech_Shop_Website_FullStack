@@ -1,3 +1,2 @@
-6|4|3|1|Kosova|Suhareke|Skenderbeu|23000||bank|Reiffeizen|10000000|2025
-7|4|5|1|Kosova|Suhareke|Skenderbeu|23000||bank|Reiffeizen|10000000|2025
-8|4|2|1|Kosova|Suhareke|Skenderbeu|23000||bank|Reiffeizen|10000000|2025
+2|7|3|1|Kosovo|Prishtina|Skenderbeu|23000|Notes|bank|Reiffeizen|5432434|2025
+2|7|3|1|Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|515191|202666666

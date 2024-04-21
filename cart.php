@@ -27,7 +27,9 @@ $email = $_SESSION['email'];
 $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
 
 }
-var_dump($currentUser);
+
+echo '<script>'.var_dump($currentUser).'</script>';
+
 
 //Quantity duhet mu marr nga sessioni ne Single Product
 $quantity = 10;
@@ -61,11 +63,15 @@ $allCartsItems = arrayShopingCartFromFile();
 
 $userCart = [];
 
+
 foreach($allCartsItems as $c){
+
   if($c->getUser()->getId() == $currentUser->getId()){
     array_Push($userCart,$c);
+  
   }
 }
+
 
 ksort($userCart);
 

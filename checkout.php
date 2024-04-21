@@ -6,11 +6,6 @@ include("includes/header.php");
 include("Data-Objects/fileManipulationFunctions.php");
 
 
-
-
-
-
-
 //Guest Mode
 $currentUser = new User(0,"Guest","","","","","");
 
