@@ -66,6 +66,7 @@ foreach($allCartsItems as $c){
   }
 }
 
+ksort($userCart);
 
 $total = 0;
 foreach($userCart as $c){
