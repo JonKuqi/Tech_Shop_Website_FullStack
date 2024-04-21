@@ -35,7 +35,10 @@ function arrayProductsFromFile(){
      }else if($parts[1] > 2000 && $parts[1] <= 3000){
      $product = new SmartWatch($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
      array_push($arrayProducts, $product);
-     }
+     }else if($parts[1] > 3000 && $parts[1] <= 4000){
+        $product = new Laptop($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
+        array_push($arrayProducts, $product);
+        }
     }
     
 }

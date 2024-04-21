@@ -28,6 +28,8 @@ if ($product instanceof SmartPhone) {
   $category = "Smart Phone";
 }elseif($product instanceof SmartWatch){
   $category = "Smart Watch";
+}elseif($product instanceof Laptop){
+  $category = "Laptop";
 }
 
 

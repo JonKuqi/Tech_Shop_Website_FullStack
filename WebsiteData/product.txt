@@ -8,3 +8,7 @@
 8|2050|750|10|2024|BLACK WATCH|0.2|Apple|Short Description|Long Description.
 9|1010|1300|10|2024|IPHONE 12|0.2|Apple|Short Description|Long Description.
 10|1100|1300|10|2024|IPHONE 15|0.2|Apple|Short Description|Long Description.
+11|3010|750|10|2024|Laptop|0.2|Apple|Short Description|Long Description.
+12|3020|860|10|2024|Laptop|0.2|Apple|Short Description|Long Description.
+13|3040|4000|10|2024|Laptop|0.2|Apple|Short Description|Long Description.
+14|3050|3500|10|2024|Laptop|0.2|Apple|Short Description|Long Description.

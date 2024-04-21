@@ -9,3 +9,7 @@ imgid, pid, path
 8|8|images/product-item9.jpg
 9|9|images/product-item5.jpg
 10|10|images/product-item5.jpg
+11|11|images/product-item11.jpg
+12|12|images/product-item12.jpg
+13|13|images/product-item13.jpg
+14|14|images/product-item14.jpg

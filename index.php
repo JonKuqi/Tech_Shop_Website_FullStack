@@ -4,7 +4,7 @@
 include("Data-Objects/fileManipulationFunctions.php");
 
 $products = arrayProductsFromFile();
-$smartPhones  = []; $smartWatches = [];
+$smartPhones  = []; $smartWatches = []; $laptop = [];
 foreach($products as $p){
   if($p instanceof SmartPhone){
      array_push($smartPhones,$p);
@@ -12,6 +12,9 @@ foreach($products as $p){
   if($p instanceof SmartWatch){
     array_push($smartWatches,$p);
  }
+ if($p instanceof Laptop){
+  array_push($laptop,$p);
+}
 }
 
 
@@ -468,7 +471,9 @@ $recommendProducts = recommendProducts($products);
               
             <?php
             
-               echo "Llaptopat";
+            foreach($laptop as $s){
+              $s->showInIndex();
+            }
                ?>
 
             </div>

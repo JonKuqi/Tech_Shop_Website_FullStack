@@ -17,6 +17,9 @@ function addProductCookie(Product $product) {
     if ($product instanceof SmartWatch) {
         $category = "smart watch";
     }
+    if ($product instanceof Laptop) {
+        $category = "laptop";
+    }
     array_push($oldProducts, $category);
 
     $newProducts = serialize($oldProducts);   

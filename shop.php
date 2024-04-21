@@ -111,14 +111,14 @@ if(isset($_POST['category'])){
           }
         }
       }
-      //if($value == "laptop"){
-      //  $laptopCheck = "checked";
-      //  foreach($products as $p){
-       //   if($p instanceof SmartWatch){
-       //     array_push($temp, $p);
-       //   }
-       // }
-      //}
+      if($value == "laptop"){
+        $laptopCheck = "checked";
+        foreach($products as $p){
+         if($p instanceof Laptop){
+            array_push($temp, $p);
+         }
+        }
+      }
 
      }
 
