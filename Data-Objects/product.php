@@ -303,6 +303,7 @@ echo '</span>
     public function getDiscount() { return parent::getDiscount(); }
     public function setDiscount($discount) { parent::setDiscount($discount); }
 }
+
 class Laptop extends Product {
   private $brand;
   private $images = array();
@@ -338,8 +339,8 @@ class Laptop extends Product {
    echo '  <div class="col-lg-4 col-md-6">
    <div class="product-card position-relative pe-3 pb-3">
    <a href="single-product.php?product='.$this->getId().'">
-     <div class="image-holder">
-       <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
+     <div class="image-holder" style="overflow:hidden;" >
+       <img src="'.$this->images[0].'" " alt="product-item" class="img-fluid">
      </div>
      <div class="cart-concern position-absolute">
        <div class="cart-button d-flex">

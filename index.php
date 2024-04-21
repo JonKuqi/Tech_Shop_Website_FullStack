@@ -29,8 +29,6 @@ $recommendProducts = recommendProducts($products);
 
 
 
-
-
 ?>
 
 
