@@ -1,3 +1,28 @@
+<?php
+
+
+if(isset($_GET['logout'])){
+    if( isset($_SESSION['logged_in'])){
+        
+     session_destroy();
+        unset($_SESSION['logged_in']);
+        unset($_SESSION['username']);
+        unset($_SESSION['password'] );
+        unset($_SESSION['first_name'] );
+        unset($_SESSION['last_name'] );
+        unset($_SESSION['contact_number'] );
+        unset($_SESSION['email'] );
+      
+        header('location: ../login-system-with-email-verification/index.php');
+        exit;
+    }
+}
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
   
@@ -103,16 +128,16 @@
                 </li>
             
                
-                <li class="nav-item">
+              <li class="nav-item">
                   <div class="user-items ps-5">
                     <ul class="d-flex justify-content-end list-unstyled">
                       <li class="search-item pe-3">
-                        <a href="#" class="search-button">
-                          <svg class="search">
-                            <use xlink:href="#search"></use>
-                          </svg>
-                        </a>
-                      </li>
+                      <li class="nav-item">
+                  <a class="nav-link me-4" href="login-system-with-email-verification/index.php?logout=1">Log Out</a>
+                      </li>                    
+                    
+              
+                        
                       <li class="pe-3">
                         <a href="login-system-with-email-verification/index.php">
                           <svg class="user">
