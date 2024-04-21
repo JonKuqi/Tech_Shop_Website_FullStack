@@ -85,31 +85,5 @@ class Review {
     public function setContext($context) { $this->context = $context; }
 }
 
-class ReviewLikes {
-    private $id;
-    private $user;
-    private $review;
-
-    public function __construct($id, User $user, Review $review) {
-        $this->id = $id;
-        $this->user = $user;
-        $this->review = $review;
-        $this->review->LikedFromUser($user);
-    }
-
-    public function __destruct() {}
-
-    public function formatToFile() {
-        return "$this->id|{$this->user->getId()}|{$this->review->getId()}\n";
-    }
- // Getters dhe setters
-    public function getId() { return $this->id; }
-    public function getUser() { return $this->user; }
-    public function getReview() { return $this->review; }
-
-    public function setId($id) { $this->id = $id; }
-    public function setUser($user) { $this->user = $user; }
-    public function setReview($review)  { $this->review = $review; }
-}
 
 ?>

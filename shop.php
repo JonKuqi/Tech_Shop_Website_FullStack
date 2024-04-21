@@ -487,57 +487,22 @@ if(empty($products)){
 
                 </ul>
               </div>
-              <div class="widget-product-tags pt-3">
-                <h5 class="widget-title text-decoration-underline text-uppercase">Tags</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="#">White</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Cheap</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Mobile</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">Modern</a>
-                  </li>
-                </ul>
-              </div>
+             
               <div class="widget-product-brands pt-3">
                 <h5 class="widget-title text-decoration-underline text-uppercase">Brands</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
                   <li class="tags-item">
-                    <a href="#">Apple</a>
+                    <a href="shop.php?search=apple">Apple</a>
                   </li>
                   <li class="tags-item">
-                    <a href="#">Samsung</a>
+                    <a href="shop.php?search=samsung">Samsung</a>
                   </li>
                   <li class="tags-item">
-                    <a href="#">Huwai</a>
+                    <a href="shop.php?search=Huawei">Huwei</a>
                   </li>
                 </ul>
               </div>
-              <div class="widget-price-filter pt-3">
-                <h5 class="widget-titlewidget-title text-decoration-underline text-uppercase">Filter By Price</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="#">Less than $10</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$10- $20</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$20- $30</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$30- $40</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="#">$40- $50</a>
-                  </li>
-                </ul>
-              </div>
+              
             </div>
           </aside>
         </div>

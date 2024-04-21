@@ -10,7 +10,7 @@ abstract class Product {
     protected $time_added;
     protected $name;
     protected $discount; // prej 0 ne 1
-    protected $tags = array();
+
     protected $reviews = array();
     public static $tax = 0.18;
 
@@ -29,11 +29,11 @@ abstract class Product {
         echo "<script>console.log('Destruktori')</script>";
     }
     public abstract function formatToFile();
-    public function addTag(Tag $tag){ array_push($this->tags,$tag); }
+   
     public function addReview(Review $review){ array_push($this->reviews, $review);}
 
 //getters dhe setters
-    public function getTags(){ return $this->tags; }
+   
     public function getId() { return $this->pid; }
     public function getSku() { return $this->sku; }
     public function getPrice() { return $this->price; }
@@ -563,52 +563,7 @@ echo '</span>
 
 
 //Tagu
-class Tag{
-    private $id;
-    private $title;
-    private $products = array();
 
-    public function __construct($id,$title){
-        $this->id = $id;
-        $this->title = $title;
-    }
-    public function addProduct(Product $product){ array_push($this->products,$product); }
-    
-    public function formatToFile(){
-        return "$this->id|$this->title\n";
-    }
 
-//getters dhe setters
-    public function getId() { return $this->id; }
-    public function getTitle() { return $this->title; }
-    public function getProducts() {return $this->products;}
-
-    public function setId($id){ $this->id = $id; }
-    public function setTitle($title){ $this->title = $title;}
-
-}
-
-class ProductTag{
-    private $id;
-    private $tag;
-    private $product;
-
-    public function __construct($id, Product $product, Tag $tag) {
-        $this->id = $id;
-        $this->product = $product;
-        $this->tag = $tag;
-     //shton tagun ne produkt
-        $product->addTag($tag);
-     //shton produktin ne tag
-        $tag->addProduct($product);
-    }
-    public function formatToFile() {
-        return "{$this->product->getId()}|{$this->tag->getId()}\n";
-    }
-
-    public function getId(){ return $this->id;}
-    public function getProduct() { return $this->product; }
-    public function getTag() { return $this->tag; }
-}
 
 ?>
