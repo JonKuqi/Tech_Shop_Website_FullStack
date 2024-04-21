@@ -4,7 +4,7 @@ include("includes/header.php");
 include("Data-Objects/fileManipulationFunctions.php");
 
 $products = arrayProductsFromFile();
-$smartPhones  = []; $smartWatches = []; $laptop = [];
+$smartPhones  = []; $smartWatches = []; $laptop = []; $otherBrands = [];
 foreach($products as $p){
   if($p instanceof SmartPhone){
      array_push($smartPhones,$p);
@@ -14,6 +14,9 @@ foreach($products as $p){
  }
  if($p instanceof Laptop){
   array_push($laptop,$p);
+}
+if($p instanceof OtherBrands){
+  array_push($otherBrands,$p);
 }
 }
 
@@ -230,7 +233,7 @@ $recommendProducts = recommendProducts($products);
       </div>
       <div class="swiper-pagination position-absolute text-center"></div>
     </section>
-    <section id="smart-watches" class="product-store padding-large position-relative">
+    <section id="laptop" class="product-store padding-large position-relative">
       <div class="container">
         <div class="row">
           <div class="display-header d-flex justify-content-between pb-3">
@@ -245,6 +248,31 @@ $recommendProducts = recommendProducts($products);
             <?php
             
             foreach($laptop as $s){
+              $s->showInIndex();
+            }
+               ?>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination position-absolute text-center"></div>
+    </section>
+    <section id="other-brands" class="product-store padding-large position-relative">
+      <div class="container">
+        <div class="row">
+          <div class="display-header d-flex justify-content-between pb-3">
+            <h2 class="display-7 text-dark text-uppercase">Other Brands</h2>
+            <div class="btn-right">
+              <a href="shop.php" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+            </div>
+          </div>
+          <div class="swiper product-watch-swiper">
+            <div class="swiper-wrapper">
+              
+            <?php
+            
+            foreach($otherBrands as $s){
               $s->showInIndex();
             }
                ?>
