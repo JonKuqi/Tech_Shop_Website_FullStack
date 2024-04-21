@@ -116,14 +116,16 @@ if(isset($_POST['placeOrder'])){
   foreach($userCart as $c){
     if($payWithBank){
       $string = $c->formatForOrder();
-      $toWrite = $string."|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
+      $string = substr($string, 0, -1);
+      $toWrite = "$string|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
       fwrite($file, $toWrite);
 
   
     }
-    if($payWithBank){
+    if(!$payWithBank){
       $string = $c->formatForOrder();
-      $toWrite = $string."|$country|$city|$adress|$zip|$notes|cashOnDelivery\n";  
+      $string = substr($string, 0, -1);
+      $toWrite ="$string|$country|$city|$adress|$zip|$notes|cashOnDelivery\n";  
       fwrite($file, $toWrite);
 
     }
@@ -144,12 +146,11 @@ if(($currentUser->getAddress() != null)){
       fwrite($file2,$userPayment->formatToFile());
       fclose($file2);
   }
-}
-
+  
 echo '<script>alert("You have succesfully Odered!");</script>';
 header("Refresh:0");
 
-
+}
 
 ?>
 
@@ -178,7 +179,7 @@ header("Refresh:0");
     </section>
     <section class="shopify-cart checkout-wrap padding-large">
       <div class="container">
-        <form class="form-group" method="post" action="checkout.php">
+        <form  method="post" action="checkout.php">
           <div class="row d-flex flex-wrap">
             <div class="col-lg-6">
               <h2 class="display-7 text-uppercase text-dark pb-4">Billing Details</h2>
