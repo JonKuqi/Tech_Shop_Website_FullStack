@@ -7,9 +7,10 @@ $products = arrayProductsFromFile();
 $default = $products;
 $sorted = [];
 
-// Default sorting
 $newProducts = $products;
 $byName = true;
+
+
 if(isset($_POST['sortimi']) && !isset($_POST['search'])){
 if($_POST['sortimi'] == "default"){
     $newProducts = $products;
@@ -352,14 +353,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <div class="sort-by">
       <form id="sortingForm" action="shop.php" method="post" >
                 <select name="sortimi" onchange="this.form.submit()" id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
-                  <option value="default" name="default">Sorting Mode</option>
+                  <option value="default" name="default">Default</option>
                   <option value="price low-high" name="price low-high">Price (Low-High)</option>
                   <option value="price high-low" name="price high-low">Price (High-Low)</option>
                   <option value="A-Z" name="A-Z">Name (A - Z)</option>
                   <option value="Z-A" name="Z-A">Name (Z - A)</option>
-                  <option value="rating-highest" name="rating-highest">Rating (Highest)</option>
-                  <option value="rating-lowest" name="rating-lowest">Rating (Lowest)</option>
-                  <option value="relevance" name="relevance">Relevance</option>
+                 
                 
                 </select>
                 

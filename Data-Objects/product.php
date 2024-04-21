@@ -29,7 +29,7 @@ abstract class Product {
     }
     public abstract function formatToFile();
     public function addReview(Review $review){ array_push($this->reviews, $review);}
-    
+
 //getters dhe setters
     public function getId() { return $this->pid; }
     public function getSku() { return $this->sku; }
@@ -117,18 +117,18 @@ class SmartPhone extends Product {
    
  }
     
-    public function showInIndex(){
+public function showInIndex(){
       echo '  <div class="swiper-slide"><div class="product-card position-relative">
       <a href ="single-product.php?product='.$this->getId().'">
-<div class="image-holder">
-  <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
-</div>
-<div class="cart-concern position-absolute">
+       <div class="image-holder">
+    <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
+        </div>
+           <div class="cart-concern position-absolute">
   <div class="cart-button d-flex">
     <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
   </div>
-</div>
-<div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+     </div>
+     <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
   <h3 class="card-title text-uppercase">
     <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
   </h3>
@@ -138,10 +138,10 @@ class SmartPhone extends Product {
   }else{
     echo $this->getPrice()."€";
   }    
-echo '</span>
-</div>
-</a>
-</div></div>';
+   echo '</span>
+ </div>
+   </a>
+   </div></div>';
 }
 
     

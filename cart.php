@@ -27,7 +27,7 @@ $email = $_SESSION['email'];
 $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
 
 }
-
+var_dump($currentUser);
 
 //Quantity duhet mu marr nga sessioni ne Single Product
 $quantity = 10;
@@ -198,6 +198,8 @@ $total = 0;
 foreach($userCart as $c){
   shfaq($c);
   $total+= (($c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount()))*$c->getQuantity());
+
+
 }
 
 ?>
