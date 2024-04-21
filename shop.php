@@ -468,6 +468,17 @@ if(empty($products)){
         
 </form>
 
+<form method="post" class="d-flex" action="shop.php"> 
+    
+    <?php
+    if (isset($_SESSION['category_visits'])) {
+        foreach ($_SESSION['category_visits'] as $category => $visits) {
+            echo ' <p>Number of visits for ' . $category . ' : ' . $visits . '</p><br>';
+        }
+    }
+    ?> 
+ </form> 
+
                
 
 
