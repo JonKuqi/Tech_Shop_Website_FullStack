@@ -204,6 +204,27 @@ if (isset($_GET['clearCookies'])) {
 ?>
 
 
+<?php
+session_start();
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    if (isset($_POST['category']) && is_array($_POST['category'])) {
+        foreach ($_POST['category'] as $category) {
+            if (!isset($_SESSION['category_visits'][$category])) {
+                $_SESSION['category_visits'][$category] = 1; 
+            } else {
+                $_SESSION['category_visits'][$category]++; 
+            }
+        }
+    }
+    
+    session_write_close();
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
   
