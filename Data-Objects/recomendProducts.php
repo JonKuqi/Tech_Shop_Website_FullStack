@@ -20,6 +20,9 @@ function addProductCookie(Product $product) {
     if ($product instanceof Laptop) {
         $category = "laptop";
     }
+    if ($product instanceof OtherBrands) {
+        $category = "other brands";
+    }
     array_push($oldProducts, $category);
 
     $newProducts = serialize($oldProducts);   

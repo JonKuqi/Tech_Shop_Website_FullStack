@@ -17,6 +17,9 @@ foreach($products as $p){
     if($p instanceof Laptop){
         $category = ["laptop","laptop"];
     }
+    if($p instanceof OtherBrands){
+        $category = ["other brands","samsung"];
+    }
     $partsOfName = explode(" ", $p->getName());
     
     foreach($partsOfName as $part){
