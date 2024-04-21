@@ -27,31 +27,6 @@ $email = $_SESSION['email'];
 $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
 
 }
-/*
-public function getId() { return $this->id; }
-public function getStreet() { return $this->street; }
-public function getCity() { return $this->city; }
-public function getState() { return $this->state; }
-public function getZip() { return $this->zip; }
-  public function getId() { return $this->id; }
-    public function getProvider() { return $this->provider; }
-    public function getAccountNumber() { return $this->account_number; }
-    public function getExpiryDate() { return $this->expiry_date; }
-*/
-
-
-
-$currentUser = setAddressAndPayment($currentUser);
-if($currentUser->getAdress() != null){
-   $userCountry = $currentUser->getAddress()->getState();
-   $userStreet = $currentUser->getAddress()->getStreet();
-   $userCityt = $currentUser->getAddress()->getCity();
-   $userZip = $currentUser->getAddress()->getZip();
-}
-if($currentUSer->getPayment() != null){
-  $userProvider = $currentUSer->getPayment()->getProvider();
-
-}
 
 
 //Quantity duhet mu marr nga sessioni ne Single Product
