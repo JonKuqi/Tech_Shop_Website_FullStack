@@ -28,21 +28,24 @@ function arrayProductsFromFile(){
      $line = fgets($file);
      $parts = explode("|",$line);
  
-   if(isset($parts[1])){
-     if($parts[1] >=1000 && $parts[1] <= 2000){
-     $product = new SmartPhone($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
-     array_push($arrayProducts, $product);
-     }else if($parts[1] > 2000 && $parts[1] <= 3000){
-     $product = new SmartWatch($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
-     array_push($arrayProducts, $product);
-     }else if($parts[1] > 3000 && $parts[1] <= 4000){
-        $product = new Laptop($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
+     if(isset($parts[1])) {
+        switch(true) {
+            case ($parts[1] >= 1000 && $parts[1] <= 2000):
+                $product = new SmartPhone($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
+                break;
+            case ($parts[1] > 2000 && $parts[1] <= 3000):
+                $product = new SmartWatch($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
+                break;
+            case ($parts[1] > 3000 && $parts[1] <= 4000):
+                $product = new Laptop($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
+                break;
+            case ($parts[1] > 4000 && $parts[1] <= 5000):
+                $product = new OtherBrands($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
+                break;
+        }
         array_push($arrayProducts, $product);
-    }else if($parts[1] > 4000 && $parts[1] <= 5000){
-            $product = new OtherBrands($parts[0],$parts[1],$parts[2],$parts[3],$parts[4],$parts[5],$parts[6],$parts[7],$parts[8],$parts[9]);
-            array_push($arrayProducts, $product);
-            }
     }
+    
     
 }
 fclose($file);
