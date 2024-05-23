@@ -2,14 +2,15 @@
 
 session_start();
 
-//include("Data-Objects/fileManipulationFunctions.php");
-
+//include("Data-Objects/fileManipulationFunctions.php")
+;
 include("Data-Objects\databaseManipulationFunctions.php");
+$conn = null;
 include("databaseConnection.php");
 
 
-
  include("includes/header.php");
+
 $users = arrayUsersFromDatabase($conn);
 $products = arrayProductsFromDatabase($conn);
 
@@ -44,20 +45,17 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
 $quantity = 10;
 
 
-//Punon
-//addProductToShopingCard($product1, $currentUser, $quantity);
-
 if(isset($_POST['remove'])){
   $idCart = $_POST['idRemove'];
    
   removeItemCart($conn, $idCart);
 }
 
-
+//addProductToShoppingCart($db, Product $product, User $currentUser, $quantity)
 if(isset($_GET['product'])){
    foreach($products as $p){
     if($_GET['product']== $p->getId()){
-          addProductToShopingCard($p,$currentUser,1);
+        addProductToShoppingCart($conn,$p, $currentUser,1);
     }
    
 }

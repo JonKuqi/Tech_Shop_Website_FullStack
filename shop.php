@@ -5,6 +5,8 @@ session_start();
  include("includes/header.php");
 //include("Data-Objects/fileManipulationFunctions.php");
 include("Data-Objects\databaseManipulationFunctions.php");
+
+$conn = null;
 include("databaseConnection.php");
 
 
@@ -360,7 +362,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <main class="col-md-9">
             <div class="filter-shop d-flex justify-content-between">
               <div class="showing-product">
-                <p>Showing 1–9 of <?php $number ?> results</p>
+                <p>Showing 1–9 of 10 results</p>
               </div>
               <div class="sort-by">
       <form id="sortingForm" action="shop.php" method="post" >
@@ -479,7 +481,7 @@ if(empty($products)){
         <button type="submit">Filtro</button>
         
 </form>
-
+        </div>
 
 
 

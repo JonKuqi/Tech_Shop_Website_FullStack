@@ -12,5 +12,4 @@ if($err != null){
   //echo "Jeni qasur me sukses ne Databaze";
 }
 
-
 ?>

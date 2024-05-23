@@ -3,17 +3,18 @@
 session_start();
 
 include("includes/header.php");
+
 //include("Data-Objects/fileManipulationFunctions.php");
 
 include("Data-Objects\databaseManipulationFunctions.php");
-include("databaseConnection.php");
+require_once("databaseConnection.php");
 
 
 //Guest Mode
 $currentUser = new User(1,"Guest","","","","","");
 
 
-if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
+if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)){
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $password = $_SESSION['password'];
