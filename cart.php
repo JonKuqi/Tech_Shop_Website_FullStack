@@ -1,12 +1,17 @@
 <?php
 
 session_start();
-include("Data-Objects/fileManipulationFunctions.php");
+
+//include("Data-Objects/fileManipulationFunctions.php");
+
+include("Data-Objects\databaseManipulationFunctions.php");
+include("databaseConnection.php");
+
 
 
  include("includes/header.php");
-$users = arrayUsersFromFile();
-$products = arrayProductsFromFile();
+$users = arrayUsersFromDatabase($conn);
+$products = arrayProductsFromDatabase($conn);
 
 
 
@@ -14,7 +19,7 @@ $products = arrayProductsFromFile();
 $product1 = $products[0];
 
 
-$currentUser = new User(0,"Guest","","","","","");
+$currentUser = new User(1,"Guest","","","","","");
 
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
 $user_id = $_SESSION['user_id'];
@@ -30,10 +35,12 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
 
 }
 
-echo '<script>'.var_dump($currentUser).'</script>';
+//echo '<script>'.var_dump($currentUser).'</script>';
 
 
 //Quantity duhet mu marr nga sessioni ne Single Product
+
+
 $quantity = 10;
 
 
@@ -43,8 +50,7 @@ $quantity = 10;
 if(isset($_POST['remove'])){
   $idCart = $_POST['idRemove'];
    
-  removeItemCart($idCart);
-
+  removeItemCart($conn, $idCart);
 }
 
 
@@ -58,9 +64,7 @@ if(isset($_GET['product'])){
 }
 
 
-$allCartsItems = arrayShopingCartFromFile();
-
-
+$allCartsItems = arrayShopingCartFromDatabase($conn);
 
 
 $userCart = [];

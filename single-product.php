@@ -120,10 +120,11 @@ if(isset($_POST['add-to-cart'])){
    $quantity = $_POST['quantity'];
         addProductToShoppingCart($conn, $product,$currentUser,$quantity);
       echo '<script>alert("You have succesfully added to Cart!");</script>';
+
    
 }
 
-//function addProductToShoppingCart($db, Product $product, User $currentUser, $quantity) {
+
 
 ?>
 
