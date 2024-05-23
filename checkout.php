@@ -3,11 +3,14 @@
 session_start();
 
 include("includes/header.php");
-include("Data-Objects/fileManipulationFunctions.php");
+//include("Data-Objects/fileManipulationFunctions.php");
+
+include("Data-Objects\databaseManipulationFunctions.php");
+include("databaseConnection.php");
 
 
 //Guest Mode
-$currentUser = new User(0,"Guest","","","","","");
+$currentUser = new User(1,"Guest","","","","","");
 
 
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
@@ -25,7 +28,7 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
 
 
 
-$currentUser = setAddressAndPayment($currentUser);
+$currentUser = setAddressAndPayment($conn, $currentUser);
   
 if ($currentUser->getAddress() != null) {
   $userCountry = $currentUser->getAddress()->getState();
@@ -51,7 +54,7 @@ if ($currentUser->getPayment() != null) {
 
 
 
-$allCartsItems = arrayShopingCartFromFile();
+$allCartsItems = arrayShopingCartFromDatabase($conn);
 $userCart = [];
 
 foreach($allCartsItems as $c){
@@ -119,23 +122,108 @@ if(isset($_POST['placeOrder'])){
   fclose($file);
 
 
+// if(isset($_POST['placeOrder'])){
+//     $country = $_POST['country'];
+//     $address = $_POST['adress'];
+//     $notes = $_POST['notes'];
+//     $zip = $_POST['zip'];
+//     $city = $_POST['city'];
+//     $payWithBank = ($_POST['listGroupRadios'] == 'bank');
+//     $provider = ($payWithBank) ? $_POST['provider'] : null;
+//     $acc_number = ($payWithBank) ? $_POST['acc_number'] : null;
+//     $expiryDate = ($payWithBank) ? $_POST['expiry_date'] : null;
 
-if(($currentUser->getAddress() != null) && ($currentUser->getId() != 0 )){
-  $userAdress = new Adress($currentUser->getId(),$adress,$city,$country,$zip);
-  $file3 = fopen("WebsiteData/adress.txt","a") or die("Error");
-  fwrite($file3,$userAdress->formatToFile());
-  fclose($file3);
+//     // Prepare and execute SQL query to insert order data into tblOrder
+//     $stmt = $connection->prepare("INSERT INTO tblOrder (user_id, country, city, address, zip, notes, payment_method, provider, acc_number, expiry_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+//     foreach($userCart as $c){
+//         $productId = $c->getId();
+//         $quantity = $c->getQuantity();
+
+//         $stmt->bind_param("isssisssss", $currentUser->getId(), $country, $city, $address, $zip, $notes, ($payWithBank ? 'bank' : 'cashOnDelivery'), $provider, $acc_number, $expiryDate);
+//         $stmt->execute();
+
+//         // Optionally, you can retrieve the last inserted order ID and use it to associate each product in the order.
+//         $orderId = $stmt->insert_id;
+
+//         // Insert each product in the order into tblOrderProduct
+//         $stmt2 = $connection->prepare("INSERT INTO tblOrderProduct (order_id, product_id, quantity) VALUES (?, ?, ?)");
+//         $stmt2->bind_param("iii", $orderId, $productId, $quantity);
+//         $stmt2->execute();
+//         $stmt2->close();
+//     }
+//     $stmt->close();
+
+//     // Optionally, you can also save the user's address and payment details to their respective tables.
+//     if(($currentUser->getAddress() != null) && ($currentUser->getId() != 0 )){
+//         $userAddress = new Adress($currentUser->getId(), $address, $city, $country, $zip);
+//         // Insert $userAddress into tblAddress
+//     }
+
+//     if($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 0 )){
+//         $userPayment = new UserPayment($currentUser->getId(), $provider, $acc_number, $expiryDate);
+//         // Insert $userPayment into tblUserPayment
+//     }
+
+//     echo '<script>alert("You have successfully ordered!");</script>';
+//     echo '<script>window.location.href = window.location.href;</script>';
+// }
+// }
+
+
+
+if(isset($_POST['placeOrder'])){
+  $country = $_POST['country'];
+  $address = $_POST['adress'];
+  $notes = $_POST['notes'];
+  $zip = $_POST['zip'];
+  $city = $_POST['city'];
+  $payWithBank = ($_POST['listGroupRadios'] == 'bank');
+  $provider = ($payWithBank) ? $_POST['provider'] : null;
+  $acc_number = ($payWithBank) ? $_POST['acc_number'] : null;
+  $expiryDate = ($payWithBank) ? $_POST['expiry_date'] : null;
+
+  // Prepare and execute SQL query to insert order data into tblOrder
+  $stmt = $conn->prepare("INSERT INTO tblOrder (shid, tbl_user_id, country, city, adress, zip, notes, provider, accNumber, expiryDate, pid, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    foreach($userCart as $c){
+        $shid = $c->getId();
+        $productId = $c->getProduct()->getId();
+        $quantity = $c->getQuantity();
+        $user_id = $currentUser->getId();
+
+        $stmt->bind_param("iisssissssii", $shid, $user_id, $country, $city, $address, $zip, $notes, $provider, $acc_number, $expiryDate, $productId, $quantity);
+        $stmt->execute();
+    }
+
+
+
+  if (($currentUser->getAddress() != null) && ($currentUser->getId() != 0)) {
+    $address = $currentUser->getAddress();
+    $city = $address->getCity();
+    $country = $address->getCountry();
+    $zip = $address->getZip();
+
+    $stmt = $conn->prepare("INSERT INTO tblAdress (user_id, address, city, country, zip) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("issss", $currentUser->getId(), $address->getAddress(), $city, $country, $zip);
+    $stmt->execute();
+    $stmt->close();
 }
-  if($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 0 )){
-      //shton user Payment
-      $file2 = fopen("WebsiteData/userPayment.txt","a") or die("Error");
-      $userPayment = new UserPayment($currentUser->getId(),$provider,$acc_number,$expiryDate);
-      fwrite($file2,$userPayment->formatToFile());
-      fclose($file2);
-  }
-  
-echo '<script>alert("You have succesfully Odered!");</script>';
-header("Refresh:0");
+
+if ($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 0)) {
+    $provider = $_POST['provider'];
+    $acc_number = $_POST['acc_number'];
+    $expiryDate = $_POST['expiryDate'];
+
+    $stmt = $conn->prepare("INSERT INTO tblUserPayment (user_id, provider, acc_number, expiryDate) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("isss", $currentUser->getId(), $provider, $acc_number, $expiryDate);
+    $stmt->execute();
+    $stmt->close();
+}
+
+  echo '<script>alert("You have successfully ordered!");</script>';
+  echo '<script>window.location.href = window.location.href;</script>';
+}
 
 }
 

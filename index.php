@@ -34,7 +34,7 @@ include("Data-Objects/recomendProducts.php");
 $recommendProducts = recommendProducts($products, $conn);
 
 
-$currentUser = new User(0,"Guest","","","","","");
+$currentUser = new User(1,"Guest","","","","","");
 
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
 $user_id = $_SESSION['user_id'];

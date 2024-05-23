@@ -114,4 +114,5 @@ VALUES
 (18, 4050, 3500, 10, 2024, 'LG G7', 0.2, 'LG', 'Short Description', 'Long Description');
 
 
+INSERT INTO tbl_user (tbl_user_id, username, email, password) VALUES (1, 'Guest', 'dummy@example.com', 'password');
 -- 

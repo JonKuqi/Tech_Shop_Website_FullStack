@@ -9,7 +9,7 @@ if($err != null){
   die("Gabim");
   
 }else{
-  echo "Jeni qasur me sukses ne Databaze";
+  //echo "Jeni qasur me sukses ne Databaze";
 }
 
 
