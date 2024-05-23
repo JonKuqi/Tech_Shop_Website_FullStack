@@ -1,8 +1,11 @@
 <?php  
+session_start();
  include("includes/header.php");
 include("Data-Objects/fileManipulationFunctions.php");
 $products = arrayProductsFromFile();
 
+
+include("databaseConnection.php");
 
 $default = $products;
 $sorted = [];
@@ -207,7 +210,7 @@ if (isset($_GET['clearCookies'])) {
 
 
 <?php
-session_start();
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

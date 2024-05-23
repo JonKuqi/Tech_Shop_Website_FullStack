@@ -118,6 +118,8 @@ if(isset($_POST['placeOrder'])){
   }
   fclose($file);
 
+
+
 if(($currentUser->getAddress() != null) && ($currentUser->getId() != 0 )){
   $userAdress = new Adress($currentUser->getId(),$adress,$city,$country,$zip);
   $file3 = fopen("WebsiteData/adress.txt","a") or die("Error");
