@@ -201,13 +201,19 @@ if(isset($_POST['placeOrder'])){
   if (($currentUser->getAddress() != null) && ($currentUser->getId() != 0)) {
     $address = $currentUser->getAddress();
     $city = $address->getCity();
-    $country = $address->getCountry();
+    $country = $address->getState();
     $zip = $address->getZip();
 
-    $stmt = $conn->prepare("INSERT INTO tblAdress (user_id, address, city, country, zip) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("issss", $currentUser->getId(), $address->getAddress(), $city, $country, $zip);
+    echo "Ka mberri ketu";
+
+    $user_id = $currentUser->getId();
+    $street = $address->getStreet();
+
+
+    $stmt = $conn->prepare("INSERT INTO tblAdress (tbl_user_id, street, city, state, zip) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("issss", $user_id, $street, $city, $country, $zip);
     $stmt->execute();
-    $stmt->close();
+
 }
 
 if ($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 0)) {
@@ -218,7 +224,7 @@ if ($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId
     $stmt = $conn->prepare("INSERT INTO tblUserPayment (user_id, provider, acc_number, expiryDate) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("isss", $currentUser->getId(), $provider, $acc_number, $expiryDate);
     $stmt->execute();
-    $stmt->close();
+
 }
 
   echo '<script>alert("You have successfully ordered!");</script>';
