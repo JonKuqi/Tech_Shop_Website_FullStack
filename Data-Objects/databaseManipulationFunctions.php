@@ -101,6 +101,12 @@ function arrayUsersFromDatabase($db) {
     return $arrayUsers;
 }
 
+
+
+
+
+
+
 function arrayReviewsFromDatabase($db) {
     $query = "SELECT * FROM tblReview";
     $result = $db->query($query);
@@ -136,6 +142,14 @@ function arrayReviewsFromDatabase($db) {
     $result->free();
     return $arrayReviews;
 }
+
+
+
+
+
+
+
+
 
 
 function arrayShopingCartFromDatabase($db) {
@@ -198,7 +212,6 @@ function removeItemCart($db, int $id) {
     $stmt = $db->prepare("DELETE FROM tblShopingCart WHERE shid = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
-   
 }
 
 

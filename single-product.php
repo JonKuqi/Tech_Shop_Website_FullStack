@@ -4,6 +4,7 @@ session_start();
  include("includes/header.php");
 //include("Data-Objects/fileManipulationFunctions.php");
 include("Data-Objects\databaseManipulationFunctions.php");
+$conn = null;
 include("databaseConnection.php");
 
 
@@ -40,9 +41,12 @@ if ($product instanceof SmartPhone) {
 
 
 
+
+
+
+
+
 //Leaving a review
-
-
 
 $currentUser = new User(1,"Guest","","","","","");
 
@@ -62,6 +66,8 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
 }
 
 
+
+
 $reviews = arrayReviewsFromDatabase($conn);
 
 
@@ -72,7 +78,7 @@ if(isset($_POST['rate']) && $_SERVER["REQUEST_METHOD"] == "POST") {
   $user_id = $currentUser->getId();
   $product_id = $product->getId();
 
-
+   if($conn !=null)
   $stmt = $conn->prepare("INSERT INTO tblReview (pid, tbl_user_id, rating, context) VALUES (?, ?, ?, ?)");
 
   $stmt->bind_param("iiis", $product_id, $user_id, $rating, $context);
@@ -95,15 +101,30 @@ if(isset($_POST['rate']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
 //$review = new Review(1, $product, $users[0],5.0,"Amaizing Product");
 
+//$productReviews = [];
+
+//echo ' <script>
+// async function getReviews(productId) {
+//            const response = await fetch(`http://localhost/reviews.php?product_id=${productId}`);
+//            const data = await response.json();
+//
+//        }
+//</script>
+//
+//';
+
 
 
 $productReviews = [];
 
 foreach($reviews as $r){
-  if($product->getId() == $r->getProduct()->getId()){
-    array_push($productReviews, $r);
-  }
+ if($product->getId() == $r->getProduct()->getId()){
+   array_push($productReviews, $r);
+ }
 }
+
+
+
 $sumRating = 0;
 
 foreach($productReviews as $r){
@@ -358,24 +379,72 @@ if(isset($_POST['add-to-cart'])){
 
 
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper w-max">
+                <div class="swiper-wrapper w-max" id='reviews-container'>
 
 
 
 
 
+                
+
+                <script>
+    // Showing all the reviews for specific product
+
+
+    getReviews(<?php echo $product->getId(); ?>); 
+
+//http://localhost/Tech_Shop_Website_Gr.6//Data-Objects/API%20-%20review.php?product_id=3
+    async function getReviews(productId) {
+        const response = await fetch(`http://localhost/Tech_Shop_Website_Gr.6//Data-Objects/API%20-%20review.php?product_id=${productId}`);
+
+        const data = await response.json();
+      
+        console.log(data); 
+
+        const reviewsContainer = document.getElementById('reviews-container');
+        reviewsContainer.innerHTML = ''; 
+
+        data.forEach(review => {
+            const reviewDiv = document.createElement('div');
+            reviewDiv.className = 'swiper-slide';
+            reviewDiv.innerHTML = `
+                <div class="group bg-white border border-solid border-gray-300 flex justify-between flex-col rounded-xl p-6 transition-all duration-500 w-full mx-auto slide_active:border-indigo-600 hover:border-indigo-600 hover:shadow-sm">
+                    <div>
+                        <div class="flex items-center mb-7 gap-2 text-amber-500 transition-all duration-500">
+                            <svg class="w-5 h-5" viewBox="0 0 18 17" fill="none" height="15px" width="15px" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.10326 1.31699C8.47008 0.57374 9.52992 0.57374 9.89674 1.31699L11.7063 4.98347C11.8519 5.27862 12.1335 5.48319 12.4592 5.53051L16.5054 6.11846C17.3256 6.23765 17.6531 7.24562 17.0596 7.82416L14.1318 10.6781C13.8961 10.9079 13.7885 11.2389 13.8442 11.5632L14.5353 15.5931C14.6754 16.41 13.818 17.033 13.0844 16.6473L9.46534 14.7446C9.17402 14.5915 8.82598 14.5915 8.53466 14.7446L4.91562 16.6473C4.18199 17.033 3.32456 16.41 3.46467 15.5931L4.15585 11.5632C4.21148 11.2389 4.10393 10.9079 3.86825 10.6781L0.940384 7.82416C0.346867 7.24562 0.674378 6.23765 1.4946 6.11846L5.54081 5.53051C5.86652 5.48319 6.14808 5.27862 6.29374 4.98347L8.10326 1.31699Z" style="fill: yellow;" stroke="silver"/>
+                            </svg>
+                            <span class="text-base font-semibold text-indigo-600">${review.rating}</span>
+                        </div>
+                        <p class="text-base text-gray-600 leading-6 transition-all duration-500 pb-8 group-hover:text-gray-800 slide_active:text-gray-800">${review.context}</p>
+                    </div>
+                    <div class="flex items-center gap-5 pt-5 border-t border-solid border-gray-200">
+                        <div class="block">
+                            <h5 class="text-gray-900 font-medium transition-all duration-500 mb-1">${review.first_name} ${review.last_name}</h5>
+                            <span class="text-sm leading-4 text-gray-500"></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            reviewsContainer.appendChild(reviewDiv);
+        });
+     }
+</script>
                 <?php 
-          //Ketu behen show reviews
 
-          foreach($productReviews as $pr){
-           $pr->shfaq();
-          }
-          
-          
-          
+//          foreach($productReviews as $pr){
+//           $pr->shfaq();
           ?>
 
-                    
+
+
+
+
+
+
+
+
+
 
 
 
@@ -391,32 +460,28 @@ if(isset($_POST['add-to-cart'])){
 
     <h2 class="text-4xl text-center font-bold text-gray-900 "style="text-align:left;">Leave a Review</h2>
 
-    <form method="post" class="form-group padding-small">
-                        <p style="text-align:center;">You need to be logged in to leave a review *</p>
-                          <div class="row">
-                            <div class="col-lg-12 mb-3">
-                              
-                            </div>
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-8">
-                            <textarea class="form-control ps-3 pt-3" id="comment" name="context" placeholder="Write your review here *"></textarea>
-                            <div class="container1">
-                              <!-- Stars -->
-  
-                              <div class="rate">
-    <input type="radio" id="star5" name="rate" value="5" />
-    <label for="star5" title="text">5 stars</label>
-    <input type="radio" id="star4" name="rate" value="4" />
-    <label for="star4" title="text">4 stars</label>
-    <input type="radio" id="star3" name="rate" value="3" />
-    <label for="star3" title="text">3 stars</label>
-    <input type="radio" id="star2" name="rate" value="2" />
-    <label for="star2" title="text">2 stars</label>
-    <input type="radio" id="star1" name="rate" value="1" />
-    <label for="star1" title="text">1 star</label>
-  </div>
-
-  <script>
+    
+    <form id="reviewForm" class="form-group padding-small" action="http://localhost/Tech_Shop_Website_Gr.6/Data-Objects/API%20-%20review.php" method="post">
+    <p style="text-align:center;">You need to be logged in to leave a review *</p>
+    <div class="row">
+        <div class="col-lg-12 mb-3"></div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <textarea class="form-control ps-3 pt-3" id="context" name="context" placeholder="Write your review here *"></textarea>
+            <div class="container1">
+                <div class="rate">
+                    <input type="radio" id="star5" name="rate" value="5" />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                </div>
+                <script>
   // Get all labels inside .rate
   var labels = document.querySelectorAll('.rate label');
 
@@ -437,21 +502,67 @@ if(isset($_POST['add-to-cart'])){
     });
   });
 </script>
+            </div>
+            
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8 mt-3">
+            <button class="btn btn-medium btn-black text-uppercase btn-rounded-none" style="color:white" type="submit">Post Review</button>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <input type="hidden" name="product_id" value="<?php echo $product->getId(); ?>">
+    <input type="hidden" name="user_id" value="<?php echo $currentUser->getId(); ?>">
+</form>
 
 
-                            </div>
-
-</div>
-<div class="col-lg-2"></div>
-<div class="col-lg-2"></div>
-                            <div class="col-lg-8 mt-3">
-                              <button class="btn btn-medium btn-black text-uppercase btn-rounded-none" style="color:white" type="submit">Post Review </button>
-                            </div>
-                            <div class="col-lg-2"></div>
-                          </div>
-           </form>
 
 
+
+           <script>
+
+//SHTIMI I NJE REVIEW ME API
+
+document.getElementById('reviewForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const context = document.getElementById('context').value;
+    const rating = document.querySelector('input[name="rate"]:checked').value;
+    const productId = <?php echo $product->getId(); ?>; // Ensure this PHP variable is set
+    const userId = <?php echo $currentUser->getId(); ?>; // Ensure this PHP variable is set
+
+    const data = {
+        product_id: productId,
+        user_id: userId,
+        rating: parseInt(rating),
+        context: context
+    };
+
+    try {
+        const response = await fetch('http://localhost/Tech_Shop_Website_Gr.6/Data-Objects/API%20-%20review.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message);
+            window.location.reload();
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while adding the review.');
+    }
+});
+</script>
+
+          
      
 
 
