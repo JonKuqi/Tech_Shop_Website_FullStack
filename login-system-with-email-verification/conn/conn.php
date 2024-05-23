@@ -1,9 +1,10 @@
 <?php 
-// kredencialet
+//kredencialet
+
 define('DB_HOST','localhost:3307');
-define('DB_USER','root');
-define('DB_PASS','');
-define('DB_NAME','login_email_verification');
+define('DB_USER','Jon');
+define('DB_PASS','1234');
+define('DB_NAME','techshopdatabase');
 
 try
 {
@@ -13,4 +14,6 @@ catch (PDOException $e)
 {
 exit("Error: " . $e->getMessage());
 }
+
+
 ?>

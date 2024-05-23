@@ -110,7 +110,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('Check your email for verification code.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/login-system-with-email-verification/verification.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/verification.php';
             </script>
             ";
 
@@ -119,7 +119,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('User Already Exists');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
         }

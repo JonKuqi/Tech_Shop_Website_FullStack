@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 //Logjika e faqes
  include("includes/header.php");
@@ -45,9 +44,17 @@ if ($product instanceof SmartPhone) {
 
 
 
-$currentUser = new User(0,"Guest","","","","","");
+$currentUser = new User(1,"Guest","","","","","");
+
+
 
 if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in']==true)){
+echo "SESSION IS SET";
+
+if(isset($_SESSIN['user_id'])){
+  echo "User id is set???";
+}
+
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $password = $_SESSION['password'];
@@ -56,11 +63,15 @@ $last_name = $_SESSION['last_name'];
 $contact_number = $_SESSION['contact_number'];
 $email = $_SESSION['email'];
 
+echo $_SESSION['user_id'];
+echo $_SESSION['username'];
 
 $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
 
 }
-$currentUser->setId(1);
+
+$currentUser = new User(1,"Guest","","","","","");
+
 
 
 
@@ -119,11 +130,12 @@ $productRating = $sumRating/count($productReviews);
 
 if(isset($_POST['add-to-cart'])){
    $quantity = $_POST['quantity'];
-      addProductToShopingCard($db,$product,$currentUser,$quantity);
+        addProductToShoppingCart($conn, $product,$currentUser,$quantity);
       echo '<script>alert("You have succesfully added to Cart!");</script>';
    
 }
 
+//function addProductToShoppingCart($db, Product $product, User $currentUser, $quantity) {
 
 ?>
 

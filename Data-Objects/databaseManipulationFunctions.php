@@ -18,14 +18,14 @@ function registerProduct($db, $product) {
         $product->long_description
     );
     $stmt->execute();
-    $stmt->close();
+    
 }
 
 function saveArrayImages($db, $product, $imgId, $path) {
     $stmt = $db->prepare("INSERT INTO tblImages (imgId, pid, path) VALUES (?, ?, ?)");
     $stmt->bind_param("iis", $imgId, $product->getId(), $path);
     $stmt->execute();
-    $stmt->close();
+ 
 }
 
 function arrayProductsFromDatabase($db) {
@@ -174,19 +174,31 @@ function arrayShopingCartFromDatabase($db) {
     return $arrayShopingCart;
 }
 
-function addProductToShopingCard($db, Product $product, User $currentUser, $quantity) {
-    $stmt = $db->prepare("INSERT INTO tblShopingCart (tbl_user_id, pid, quantity) VALUES (?, ?, ?)");
-    $stmt->bind_param("iii", $currentUser->getId(), $product->getId(), $quantity);
-    $stmt->execute();
-    $stmt->close();
-}
+function addProductToShoppingCart($db, Product $product, User $currentUser, $quantity) {
+    $userId = $currentUser->getId();
+    $productId = $product->getId();
+    echo $userId;
+    echo $productId;
 
+    $stmt = $db->prepare("INSERT INTO tblshopingcart (tbl_user_id, pid, quantity) VALUES (?, ?, ?)");
+
+    $stmt->bind_param("iii", $userId, $productId, $quantity);
+
+    $stmt->execute();
+
+    if ($stmt->error) {
+        echo "Error: " . $stmt->error;
+    } else {
+        echo "Product added to shopping cart successfully.";
+    }
+
+}
 
 function removeItemCart($db, int $id) {
     $stmt = $db->prepare("DELETE FROM tblShopingCart WHERE shid = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $stmt->close();
+   
 }
 
 
@@ -200,8 +212,7 @@ function setAddressAndPayment($db, $user) {
         $address = new Adress($row['tbl_user_id'], $row['street'], $row['city'], $row['state'], $row['zip']);
         $user->setAddress($address);
     }
-    $stmt->close();
-
+  
     $stmt = $db->prepare("SELECT * FROM tbluserPayment WHERE tbl_user_id = ?");
     $stmt->bind_param("i", $user->getId());
     $stmt->execute();
@@ -211,8 +222,6 @@ function setAddressAndPayment($db, $user) {
         $payment = new UserPayment($row['tbl_user_id'], $row['provider'], $row['accountNumber'], $row['expiryDate']);
         $user->setPayment($payment);
     }
-    $stmt->close();
-
     return $user;
 }
 
