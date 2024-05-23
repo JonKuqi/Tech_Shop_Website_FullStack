@@ -1,8 +1,9 @@
 <?php
 
 
-function searchProducts(String $search){
-$products = arrayProductsFromFile();
+function searchProducts(String $search, $db){
+    
+$products = arrayProductsFromDatabase($db);
 
 foreach($products as $p){
     $arrayOfNames=[];

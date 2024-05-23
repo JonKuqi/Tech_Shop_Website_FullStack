@@ -90,5 +90,28 @@ CREATE TABLE tbluserPayment (
 
 
 
+-- Porduktet krejt
+
+INSERT INTO tblProduct (pid, sku, price, quantity, time_added, name, discount, brand, short_description, long_description)
+VALUES
+(1, 1060, 980, 10, 2024, 'IPHONE 10', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(2, 1070, 110, 11, 2024, 'IPHONE 10', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(3, 1080, 700, 10, 2024, 'IPHONE 8', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(4, 1080, 1500, 10, 2024, 'IPHONE 13', 0.0, 'Apple', 'Short Description', 'Long Description'),
+(5, 2020, 1500, 10, 2024, 'PINK WATCH', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(6, 2030, 680, 10, 2024, 'HEAVY WATCH', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(7, 2040, 750, 10, 2024, 'SPOTTED WATCH', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(8, 2050, 750, 10, 2024, 'BLACK WATCH', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(9, 1010, 1300, 10, 2024, 'IPHONE 12', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(10, 1100, 1300, 10, 2024, 'IPHONE 15', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(11, 3010, 750, 10, 2024, 'MacBook Air', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(12, 3020, 860, 10, 2024, 'Dell laptop', 0.2, 'Dell', 'Short Description', 'Long Description'),
+(13, 3040, 4000, 10, 2024, 'MacBook Air', 0.2, 'Apple', 'Short Description', 'Long Description'),
+(14, 3050, 3500, 10, 2024, 'Acer', 0.2, 'Acer', 'Short Description', 'Long Description'),
+(15, 4010, 750, 10, 2024, 'Samsung Fold Z3', 0.2, 'Samsung', 'Short Description', 'Long Description'),
+(16, 4020, 860, 10, 2024, 'Huawei', 0.2, 'Huawei', 'Short Description', 'Long Description'),
+(17, 4040, 4000, 10, 2024, 'Samsung 52', 0.2, 'Samsung', 'Short Description', 'Long Description'),
+(18, 4050, 3500, 10, 2024, 'LG G7', 0.2, 'LG', 'Short Description', 'Long Description');
 
 
+-- 

@@ -1,11 +1,20 @@
 <?php  
+
+
 session_start();
  include("includes/header.php");
-include("Data-Objects/fileManipulationFunctions.php");
-$products = arrayProductsFromFile();
+//include("Data-Objects/fileManipulationFunctions.php");
+include("Data-Objects\databaseManipulationFunctions.php");
+include("databaseConnection.php");
+
+
+
+$products = arrayProductsFromDatabase($conn);
 
 
 include("databaseConnection.php");
+
+
 
 $default = $products;
 $sorted = [];
@@ -74,7 +83,7 @@ foreach($sorted as $key => $value) {
 include("Data-Objects/search.php");
 if(isset($_GET['search'])){
   $search = $_GET['search'];
-  $searchedProducts = searchProducts($search);
+  $searchedProducts = searchProducts($search, $conn);
   $newProducts =[];
 
   foreach($searchedProducts as $key => $value) {
