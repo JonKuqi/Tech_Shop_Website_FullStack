@@ -30,7 +30,7 @@ function addProductCookie(Product $product) {
 
 }
 
-function recommendProducts($products){
+function recommendProducts($products, $db){
     
 //cookie zgjat dy dit
 //$recomendProducts = $products;
@@ -43,7 +43,7 @@ if(isset($_COOKIE['productsVisited']) || !empty($_COOKIE['productsVisited'])) {
   
     $stringToSearch = implode(" ", $productsVisited);
    
-    $searchedProducts = searchProducts($stringToSearch);
+    $searchedProducts = searchProducts($stringToSearch, $db);
     $recomendProducts =[];
      
     

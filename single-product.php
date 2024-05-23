@@ -3,11 +3,13 @@
 session_start();
 //Logjika e faqes
  include("includes/header.php");
-include("Data-Objects/fileManipulationFunctions.php");
+//include("Data-Objects/fileManipulationFunctions.php");
+include("Data-Objects\databaseManipulationFunctions.php");
+include("databaseConnection.php");
 
 
-$products = arrayProductsFromFile();
-$users = arrayUsersFromFile();
+$products = arrayProductsFromDatabase($conn);
+$users = arrayUsersFromDatabase($conn);
 
 //marrja produktit nga shop 
 if (isset($_GET['product'])) $linkchoice=$_GET['product'];
@@ -24,7 +26,9 @@ include("Data-Objects/recomendProducts.php");
 addProductCookie($product);
 
 
+
 $category = "Undefined";
+
 if ($product instanceof SmartPhone) {
   $category = "Smart Phone";
 }elseif($product instanceof SmartWatch){
@@ -56,22 +60,34 @@ $email = $_SESSION['email'];
 $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$contact_number,$email);
 
 }
+$currentUser->setId(1);
 
 
 
-$reviews = arrayReviewsFromFile();
+$reviews = arrayReviewsFromDatabase($conn);
 
-if(isset($_POST['rate'])){
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+if(isset($_POST['rate']) && $_SERVER["REQUEST_METHOD"] == "POST") {
   $context = $_POST['context'];
   $rating = $_POST['rate'];
+
+
+  $stmt = $conn->prepare("INSERT INTO tblReview (product_id, user_id, rating, context) VALUES (?, ?, ?, ?)");
+
+  $stmt->bind_param("iiis", $product_id, $user_id, $rating, $context);
+
   
- $newReview = new Review($reviews[count($reviews)-1]->getId()+1,$product,$currentUser, intval($rating),$context);
- $newReview->registerReview();
- echo '<script>alert("You have succesfully added a review!");</script>';
- header("Refresh:0");
-}
+  $product_id = $product->getId(); 
+  $user_id = $currentUser->getId(); 
+  $stmt->execute();
+
+  if ($stmt->affected_rows > 0) {
+      echo '<script>alert("You have successfully added a review!");</script>';
+      header("Refresh:0");
+  } else {
+      echo "Error: Unable to add review.";
+  }
+
+  $stmt->close();
 }
 
 
@@ -103,13 +119,10 @@ $productRating = $sumRating/count($productReviews);
 
 if(isset($_POST['add-to-cart'])){
    $quantity = $_POST['quantity'];
-      addProductToShopingCard($product,$currentUser,$quantity);
+      addProductToShopingCard($db,$product,$currentUser,$quantity);
       echo '<script>alert("You have succesfully added to Cart!");</script>';
    
 }
-
-
-
 
 
 ?>

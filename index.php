@@ -2,9 +2,12 @@
 session_start();
 include("includes/header.php");
 
-include("Data-Objects/fileManipulationFunctions.php");
+//include("Data-Objects/fileManipulationFunctions.php");
 
-$products = arrayProductsFromFile();
+include("Data-Objects\databaseManipulationFunctions.php");
+include("databaseConnection.php");
+
+$products = arrayProductsFromDatabase($conn);
 $smartPhones  = []; $smartWatches = []; $laptop = []; $otherBrands = [];
 foreach($products as $p){
   if($p instanceof SmartPhone){
@@ -28,7 +31,7 @@ krsort($otherBrands);
 
 include("Data-Objects/recomendProducts.php");
 
-$recommendProducts = recommendProducts($products);
+$recommendProducts = recommendProducts($products, $conn);
 
 
 $currentUser = new User(0,"Guest","","","","","");
