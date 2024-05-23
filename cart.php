@@ -2,6 +2,8 @@
 
 session_start();
 include("Data-Objects/fileManipulationFunctions.php");
+
+
  include("includes/header.php");
 $users = arrayUsersFromFile();
 $products = arrayProductsFromFile();
