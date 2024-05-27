@@ -5,7 +5,7 @@ session_start();
 include("includes/header.php");
 
 //include("Data-Objects/fileManipulationFunctions.php");
-
+$conn = null;
 include("Data-Objects\databaseManipulationFunctions.php");
 require_once("databaseConnection.php");
 
