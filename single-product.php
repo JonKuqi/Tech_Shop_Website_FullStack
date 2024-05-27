@@ -6,6 +6,7 @@ session_start();
 include("Data-Objects\databaseManipulationFunctions.php");
 $conn = null;
 include("databaseConnection.php");
+require("Website-Php-functions/errorHandler.php");
 
 
 $products = arrayProductsFromDatabase($conn);

@@ -6,6 +6,13 @@ session_start();
 //include("Data-Objects/fileManipulationFunctions.php");
 include("Data-Objects\databaseManipulationFunctions.php");
 
+require("Website-Php-functions/errorHandler.php");
+
+//testim i error_handler
+echo $undefined_variable;
+
+
+
 $conn = null;
 include("databaseConnection.php");
 

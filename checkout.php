@@ -7,7 +7,8 @@ include("includes/header.php");
 //include("Data-Objects/fileManipulationFunctions.php");
 $conn = null;
 include("Data-Objects\databaseManipulationFunctions.php");
-require_once("databaseConnection.php");
+include("databaseConnection.php");
+require("Website-Php-functions/errorHandler.php");
 
 
 //Guest Mode
@@ -83,95 +84,48 @@ $subTotal = $total - ($total*TAX);
 
 //Order dhe ruajtja ne file
 
-if(isset($_POST['placeOrder'])){
-  $country = $_POST['country'];
-  $adress = $_POST['adress'];
-  $notes = $_POST['notes'];
-  $zip = $_POST['zip'];
-  $city = $_POST['city'];
-   
-  if($_POST['listGroupRadios'] == 'bank'){
-    $payWithBank = true;
-    $provider = $_POST['provider'];
-    $acc_number = $_POST['acc_number'];
-    $expiryDate = $_POST['expiry_date'];
-  }else{
-    $payWithBank = false;
-  }
-
-  
-  $file= fopen("WebsiteData/order.txt","a") or die("Error gjate gjetjes se file...");
-  foreach($userCart as $c){
-    if($payWithBank){
-      $string = $c->formatForOrder();
-      $string = substr($string, 0, -1);
-      $toWrite = "$string|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
-      fwrite($file, $toWrite);
-
-  
-    }
-    if(!$payWithBank){
-      $string = $c->formatForOrder();
-      $string = substr($string, 0, -1);
-      $toWrite ="$string|$country|$city|$adress|$zip|$notes|cashOnDelivery\n";  
-      fwrite($file, $toWrite);
-
-    }
-
-
-  }
-  fclose($file);
-
-
 // if(isset($_POST['placeOrder'])){
-//     $country = $_POST['country'];
-//     $address = $_POST['adress'];
-//     $notes = $_POST['notes'];
-//     $zip = $_POST['zip'];
-//     $city = $_POST['city'];
-//     $payWithBank = ($_POST['listGroupRadios'] == 'bank');
-//     $provider = ($payWithBank) ? $_POST['provider'] : null;
-//     $acc_number = ($payWithBank) ? $_POST['acc_number'] : null;
-//     $expiryDate = ($payWithBank) ? $_POST['expiry_date'] : null;
+//   $country = $_POST['country'];
+//   $adress = $_POST['adress'];
+//   $notes = $_POST['notes'];
+//   $zip = $_POST['zip'];
+//   $city = $_POST['city'];
+   
+//   if($_POST['listGroupRadios'] == 'bank'){
+//     $payWithBank = true;
+//     $provider = $_POST['provider'];
+//     $acc_number = $_POST['acc_number'];
+//     $expiryDate = $_POST['expiry_date'];
+//   }else{
+//     $payWithBank = false;
+//   }
 
-//     // Prepare and execute SQL query to insert order data into tblOrder
-//     $stmt = $connection->prepare("INSERT INTO tblOrder (user_id, country, city, address, zip, notes, payment_method, provider, acc_number, expiry_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  
+//   $file= fopen("WebsiteData/order.txt","a") or die("Error gjate gjetjes se file...");
+//   foreach($userCart as $c){
+//     if($payWithBank){
+//       $string = $c->formatForOrder();
+//       $string = substr($string, 0, -1);
+//       $toWrite = "$string|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
+//       fwrite($file, $toWrite);
 
-//     foreach($userCart as $c){
-//         $productId = $c->getId();
-//         $quantity = $c->getQuantity();
-
-//         $stmt->bind_param("isssisssss", $currentUser->getId(), $country, $city, $address, $zip, $notes, ($payWithBank ? 'bank' : 'cashOnDelivery'), $provider, $acc_number, $expiryDate);
-//         $stmt->execute();
-
-//         // Optionally, you can retrieve the last inserted order ID and use it to associate each product in the order.
-//         $orderId = $stmt->insert_id;
-
-//         // Insert each product in the order into tblOrderProduct
-//         $stmt2 = $connection->prepare("INSERT INTO tblOrderProduct (order_id, product_id, quantity) VALUES (?, ?, ?)");
-//         $stmt2->bind_param("iii", $orderId, $productId, $quantity);
-//         $stmt2->execute();
-//         $stmt2->close();
+  
 //     }
-//     $stmt->close();
+//     if(!$payWithBank){
+//       $string = $c->formatForOrder();
+//       $string = substr($string, 0, -1);
+//       $toWrite ="$string|$country|$city|$adress|$zip|$notes|cashOnDelivery\n";  
+//       fwrite($file, $toWrite);
 
-//     // Optionally, you can also save the user's address and payment details to their respective tables.
-//     if(($currentUser->getAddress() != null) && ($currentUser->getId() != 0 )){
-//         $userAddress = new Adress($currentUser->getId(), $address, $city, $country, $zip);
-//         // Insert $userAddress into tblAddress
 //     }
 
-//     if($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 0 )){
-//         $userPayment = new UserPayment($currentUser->getId(), $provider, $acc_number, $expiryDate);
-//         // Insert $userPayment into tblUserPayment
-//     }
 
-//     echo '<script>alert("You have successfully ordered!");</script>';
-//     echo '<script>window.location.href = window.location.href;</script>';
-// }
+//   }
+//   fclose($file);
+
 // }
 
-
+$conn = $conn;
 
 if(isset($_POST['placeOrder'])){
   $country = $_POST['country'];
@@ -232,7 +186,7 @@ if ($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId
   echo '<script>window.location.href = window.location.href;</script>';
 }
 
-}
+
 
 ?>
 
