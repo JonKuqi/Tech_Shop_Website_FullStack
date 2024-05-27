@@ -11,5 +11,4 @@ if($err != null){
 }else{
   //echo "Jeni qasur me sukses ne Databaze";
 }
-
 ?>

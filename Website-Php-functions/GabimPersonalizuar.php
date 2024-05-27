@@ -10,11 +10,9 @@ class GabimSasie extends Exception{
 
         parent::__construct($message, $code, $previous);
     }
-     
     public function shfaq(){
         return __CLASS__ . "[{$this->code}]: {$this->message}\n";
     }
-
 }
 
 

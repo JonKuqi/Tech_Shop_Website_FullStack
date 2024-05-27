@@ -18,8 +18,6 @@ if($err != null){
 
 
 $metoda = $_SERVER["REQUEST_METHOD"];
-
-
 switch ($metoda) {
     case 'GET':
         if (isset($_GET['product_id'])) {

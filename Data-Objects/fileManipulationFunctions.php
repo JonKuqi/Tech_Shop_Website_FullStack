@@ -239,5 +239,18 @@ function setAddressAndPayment($user) {
 }
 
 
+function readEntireFile($file) {
+        $filesize = filesize($file);
+        $handle = fopen($file, 'r');
+        if ($handle) {
+        
+            $content = fread($handle, $filesize);
+            fclose($handle);
+            return $content;
+        } else {
+            return "Nuk mund të hapet file.";
+        }
+}
+
 
 ?>

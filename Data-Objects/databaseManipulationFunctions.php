@@ -238,5 +238,10 @@ function setAddressAndPayment($db, $user) {
     return $user;
 }
 
+function updateProduct($db, $id, $newQuantity){
+    $stmt = $db->prepare("UPDATE tblProduct SET quantity = ? WHERE pid = ?");
+    $stmt->bind_param("ii", $newQuantity, $id);
+    $stmt->execute();
+}
 
 ?>

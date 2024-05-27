@@ -84,46 +84,41 @@ $subTotal = $total - ($total*TAX);
 
 //Order dhe ruajtja ne file
 
-// if(isset($_POST['placeOrder'])){
-//   $country = $_POST['country'];
-//   $adress = $_POST['adress'];
-//   $notes = $_POST['notes'];
-//   $zip = $_POST['zip'];
-//   $city = $_POST['city'];
+if(isset($_POST['placeOrder'])){
+  $country = $_POST['country'];
+  $adress = $_POST['adress'];
+  $notes = $_POST['notes'];
+  $zip = $_POST['zip'];
+  $city = $_POST['city'];
    
-//   if($_POST['listGroupRadios'] == 'bank'){
-//     $payWithBank = true;
-//     $provider = $_POST['provider'];
-//     $acc_number = $_POST['acc_number'];
-//     $expiryDate = $_POST['expiry_date'];
-//   }else{
-//     $payWithBank = false;
-//   }
+  if($_POST['listGroupRadios'] == 'bank'){
+    $payWithBank = true;
+    $provider = $_POST['provider'];
+    $acc_number = $_POST['acc_number'];
+    $expiryDate = $_POST['expiry_date'];
+  }else{
+    $payWithBank = false;
+  }
 
   
-//   $file= fopen("WebsiteData/order.txt","a") or die("Error gjate gjetjes se file...");
-//   foreach($userCart as $c){
-//     if($payWithBank){
-//       $string = $c->formatForOrder();
-//       $string = substr($string, 0, -1);
-//       $toWrite = "$string|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
-//       fwrite($file, $toWrite);
+  $file= fopen("WebsiteData/order.txt","a") or die("Error gjate gjetjes se file...");
+  foreach($userCart as $c){
+    if($payWithBank){
+      $string = $c->formatForOrder();
+      $string = substr($string, 0, -1);
+      $toWrite = "$string|$country|$city|$adress|$zip|$notes|bank|$provider|$acc_number|$expiryDate\n";  
+      fwrite($file, $toWrite);
+    }
+    if(!$payWithBank){
+      $string = $c->formatForOrder();
+      $string = substr($string, 0, -1);
+      $toWrite ="$string|$country|$city|$adress|$zip|$notes|cashOnDelivery\n";  
+      fwrite($file, $toWrite);
+    }
+  }
+  fclose($file);
 
-  
-//     }
-//     if(!$payWithBank){
-//       $string = $c->formatForOrder();
-//       $string = substr($string, 0, -1);
-//       $toWrite ="$string|$country|$city|$adress|$zip|$notes|cashOnDelivery\n";  
-//       fwrite($file, $toWrite);
-
-//     }
-
-
-//   }
-//   fclose($file);
-
-// }
+}
 
 $conn = $conn;
 

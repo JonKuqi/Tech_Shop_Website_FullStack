@@ -1,11 +1,14 @@
 <?php
 session_start();
-//Logjika e faqes
- include("includes/header.php");
-//include("Data-Objects/fileManipulationFunctions.php");
-include("Data-Objects\databaseManipulationFunctions.php");
 $conn = null;
+//Logjika e faqes
+//include("Data-Objects/fileManipulationFunctions.php");
+
+
+include("includes/header.php");
+include("Data-Objects/databaseManipulationFunctions.php");
 include("databaseConnection.php");
+
 require("Website-Php-functions/errorHandler.php");
 require("Website-Php-functions/GabimPersonalizuar.php");
 
@@ -132,26 +135,26 @@ $sumRating = 0;
 foreach($productReviews as $r){
   $sumRating+=$r->getRating();
 }
-if(count($productReviews)>0){
+
+
+try{
 $productRating = $sumRating/count($productReviews);
-}else{$productRating = "Undefined";}
+}catch(ArithmeticError $e){
+  $productRating = "No reviews";
+}
 
 
 
 if(isset($_POST['add-to-cart'])){
    $quantity = $_POST['quantity'];
-  
     try{
           if($quantity > $product->getQuantity()){
             throw new GabimSasie($product->getQuantity());
           }
-     
-
           addProductToShoppingCart($conn, $product,$currentUser,$quantity);
           echo '<script>alert("You have succesfully added to Cart!");</script>';  
     }catch(GabimSasie $e){
       echo '<script>alert("'.$e->getMessage().'");</script>'; 
-
     }
 }
 
@@ -411,9 +414,7 @@ if(isset($_POST['add-to-cart'])){
         const response = await fetch(`http://localhost/Tech_Shop_Website_Gr.6//Data-Objects/API%20-%20review.php?product_id=${productId}`);
 
         const data = await response.json();
-      
-        console.log(data); 
-
+   
         const reviewsContainer = document.getElementById('reviews-container');
         reviewsContainer.innerHTML = ''; 
 

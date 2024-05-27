@@ -6,10 +6,10 @@ session_start();
 ;
 include("Data-Objects\databaseManipulationFunctions.php");
 $conn = null;
+
+
 include("databaseConnection.php");
-
-
- include("includes/header.php");
+include("includes/header.php");
 
 $users = arrayUsersFromDatabase($conn);
 $products = arrayProductsFromDatabase($conn);
