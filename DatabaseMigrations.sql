@@ -116,3 +116,24 @@ VALUES
 
 INSERT INTO tbl_user (tbl_user_id, username, email, password) VALUES (1, 'Guest', 'dummy@example.com', 'password');
 -- 
+
+-- Imazhet per produkte
+INSERT INTO tblImages (imgId, pid, path) VALUES
+(1, 1, 'images/product-item1.jpg'),
+(2, 2, 'images/product-item2.jpg'),
+(3, 3, 'images/product-item3.jpg'),
+(4, 4, 'images/product-item4.jpg'),
+(5, 5, 'images/product-item6.jpg'),
+(6, 6, 'images/product-item7.jpg'),
+(7, 7, 'images/product-item8.jpg'),
+(8, 8, 'images/product-item9.jpg'),
+(9, 9, 'images/product-item5.jpg'),
+(10, 10, 'images/product-item5.jpg'),
+(11, 11, 'images/product-item11.jpg'),
+(12, 12, 'images/product-item12.jpg'),
+(13, 13, 'images/product-item13.jpg'),
+(14, 14, 'images/product-item14.jpg'),
+(15, 15, 'images/product-item16.jpg'),
+(16, 16, 'images/product-item17.jpg'),
+(17, 17, 'images/product-item18.jpg'),
+(18, 18, 'images/product-item19.jpg');
