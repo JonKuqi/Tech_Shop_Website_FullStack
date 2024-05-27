@@ -7,6 +7,7 @@ include("Data-Objects\databaseManipulationFunctions.php");
 $conn = null;
 include("databaseConnection.php");
 require("Website-Php-functions/errorHandler.php");
+require("Website-Php-functions/GabimPersonalizuar.php");
 
 
 $products = arrayProductsFromDatabase($conn);
@@ -139,8 +140,19 @@ $productRating = $sumRating/count($productReviews);
 
 if(isset($_POST['add-to-cart'])){
    $quantity = $_POST['quantity'];
-        addProductToShoppingCart($conn, $product,$currentUser,$quantity);
-      echo '<script>alert("You have succesfully added to Cart!");</script>';  
+  
+    try{
+          if($quantity > $product->getQuantity()){
+            throw new GabimSasie($product->getQuantity());
+          }
+     
+
+          addProductToShoppingCart($conn, $product,$currentUser,$quantity);
+          echo '<script>alert("You have succesfully added to Cart!");</script>';  
+    }catch(GabimSasie $e){
+      echo '<script>alert("'.$e->getMessage().'");</script>'; 
+
+    }
 }
 
 
