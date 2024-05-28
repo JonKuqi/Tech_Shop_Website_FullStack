@@ -1,8 +1,5 @@
-
-
-
 <?php
-include('../conn/conn.php');
+include('../../databaseConnection.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -12,8 +9,8 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
 $mail = new PHPMailer(true);
+
 function SaveUserInfo($row) {
-    
     session_start();
 
     $_SESSION['user_id'] = $row['tbl_user_id'];
@@ -25,10 +22,8 @@ function SaveUserInfo($row) {
     $_SESSION['email'] = $row['email'];
     $_SESSION['logged_in'] = true;
 
-   
     $file = fopen("../../WebsiteData/users.txt", 'a') or die("Gabim gjatë hapjes së file-it...");
 
-   
     $sessionData = implode('|', array(
         $_SESSION['user_id'],
         $_SESSION['username'],
@@ -36,19 +31,13 @@ function SaveUserInfo($row) {
         $_SESSION['first_name'],
         $_SESSION['last_name'],
         $_SESSION['contact_number'],
-        $_SESSION['email'],"\n"
+        $_SESSION['email']
     ));
 
-    // Shkrimi i të dhënave të sesionit në file
     fwrite($file, $sessionData . PHP_EOL);
-    echo "";
-    // Mbyllja e file-it
     fclose($file);
-
-
-    // Kthimi i një mesazhi për konfirmim
-    
 }
+
 if (isset($_POST['register'])) {
     try {
         $firstName = $_POST['first_name'];
@@ -57,54 +46,47 @@ if (isset($_POST['register'])) {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
-        
-        $conn->beginTransaction();
-    
-        $stmt = $conn->prepare("SELECT `first_name`, `last_name` FROM `tbl_user` WHERE `first_name` = :first_name AND `last_name` = :last_name");
-        $stmt->execute([
-            'first_name' => $firstName,
-            'last_name' => $lastName
-        ]);
-        $nameExist = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
+        $conn->autocommit(false); // Disable autocommit mode
+
+        $stmt = $conn->prepare("SELECT `first_name`, `last_name` FROM `tbl_user` WHERE `first_name` = ? AND `last_name` = ?");
+        $stmt->bind_param('ss', $firstName, $lastName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $nameExist = $result->fetch_assoc();
+
         if (empty($nameExist)) {
             $verificationCode = rand(100000, 999999);
-    
-            $insertStmt = $conn->prepare("INSERT INTO `tbl_user` (`tbl_user_id`, `first_name`, `last_name`, `contact_number`, `email`, `username`, `password`, `verification_code`) VALUES (NULL, :first_name, :last_name, :contact_number, :email, :username, :password, :verification_code)");
-            $insertStmt->bindParam(':first_name', $firstName, PDO::PARAM_STR);
-            $insertStmt->bindParam(':last_name', $lastName, PDO::PARAM_STR);
-            $insertStmt->bindParam(':contact_number', $contactNumber, PDO::PARAM_INT);
-            $insertStmt->bindParam(':email', $email, PDO::PARAM_STR);
-            $insertStmt->bindParam(':username', $username, PDO::PARAM_STR);
-            $insertStmt->bindParam(':password', md5( $password), PDO::PARAM_STR);
-            $insertStmt->bindParam(':verification_code', $verificationCode, PDO::PARAM_INT);
+
+            $insertStmt = $conn->prepare("INSERT INTO `tbl_user` (`first_name`, `last_name`, `contact_number`, `email`, `username`, `password`, `verification_code`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $hashedPassword = md5($password);
+            $insertStmt->bind_param('ssisssi', $firstName, $lastName, $contactNumber, $email, $username, $hashedPassword, $verificationCode);
             $insertStmt->execute();
-    
-            //Server settings
+
+            // Server settings
             $mail->isSMTP(); 
             $mail->Host       = 'smtp.gmail.com'; 
             $mail->SMTPAuth   = true; 
             $mail->Username   = 'lorem.ipsum.sample.email@gmail.com';
             $mail->Password   = 'novtycchbrhfyddx';
             $mail->SMTPSecure = 'ssl';
-            $mail->Port       = 465;                                    
-        
-            //Recipients
+            $mail->Port       = 465;
+
+            // Recipients
             $mail->setFrom('lorem.ipsum.sample.email@gmail.com', 'Lorem Ipsum');
-            $mail->addAddress($email);   
-            $mail->addReplyTo('lorem.ipsum.sample.email@gmail.com', 'Lorem Ipsum'); 
-        
-            //Content
-            $mail->isHTML(true);  
+            $mail->addAddress($email);
+            $mail->addReplyTo('lorem.ipsum.sample.email@gmail.com', 'Lorem Ipsum');
+
+            // Content
+            $mail->isHTML(true);
             $mail->Subject = 'Verification Code';
-            $mail->Body    = 'Your verification code is: ' . $verificationCode; 
-            
-            // Success sent message alert
+            $mail->Body    = 'Your verification code is: ' . $verificationCode;
+
+            // Send the email
             $mail->send();
-            
+
             session_start();
-    
-            $userVerificationID = $conn->lastInsertId();
+            $userVerificationID = $conn->insert_id;
             $_SESSION['user_verification_id'] = $userVerificationID;
 
             echo "
@@ -114,7 +96,7 @@ if (isset($_POST['register'])) {
             </script>
             ";
 
-            $conn->commit();
+            $conn->commit(); // Commit the transaction
         } else {
             echo "
             <script>
@@ -123,64 +105,64 @@ if (isset($_POST['register'])) {
             </script>
             ";
         }
-    } catch (PDOException $e) {
-        $conn->rollBack();
+    } catch (mysqli_sql_exception $e) {
+        $conn->rollback(); // Rollback the transaction if something failed
         echo "Error: " . $e->getMessage();
+    } finally {
+        $conn->autocommit(true); // Re-enable autocommit mode
     }
 }
 
 if (isset($_POST['verify'])) {
-
     try {
         $userVerificationID = $_POST['user_verification_id'];
         $verificationCode = $_POST['verification_code'];
-    
-        $stmt = $conn->prepare("SELECT `verification_code` FROM `tbl_user` WHERE `tbl_user_id` = :user_verification_id");
-        $stmt->execute([
-            'user_verification_id' => $userVerificationID,
-        ]);
-       
-        $codeExist = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        $stmt = $conn->prepare("SELECT * FROM `tbl_user` WHERE `tbl_user_id` = :user_verification_id");
-        $stmt->execute([
-            'user_verification_id' => $userVerificationID,
-        ]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
+        $stmt = $conn->prepare("SELECT `verification_code` FROM `tbl_user` WHERE `tbl_user_id` = ?");
+        $stmt->bind_param('i', $userVerificationID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $codeExist = $result->fetch_assoc();
+
+        $stmt = $conn->prepare("SELECT * FROM `tbl_user` WHERE `tbl_user_id` = ?");
+        $stmt->bind_param('i', $userVerificationID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
         if ($codeExist && $codeExist['verification_code'] == $verificationCode) {
             session_destroy();
             session_start();
             $_SESSION['user_id'] = $row['tbl_user_id'];
-            $_SESSION['username'] =$row['username'];
-            $_SESSION['password'] =$row['password'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['password'] = $row['password'];
             $_SESSION['first_name'] = $row['first_name'];
             $_SESSION['last_name'] = $row['last_name'];
-            $_SESSION['contact_number'] =  $row['contact_number'];
-            $_SESSION['email'] =  $row['email'] ;
-            $_SESSION['logged_in']=true;
-  
-SaveUserInfo($row);
+            $_SESSION['contact_number'] = $row['contact_number'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['logged_in'] = true;
+
+            SaveUserInfo($row);
 
             echo "
             <script>
                 alert('Registered Successfully.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/';
             </script>
             ";
         } else {
-            $conn->prepare("DELETE FROM `tbl_user` WHERE `tbl_user_id` = :user_verification_id")->execute([
-                'user_verification_id' => $userVerificationID
-            ]);
+            $stmt = $conn->prepare("DELETE FROM `tbl_user` WHERE `tbl_user_id` = ?");
+            $stmt->bind_param('i', $userVerificationID);
+            $stmt->execute();
 
             echo "
             <script>
                 alert('Incorrect Verification Code. Register Again.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6-main/login-system-with-email-verification/index.php'';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
         }
-    } catch (PDOException $e) {
+    } catch (mysqli_sql_exception $e) {
         echo "Error: " . $e->getMessage();
     }
 }
