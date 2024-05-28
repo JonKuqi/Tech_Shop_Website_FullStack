@@ -2,6 +2,8 @@
 
 date_default_timezone_set('Europe/Belgrade');
 
+
+
 abstract class Product {
     protected $pid;
     protected $sku;
@@ -89,15 +91,20 @@ class SmartPhone extends Product {
          <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
        </div>
        <div class="cart-concern position-absolute">
+         <form action="" class="form-submit">
+         <input type="hidden" class="pid" value="'.$this->getid().'">
+         <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">
+         <input type="hidden" class="quantity" value=1>
          <div class="cart-button d-flex">
            <div class="btn-left">
-             <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
+             <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
              <svg class="cart-outline position-absolute">
                <use xlink:href="#cart-outline"></use>
              </svg>
            </div>
          </div>
        </div>
+       </form>
        <div class="card-detail d-flex justify-content-between pt-3 pb-3">
          <h3 class="card-title text-uppercase">
            <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
@@ -216,15 +223,20 @@ class SmartWatch extends Product{
          <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
        </div>
        <div class="cart-concern position-absolute">
-         <div class="cart-button d-flex">
-           <div class="btn-left">
-             <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
-             <svg class="cart-outline position-absolute">
-               <use xlink:href="#cart-outline"></use>
-             </svg>
-           </div>
+       <form action="" class="form-submit">
+       <input type="hidden" class="pid" value="'.$this->getid().'">
+       <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">
+       <input type="hidden" class="quantity" value=1>
+       <div class="cart-button d-flex">
+         <div class="btn-left">
+           <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+           <svg class="cart-outline position-absolute">
+             <use xlink:href="#cart-outline"></use>
+           </svg>
          </div>
        </div>
+     </div>
+     </form>
        <div class="card-detail d-flex justify-content-between pt-3 pb-3">
          <h3 class="card-title text-uppercase">
            <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
@@ -338,15 +350,20 @@ class Laptop extends Product {
        <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
      </div>
      <div class="cart-concern position-absolute">
-       <div class="cart-button d-flex">
-         <div class="btn-left">
-           <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
-           <svg class="cart-outline position-absolute">
-             <use xlink:href="#cart-outline"></use>
-           </svg>
-         </div>
+     <form action="" class="form-submit">
+     <input type="hidden" class="pid" value="'.$this->getid().'">
+     <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">
+     <input type="hidden" class="quantity" value=1>
+     <div class="cart-button d-flex">
+       <div class="btn-left">
+         <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+         <svg class="cart-outline position-absolute">
+           <use xlink:href="#cart-outline"></use>
+         </svg>
        </div>
      </div>
+   </div>
+   </form>
      <div class="card-detail d-flex justify-content-between pt-3 pb-3">
        <h3 class="card-title text-uppercase">
          <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
@@ -469,15 +486,20 @@ public function showInShop(){
      <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
    </div>
    <div class="cart-concern position-absolute">
-     <div class="cart-button d-flex">
-       <div class="btn-left">
-         <a href="cart.php?product='.$this->getId().'" class="btn btn-medium btn-black">Add to Cart</a>
-         <svg class="cart-outline position-absolute">
-           <use xlink:href="#cart-outline"></use>
-         </svg>
+         <form action="" class="form-submit">
+         <input type="hidden" class="pid" value="'.$this->getid().'">
+         <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">
+         <input type="hidden" class="quantity" value=1>
+         <div class="cart-button d-flex">
+           <div class="btn-left">
+             <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+             <svg class="cart-outline position-absolute">
+               <use xlink:href="#cart-outline"></use>
+             </svg>
+           </div>
+         </div>
        </div>
-     </div>
-   </div>
+       </form>
    <div class="card-detail d-flex justify-content-between pt-3 pb-3">
      <h3 class="card-title text-uppercase">
        <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
@@ -563,3 +585,6 @@ echo '</span>
 
 
 ?>
+
+
+
