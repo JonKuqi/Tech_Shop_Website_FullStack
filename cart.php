@@ -246,7 +246,6 @@ foreach($userCart as $c){
               </table>
             </div>
             <div class="button-wrap">
-              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
               <a href="shop.php" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</a>
               <a href="checkout.php" class="btn btn-black btn-medium text-uppercase mb-3 btn-rounded-none">Proceed to checkout</a>
 
@@ -276,6 +275,8 @@ foreach($userCart as $c){
           </div>
         </div>
       </div>
+      <br>
+      <br>
     </section>
     <?php include("includes/footer.php")?>
     

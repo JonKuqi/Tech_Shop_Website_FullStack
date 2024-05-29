@@ -328,8 +328,6 @@ if(isset($_POST['add-to-cart'])){
                         </span>
                     </div>
                     <div class="qty-button d-flex flex-wrap pt-3">
-                 
-                      <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
                       <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
                  </form>                      
                     </div>
