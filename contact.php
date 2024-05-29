@@ -1,4 +1,30 @@
-<?php  include("includes/header.php");?>
+<?php 
+include("includes/header.php");
+include('databaseConnection.php');
+
+if(isset($_POST['send'])){
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+      $name=$_POST['name'];
+      $email=$_POST['email'];
+      $number=$_POST['number'];
+      $subject=$_POST['subject'];
+      $message=$_POST['message'];
+      $toEmail='kaltrina.krasniqi45@gmail.com';
+
+      $mailHeaders="From: $email";
+
+      if(mail($toEmail,$subject,$message,$mailHeaders)){
+        // Njoftimi me alert në JavaScript
+        echo '<script>alert("Your information is received Successfully!");</script>';
+      }else{
+        echo 'Email sending failed. Please try again later.';
+      }
+    } 
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
   
@@ -71,22 +97,24 @@
           <div class="inquiry-item col-lg-6">
             <h2 class="display-7 text-uppercase text-dark">Any questions?</h2>
             <p>Use the form below to get in touch with us.</p>
-            <form id="form" class="form-group flex-wrap">
-              <div class="form-input col-lg-12 d-flex mb-3">
-                <input type="text" name="email" placeholder="Write Your Name Here" class="form-control ps-3 me-3 mb-3">
-                <input type="text" name="email" placeholder="Write Your Email Here" class="form-control ps-3 mb-3">
-              </div>
-              <div class="col-lg-12 mb-3">
-                <input type="text" name="email" placeholder="Phone Number" class="form-control ps-3">
-              </div>
-              <div class="col-lg-12 mb-3">
-                <input type="text" name="email" placeholder="Write Your Subject Here" class="form-control ps-3">
-              </div>
-              <div class="col-lg-12 mb-3">
-                <textarea placeholder="Write Your Message Here" class="form-control ps-3" style="height:150px;"></textarea>
-              </div>
-            </form>
-              <button class="btn btn-dark btn-medium text-uppercase btn-rounded-none">Submit</button>
+            <form id="form" class="form-group flex-wrap" method="post" action="contact.php">
+    <div class="form-input col-lg-12 d-flex mb-3">
+        <input type="text" name="name" placeholder="Write Your Name Here" class="form-control ps-3 me-3 mb-3">
+        <input type="text" name="email" placeholder="Write Your Email Here" class="form-control ps-3 mb-3">
+    </div>
+    <div class="col-lg-12 mb-3">
+        <input type="text" name="number" placeholder="Phone Number" class="form-control ps-3">
+    </div>
+    <div class="col-lg-12 mb-3">
+        <input type="text" name="subject" placeholder="Write Your Subject Here" class="form-control ps-3">
+    </div>
+    <div class="col-lg-12 mb-3">
+        <textarea placeholder="Write Your Message Here" class="form-control ps-3" style="height:150px;" name="message"></textarea>
+    </div>
+    <button type="submit" class="btn btn-dark btn-medium text-uppercase btn-rounded-none" name='send'>Submit</button>
+</form>
+
+             
           </div>
         </div>
       </div>
