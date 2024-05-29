@@ -68,6 +68,28 @@ if (isset($_POST['register'])) {
             exit;
         }
 
+        // Validimi i nr
+        if (!preg_match("/^[0-9]+$/", $contactNumber)) {
+            echo "
+            <script>
+                alert('Invalid contact number format. Please use only numbers.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i emailit
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "
+            <script>
+                alert('Invalid email format. Please enter a valid email address.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
         $conn->autocommit(false); // Disable autocommit mode
 
         $stmt = $conn->prepare("SELECT `first_name`, `last_name` FROM `tbl_user` WHERE `first_name` = ? AND `last_name` = ?");
