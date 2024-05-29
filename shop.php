@@ -573,15 +573,9 @@ document.getElementById("sortingForm").addEventListener("submit", function(event
     // Send product details in the server
     $(".addItem").click(function(e) {
       e.preventDefault();
-      var isLoggedIn = <?php echo isset($_SESSION['logged_in']) ? 'true' : 'false'; ?>;
-                if (!isLoggedIn) {
-                 
-                    alert('Please log in first.');
-                    
-                }
       
-      
-      
+
+     
       var $form = $(this).closest(".form-submit");
       var pid = $form.find(".pid").val();
       var userid = $form.find(".user").val();
@@ -589,16 +583,20 @@ document.getElementById("sortingForm").addEventListener("submit", function(event
 
      console.log(userid);
 
-      $.ajax({
+     $.ajax({
         url: 'addcart.php',
         method: 'post',
         data: {
-          pid: pid,
-          userid: userid,
-          pqty: pqty
+            pid: pid,
+            userid: userid,
+            pqty: pqty
+        },
+        dataType: 'json',
+        success: function(response) {
+            alert(response.message); // Shfaq mesazhin nga përgjigja e serverit
         }
-      
-      });
+        
+    });
       console.log("hej");
     });
     
