@@ -24,8 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pid']) && isset($_POST
         } else {
             echo "Product added to shopping cart successfully.";
         }
-    }
-} else {
+    
+}} else {
     echo "Invalid request.";
 }
+
 ?>

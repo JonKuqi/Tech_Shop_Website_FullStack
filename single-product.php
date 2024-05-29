@@ -150,9 +150,14 @@ if(isset($_POST['add-to-cart'])){
     try{
           if($quantity > $product->getQuantity()){
             throw new GabimSasie($product->getQuantity());
-          }
+          } 
+         else if (isProductInUserCart($conn, $currentUser->getId(), $product->getId())) {
+            echo'<script>alert("This product is in your cart!");</script>';
+           
+        }else{
           addProductToShoppingCart($conn, $product,$currentUser,$quantity);
-          echo '<script>alert("You have succesfully added to Cart!");</script>';  
+          echo '<script>alert("You have succesfully added to Cart!");</script>';  }
+       
     }catch(GabimSasie $e){
       echo '<script>alert("'.$e->getMessage().'");</script>'; 
     }
@@ -784,42 +789,7 @@ function incrementQuantity() {
     });
 </script>
 <script type="text/javascript">
-  $(document).ready(function() {
-
-    // Send product details in the server
-    $(".addItem").click(function(e) {
-      e.preventDefault();
-      
-
-     
-      var $form = $(this).closest(".form-submit");
-      var pid = $form.find(".pid").val();
-      var userid = $form.find(".user").val();
-      var pqty = $form.find(".quantity").val();
-
-     console.log(userid);
-
-     $.ajax({
-        url: 'addcart.php',
-        method: 'post',
-        data: {
-            pid: pid,
-            userid: userid,
-            pqty: pqty
-        },
-        dataType: 'json',
-        success: function(response) {
-            alert(response.message); // Shfaq mesazhin nga përgjigja e serverit
-        }
-        
-    });
-      console.log("hej");
-    });
-    
-
-    // Load total no.of items added in the cart and display in the navbar
-   
-  });
+ 
   </script>
   </body>
 
