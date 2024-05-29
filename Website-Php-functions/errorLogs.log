@@ -227,3 +227,12 @@ Error [2]: Cannot modify header information - headers already sent by (output st
 Error [2]: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Tech_Shop_Website_Gr.6\includes\header.php:24) in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\Data-Objects\recomendProducts.php on line 29 
 Error [2]: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Tech_Shop_Website_Gr.6\includes\header.php:24) in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\Data-Objects\recomendProducts.php on line 29 
 Error [2]: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Tech_Shop_Website_Gr.6\includes\header.php:24) in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\Data-Objects\recomendProducts.php on line 29 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Undefined variable $undefined_variable in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\shop.php on line 12 
+Error [2]: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Tech_Shop_Website_Gr.6\includes\header.php:24) in C:\xampp\htdocs\Tech_Shop_Website_Gr.6\Data-Objects\recomendProducts.php on line 29 

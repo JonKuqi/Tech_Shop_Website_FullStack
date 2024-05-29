@@ -157,8 +157,6 @@ if(isset($_POST['add-to-cart'])){
       echo '<script>alert("'.$e->getMessage().'");</script>'; 
     }
 }
-
-
 ?>
 
 
