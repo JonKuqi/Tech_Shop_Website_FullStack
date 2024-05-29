@@ -340,7 +340,7 @@ if(isset($_POST['add-to-cart'])){
                     <div class="qty-button d-flex flex-wrap pt-3">
                  
                       <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
-                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 addItem" disabled = "<?php if($product->getQuantity() == 0) echo "true"; ?>">Add to cart</button>
+                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 addItem" <?php if($product->getQuantity() == 0){ echo "disabled";}else {} ?>>Add to cart</button>
                  </form>                      
                     </div>
                   </div>
