@@ -137,3 +137,13 @@ INSERT INTO tblImages (imgId, pid, path) VALUES
 (16, 16, 'images/product-item17.jpg'),
 (17, 17, 'images/product-item18.jpg'),
 (18, 18, 'images/product-item19.jpg');
+
+
+
+
+INSERT INTO `tbl_user` ( `first_name`, `last_name`, `contact_number`, `email`, `username`, `password`, `verification_code`) VALUES
+('Kaltrina', 'Krasniq', 2147483647, 'lorem.ipsum.sample.email@gmail.com', 'admin', 'admin', 965225);
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";

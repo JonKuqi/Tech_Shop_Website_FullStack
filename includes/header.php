@@ -133,7 +133,7 @@ if(isset($_GET['logout'])){
                     <ul class="d-flex justify-content-end list-unstyled">
                       <li class="search-item pe-3">
                       <li class="nav-item">
-                  <a class="nav-link me-4" href="login-system-with-email-verification/index.php?logout=1">Log Out</a>
+                  <a class="nav-link me-4" href="logout.php">Log Out</a>
                       </li>                    
                     
               

@@ -565,6 +565,46 @@ document.getElementById("sortingForm").addEventListener("submit", function(event
         document.getElementById('searchForm').submit();
     });
 </script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+ 
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    // Send product details in the server
+    $(".addItem").click(function(e) {
+      e.preventDefault();
+      
+
+     
+      var $form = $(this).closest(".form-submit");
+      var pid = $form.find(".pid").val();
+      var userid = $form.find(".user").val();
+      var pqty = $form.find(".quantity").val();
+
+     console.log(userid);
+
+     $.ajax({
+        url: 'addcart.php',
+        method: 'post',
+        data: {
+            pid: pid,
+            userid: userid,
+            pqty: pqty
+        },
+        dataType: 'json',
+        success: function(response) {
+            alert(response.message); // Shfaq mesazhin nga përgjigja e serverit
+        }
+        
+    });
+      console.log("hej");
+    });
+    
+
+    // Load total no.of items added in the cart and display in the navbar
+   
+  });
+  </script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:48 GMT -->

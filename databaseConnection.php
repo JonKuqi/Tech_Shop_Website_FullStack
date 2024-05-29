@@ -1,6 +1,6 @@
 <?php
-$username = 'Jon';
-$conn = mysqli_connect("localhost:3307",$username,"1234","techshopdatabase");
+$username = 'root';
+$conn = mysqli_connect("localhost:3307",$username,"","techshopdatabase");
 $err = mysqli_connect_errno();
 
 if($err != null){
@@ -11,4 +11,5 @@ if($err != null){
 }else{
   //echo "Jeni qasur me sukses ne Databaze";
 }
+
 ?>

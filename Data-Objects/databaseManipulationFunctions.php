@@ -53,6 +53,7 @@ function arrayProductsFromDatabase($db) {
                 break;
             case ($row['sku'] > 4000 && $row['sku'] <= 5000):
                 $product = new OtherBrands($row['pid'], $row['sku'], $row['price'], $row['quantity'], $row['time_added'], $row['name'], $row['discount'], $row['brand'], $row['short_description'], $row['long_description']);
+            
                 break;
         }
         array_push($arrayProducts, $product);
@@ -242,6 +243,23 @@ function updateProduct($db, $id, $newQuantity){
     $stmt = $db->prepare("UPDATE tblProduct SET quantity = ? WHERE pid = ?");
     $stmt->bind_param("ii", $newQuantity, $id);
     $stmt->execute();
+}
+
+function isProductInUserCart($db, $userId, $productId) {
+   
+    $stmt = $db->prepare("SELECT * FROM tblShopingCart WHERE tbl_user_id = ? AND pid = ?");
+    
+    $stmt->bind_param("ii", $userId, $productId);
+   
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+
+    if ($result->fetch_assoc()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 ?>
