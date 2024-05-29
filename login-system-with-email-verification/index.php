@@ -102,45 +102,45 @@ if (isset($_POST['submit'])) {
 
 
 
-        <!-- Registration Area -->
- <div class="registration-form" id="registrationForm">
-    <h2 class="text-center">Registration Form</h2>
-    <p class="text-center">Fill in your personal details.</p>
-    <form action="./endpoint/add-user.php" method="POST" onsubmit="return validateForm()">
-        <div class="form-group registration row">
-            <div class="col-6">
-                <label for="firstName">First Name:</label>
-                <input type="text" class="form-control" id="firstName" name="first_name" pattern="[A-Za-z]{1,32}" title="Invalid input. Only letters allowed, max length 32" required>
-            </div>
-            <div class="col-6">
-                <label for="lastName">Last Name:</label>
-                <input type="text" class="form-control" id="lastName" name="last_name" pattern="[A-Za-z]{1,32}" title="Invalid input. Only letters allowed, max length 32" required>
-            </div>
+   <!-- Registration Area -->
+        <div class="registration-form" id="registrationForm">
+            <h2 class="text-center">Registration Form</h2>
+            <p class="text-center">Fill in your personal details.</p>
+            <form action="./endpoint/add-user.php" method="POST" onsubmit="return validateForm()">
+                <div class="form-group registration row">
+                    <div class="col-6">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" class="form-control" id="firstName" name="first_name" pattern="[A-Za-z]{3,20}" title="Invalid input. Only letters allowed, 3-20 characters" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName" name="last_name" pattern="[A-Za-z]{3,20}" title="Invalid input. Only letters allowed, 3-20 characters" required>
+                    </div>
+                </div>
+                <div class="form-group registration row">
+                    <div class="col-5">
+                        <label for="contactNumber">Contact Number:</label>
+                        <input type="tel" class="form-control" id="contactNumber" name="contact_number" pattern="[0-9]{9,11}" title="Invalid input. Only numbers allowed, 9-11 digits" maxlength="11" required>
+                    </div>
+                    <div class="col-7">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Invalid email address" required>
+                    </div>
+                </div>
+                <div class="form-group registration">
+                    <label for="registerUsername">Username:</label>
+                    <input type="text" class="form-control" id="registerUsername" name="username" pattern="[A-Za-z0-9_]{3,20}" title="Invalid input. Only letters, numbers, and underscores allowed, 3-20 characters" required>
+                </div>
+                <div class="form-group registration">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" class="form-control" id="registerPassword" name="password" pattern=".{8,}" title="Password must be at least 8 characters long" required>
+                </div>
+                <p>Already have an account? Login <span class="switch-form-link" onclick="showLoginForm()">Here.</span></p>
+                <button type="submit" class="btn btn-dark login-register form-control" name="register">Register</button>
+            </form>
         </div>
-        <div class="form-group registration row">
-            <div class="col-5">
-                <label for="contactNumber">Contact Number:</label>
-                <input type="tel" class="form-control" id="contactNumber" name="contact_number" pattern="[0-9]{10,11}" title="Invalid input. Only numbers allowed, 10-11 digits" maxlength="11" required>
-            </div>
-            <div class="col-7">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Invalid email address" required>
-            </div>
-        </div>
-        <div class="form-group registration">
-            <label for="registerUsername">Username:</label>
-            <input type="text" class="form-control" id="registerUsername" name="username" pattern="[A-Za-z0-9]{4,16}" title="Invalid input. Only letters and numbers allowed, 4-16 characters" required>
-        </div>
-        <div class="form-group registration">
-            <label for="registerPassword">Password:</label>
-            <input type="password" class="form-control" id="registerPassword" name="password" pattern=".{8,}" title="Password must be at least 8 characters long" required>
-        </div>
-        <p>Already have an account? Login <span class="switch-form-link" onclick="showLoginForm()">Here.</span></p>
-        <button type="submit" class="btn btn-dark login-register form-control" name="register">Register</button>
-    </form>
-</div>
 
-</div>
+    </div>
  <script>
         const loginForm = document.getElementById('loginForm');
         const registrationForm = document.getElementById('registrationForm');
