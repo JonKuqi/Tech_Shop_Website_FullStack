@@ -85,6 +85,11 @@ class SmartPhone extends Product {
 
     public function showInShop(){
       $finalPrice = $this->getPrice();
+      $sold = false;
+      if($this->quantity == 0){
+        $sold = true;
+      }
+       
      echo '  <div class="col-lg-4 col-md-6">
      <div class="product-card position-relative pe-3 pb-3">
      <a href="single-product.php?product='.$this->getId().'">
@@ -98,7 +103,7 @@ class SmartPhone extends Product {
           echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
            }else{
             echo ' <input type="hidden" class="user" value="1">';
-   }    
+         }    
         echo '<input type="hidden" class="quantity" value="1">
          <div class="cart-button d-flex">
            <div class="btn-left">
@@ -112,14 +117,22 @@ class SmartPhone extends Product {
        </form>
        <div class="card-detail d-flex justify-content-between pt-3 pb-3">
          <h3 class="card-title text-uppercase">
-           <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
-         </h3>
+           <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>';
+
+          if($sold){
+          echo '<h2 style ="color:red; font-weight: bold; font-size: 20px ">SOLD</h2>';
+        }else{
+
+         echo '</h3>
          <span class="item-price text-primary" style="font-size:25px">';
          if($this->getDiscount() != 0.0){
                 echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
          }else{
            echo $this->getPrice()."€";
          }    
+
+        }
+
   echo '</span>
        </div>
        </a>
@@ -128,48 +141,60 @@ class SmartPhone extends Product {
 
    
  }
-    
-public function showInIndex(){
-      echo '  <div class="swiper-slide"><div class="product-card position-relative">
-      <a href ="single-product.php?product='.$this->getId().'">
-       <div class="image-holder">
-    <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
-        </div>
-        <div class="cart-concern position-absolute">
-        <form action="" class="form-submit">
-        <input type="hidden" class="pid" value="'.$this->getid().'">';
-        if(isset($_SESSION['logged_in'])){
-         echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
-          }else{
-           echo ' <input type="hidden" class="user" value="1">';
-  }    
-       echo '<input type="hidden" class="quantity" value="1">
-        <div class="cart-button d-flex">
-          <div class="btn-left">
-            <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
-            <svg class="cart-outline position-absolute">
-              <use xlink:href="#cart-outline"></use>
-            </svg>
-          </div>
-        </div>
-      </div>
-      </form>
-     <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-  <h3 class="card-title text-uppercase">
-    <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
-  </h3>
-  <span class="item-price text-primary" style="font-size:25px">';
-  if($this->getDiscount() != 0.0){
-         echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+ public function showInIndex(){
+  $sold = false;
+  if($this->quantity == 0){
+    $sold = true;
+  }
+  echo '  <div class="swiper-slide"><div class="product-card position-relative">
+  <a href = "single-product.php?product='.$this->getId().'">
+<div class="image-holder">
+<img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
+</div>
+<div class="cart-concern position-absolute">
+<form action="" class="form-submit">
+<input type="hidden" class="pid" value="'.$this->getid().'">';
+if(isset($_SESSION['logged_in'])){
+ echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
   }else{
-    echo $this->getPrice()."€";
-  }    
-   echo '</span>
- </div>
-   </a>
-   </div></div>';
-}
+   echo ' <input type="hidden" class="user" value="1">';
+}    
+echo '<input type="hidden" class="quantity" value="1">
+<div class="cart-button d-flex">
+  <div class="btn-left">
+    <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+    <svg class="cart-outline position-absolute">
+      <use xlink:href="#cart-outline"></use>
+    </svg>
+  </div>
+</div>
+</div>
+</form>
+<div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+<h3 class="card-title text-uppercase">
+<a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
+</h3>
+<span class="item-price text-primary" style="font-size:25px">';
 
+
+if($sold){
+  echo '<h2 style ="color:red; font-weight: bold; font-size: 20px ">SOLD</h2>';
+}else{
+
+ echo '</h3>
+ <span class="item-price text-primary" style="font-size:25px">';
+ if($this->getDiscount() != 0.0){
+        echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+ }else{
+   echo $this->getPrice()."€";
+ }    
+
+}  
+echo '</span>
+</div>
+</a>
+</div></div>';
+}
     
 
     public function addImage(String $path){
@@ -235,7 +260,7 @@ class SmartWatch extends Product{
 
     public function showInShop(){
       $finalPrice = $this->getPrice();
-      
+      $sold = false;
       if($this->quantity == 0){
         $sold = true;
       }
@@ -292,6 +317,10 @@ class SmartWatch extends Product{
    
  }
  public function showInIndex(){
+  $sold = false;
+  if($this->quantity == 0){
+    $sold = true;
+  }
   echo '  <div class="swiper-slide"><div class="product-card position-relative">
   <a href = "single-product.php?product='.$this->getId().'">
 <div class="image-holder">
@@ -321,11 +350,21 @@ echo '<input type="hidden" class="quantity" value="1">
 <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
 </h3>
 <span class="item-price text-primary" style="font-size:25px">';
-if($this->getDiscount() != 0.0){
-     echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+
+
+if($sold){
+  echo '<h2 style ="color:red; font-weight: bold; font-size: 20px ">SOLD</h2>';
 }else{
-echo $this->getPrice()."€";
-}    
+
+ echo '</h3>
+ <span class="item-price text-primary" style="font-size:25px">';
+ if($this->getDiscount() != 0.0){
+        echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+ }else{
+   echo $this->getPrice()."€";
+ }    
+
+}  
 echo '</span>
 </div>
 </a>
@@ -393,6 +432,11 @@ class Laptop extends Product {
   }
   public function showInShop(){
     $finalPrice = $this->getPrice();
+    $sold = false;
+    if($this->quantity == 0){
+      $sold = true;
+    }
+     
    echo '  <div class="col-lg-4 col-md-6">
    <div class="product-card position-relative pe-3 pb-3">
    <a href="single-product.php?product='.$this->getId().'">
@@ -400,34 +444,42 @@ class Laptop extends Product {
        <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
      </div>
      <div class="cart-concern position-absolute">
-     <form action="" class="form-submit">
-     <input type="hidden" class="pid" value="'.$this->getid().'">';
-     if(isset($_SESSION['logged_in'])){
-      echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
-       }else{
-        echo ' <input type="hidden" class="user" value="1">';
-}    
-    echo '<input type="hidden" class="quantity" value="1">
-     <div class="cart-button d-flex">
-       <div class="btn-left">
-         <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
-         <svg class="cart-outline position-absolute">
-           <use xlink:href="#cart-outline"></use>
-         </svg>
+       <form action="" class="form-submit">
+       <input type="hidden" class="pid" value="'.$this->getid().'">';
+       if(isset($_SESSION['logged_in'])){
+        echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
+         }else{
+          echo ' <input type="hidden" class="user" value="1">';
+       }    
+      echo '<input type="hidden" class="quantity" value="1">
+       <div class="cart-button d-flex">
+         <div class="btn-left">
+           <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+           <svg class="cart-outline position-absolute">
+             <use xlink:href="#cart-outline"></use>
+           </svg>
+         </div>
        </div>
      </div>
-   </div>
-   </form>
+     </form>
      <div class="card-detail d-flex justify-content-between pt-3 pb-3">
        <h3 class="card-title text-uppercase">
-         <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
-       </h3>
+         <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>';
+
+        if($sold){
+        echo '<h2 style ="color:red; font-weight: bold; font-size: 20px ">SOLD</h2>';
+      }else{
+
+       echo '</h3>
        <span class="item-price text-primary" style="font-size:25px">';
        if($this->getDiscount() != 0.0){
               echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
        }else{
          echo $this->getPrice()."€";
        }    
+
+      }
+
 echo '</span>
      </div>
      </a>
@@ -436,11 +488,13 @@ echo '</span>
 
  
 }
-  
-
-  public function showInIndex(){
-    echo '  <div class="swiper-slide"><div class="product-card position-relative">
-    <a href ="single-product.php?product='.$this->getId().'">
+public function showInIndex(){
+$sold = false;
+if($this->quantity == 0){
+  $sold = true;
+}
+echo '  <div class="swiper-slide"><div class="product-card position-relative">
+<a href = "single-product.php?product='.$this->getId().'">
 <div class="image-holder">
 <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
 </div>
@@ -448,37 +502,46 @@ echo '</span>
 <form action="" class="form-submit">
 <input type="hidden" class="pid" value="'.$this->getid().'">';
 if(isset($_SESSION['logged_in'])){
- echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
-  }else{
-   echo ' <input type="hidden" class="user" value="1">';
+echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
+}else{
+ echo ' <input type="hidden" class="user" value="1">';
 }    
 echo '<input type="hidden" class="quantity" value="1">
 <div class="cart-button d-flex">
-  <div class="btn-left">
-    <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
-    <svg class="cart-outline position-absolute">
-      <use xlink:href="#cart-outline"></use>
-    </svg>
-  </div>
+<div class="btn-left">
+  <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+  <svg class="cart-outline position-absolute">
+    <use xlink:href="#cart-outline"></use>
+  </svg>
+</div>
 </div>
 </div>
 </form>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
 <h3 class="card-title text-uppercase">
-  <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
+<a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
 </h3>
 <span class="item-price text-primary" style="font-size:25px">';
-if($this->getDiscount() != 0.0){
-       echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+
+
+if($sold){
+echo '<h2 style ="color:red; font-weight: bold; font-size: 20px ">SOLD</h2>';
 }else{
-  echo $this->getPrice()."€";
+
+echo '</h3>
+<span class="item-price text-primary" style="font-size:25px">';
+if($this->getDiscount() != 0.0){
+      echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+}else{
+ echo $this->getPrice()."€";
 }    
+
+}  
 echo '</span>
 </div>
 </a>
 </div></div>';
 }
-
   
 
   public function addImage(String $path){
@@ -545,55 +608,71 @@ class OtherBrands extends Product {
   }
 
 
-public function showInShop(){
-  $finalPrice = $this->getPrice();
- echo '  <div class="col-lg-4 col-md-6">
- <div class="product-card position-relative pe-3 pb-3">
- <a href="single-product.php?product='.$this->getId().'">
-   <div class="image-holder">
-     <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
-   </div>
-   <div class="cart-concern position-absolute">
-   <form action="" class="form-submit">
-   <input type="hidden" class="pid" value="'.$this->getid().'">';
-   if(isset($_SESSION['logged_in'])){
-    echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
-     }else{
-      echo ' <input type="hidden" class="user" value="1">';
-}    
-  echo '<input type="hidden" class="quantity" value="1">
-   <div class="cart-button d-flex">
-     <div class="btn-left">
-       <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
-       <svg class="cart-outline position-absolute">
-         <use xlink:href="#cart-outline"></use>
-       </svg>
+  public function showInShop(){
+    $finalPrice = $this->getPrice();
+    $sold = false;
+    if($this->quantity == 0){
+      $sold = true;
+    }
+     
+   echo '  <div class="col-lg-4 col-md-6">
+   <div class="product-card position-relative pe-3 pb-3">
+   <a href="single-product.php?product='.$this->getId().'">
+     <div class="image-holder">
+       <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
      </div>
-   </div>
- </div>
- </form>
-   <div class="card-detail d-flex justify-content-between pt-3 pb-3">
-     <h3 class="card-title text-uppercase">
-       <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
-     </h3>
-     <span class="item-price text-primary" style="font-size:25px">';
-     if($this->getDiscount() != 0.0){
-            echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
-     }else{
-       echo $this->getPrice()."€";
-     }    
+     <div class="cart-concern position-absolute">
+       <form action="" class="form-submit">
+       <input type="hidden" class="pid" value="'.$this->getid().'">';
+       if(isset($_SESSION['logged_in'])){
+        echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
+         }else{
+          echo ' <input type="hidden" class="user" value="1">';
+       }    
+      echo '<input type="hidden" class="quantity" value="1">
+       <div class="cart-button d-flex">
+         <div class="btn-left">
+           <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+           <svg class="cart-outline position-absolute">
+             <use xlink:href="#cart-outline"></use>
+           </svg>
+         </div>
+       </div>
+     </div>
+     </form>
+     <div class="card-detail d-flex justify-content-between pt-3 pb-3">
+       <h3 class="card-title text-uppercase">
+         <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>';
+
+        if($sold){
+        echo '<h2 style ="color:red; font-weight: bold; font-size: 20px ">SOLD</h2>';
+      }else{
+
+       echo '</h3>
+       <span class="item-price text-primary" style="font-size:25px">';
+       if($this->getDiscount() != 0.0){
+              echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+       }else{
+         echo $this->getPrice()."€";
+       }    
+
+      }
+
 echo '</span>
-   </div>
-   </a>
- </div>                  
-</div> ';
+     </div>
+     </a>
+   </div>                  
+ </div> ';
 
-
+ 
 }
-
-  public function showInIndex(){
-    echo '  <div class="swiper-slide"><div class="product-card position-relative">
-    <a href ="single-product.php?product='.$this->getId().'">
+public function showInIndex(){
+$sold = false;
+if($this->quantity == 0){
+  $sold = true;
+}
+echo '  <div class="swiper-slide"><div class="product-card position-relative">
+<a href = "single-product.php?product='.$this->getId().'">
 <div class="image-holder">
 <img src="'.$this->images[0].'" alt="product-item" class="img-fluid">
 </div>
@@ -601,37 +680,46 @@ echo '</span>
 <form action="" class="form-submit">
 <input type="hidden" class="pid" value="'.$this->getid().'">';
 if(isset($_SESSION['logged_in'])){
- echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
-  }else{
-   echo ' <input type="hidden" class="user" value="1">';
+echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
+}else{
+ echo ' <input type="hidden" class="user" value="1">';
 }    
 echo '<input type="hidden" class="quantity" value="1">
 <div class="cart-button d-flex">
-  <div class="btn-left">
-    <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
-    <svg class="cart-outline position-absolute">
-      <use xlink:href="#cart-outline"></use>
-    </svg>
-  </div>
+<div class="btn-left">
+  <a  class="btn btn-medium btn-black addItem">Add to Cart</a>
+  <svg class="cart-outline position-absolute">
+    <use xlink:href="#cart-outline"></use>
+  </svg>
+</div>
 </div>
 </div>
 </form>
 <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
 <h3 class="card-title text-uppercase">
-  <a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
+<a href="single-product.php?product='.$this->getId().'">'.$this->getName().'</a>
 </h3>
 <span class="item-price text-primary" style="font-size:25px">';
-if($this->getDiscount() != 0.0){
-       echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+
+
+if($sold){
+echo '<h2 style ="color:red; font-weight: bold; font-size: 20px ">SOLD</h2>';
 }else{
-  echo $this->getPrice()."€";
+
+echo '</h3>
+<span class="item-price text-primary" style="font-size:25px">';
+if($this->getDiscount() != 0.0){
+      echo '<span  style="font-size: 20px; color: rgb(189, 11, 56) !important; text-decoration: line-through;" class="item-price text-primary">'.$this->getPrice().'€</span>     '.$this->getPrice()-($this->getPrice()*$this->getDiscount()) .'€';
+}else{
+ echo $this->getPrice()."€";
 }    
+
+}  
 echo '</span>
 </div>
 </a>
 </div></div>';
 }
-
   
 
   public function addImage(String $path){
