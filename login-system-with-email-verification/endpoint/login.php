@@ -4,7 +4,34 @@ include('../../databaseConnection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
+    $password = $_POST['password'];
+
+    // Validimi me regeXxx
+    $username_pattern = '/^[a-zA-Z0-9_]{3,20}$/';
+    $password_pattern = '/^.{8,}$/';  // Passwordi duhet te kete te pakten 8 karaktere
+
+    if (!preg_match($username_pattern, $username)) {
+        echo "
+        <script>
+            alert('Login Failed, Invalid Username! Username should be 3-20 characters long and can contain only letters, numbers, and underscores.');
+            window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+        </script>
+        ";
+        exit();
+    }
+    if (!preg_match($password_pattern, $password)) {
+        echo "
+        <script>
+            alert('Login Failed, Invalid Password! Password should be at least 8 characters long.');
+            window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+        </script>
+        ";
+        exit();
+    }
+
+    // Hashing pass mbasi qe e kqyrim lengthin
+    $password = md5($password);
+
 
     $stmt = $conn->prepare("SELECT * FROM `tbl_user` WHERE `username` = ?");
     

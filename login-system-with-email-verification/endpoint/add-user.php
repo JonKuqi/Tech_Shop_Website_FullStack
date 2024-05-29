@@ -46,6 +46,71 @@ if (isset($_POST['register'])) {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
+        //Validimi i emri
+        if (!preg_match("/^[a-zA-Z'-]+$/", $firstName)) {
+            echo "
+            <script>
+                alert('Invalid first name format. Please use only letters.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i mbiemrit
+        if (!preg_match("/^[a-zA-Z'-]+$/", $lastName)) {
+            echo "
+            <script>
+                alert('Invalid last name format. Please use only letters.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i nr
+        if (!preg_match("/^[0-9]+$/", $contactNumber)) {
+            echo "
+            <script>
+                alert('Invalid contact number format. Please use only numbers.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i emailit
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "
+            <script>
+                alert('Invalid email format. Please enter a valid email address.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i username it
+        if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
+            echo "
+            <script>
+                alert('Invalid username format. Please use only letters, numbers, and underscores.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i passit
+        if (strlen($password) < 8) {
+            echo "
+            <script>
+                alert('Password must be at least 8 characters long.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
 
         $conn->autocommit(false); // Disable autocommit mode
 
