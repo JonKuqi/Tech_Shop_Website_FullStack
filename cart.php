@@ -36,6 +36,15 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
 
 }
 
+if (isset($_POST['productId']) && isset($_POST['quantity'])) {
+  echo "U ekzekutu kjo";
+
+  $productId = $_POST['productId'];
+  $quantity = $_POST['quantity'];
+
+  changeQuantityOnCart($conn, $productId, $quantity);
+}
+
 //echo '<script>'.var_dump($currentUser).'</script>';
 
 
@@ -82,6 +91,7 @@ ksort($userCart);
 $total = 0;
 foreach($userCart as $c){
   $total+= (($c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount()))*$c->getQuantity());
+
 }
 
 
@@ -99,65 +109,66 @@ $subTotal = $total - ($total*TAX);
 function shfaq(ShopingCart $c){
   $singlePrice = $c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount());
   $subTotal = $singlePrice*$c->getQuantity();
- echo '  
+  echo '  
 <div class="cart-item border-top border-bottom padding-small">
-<div class="row align-items-center">
-<div class="col-lg-4 col-md-3">
- <div class="cart-info d-flex flex-wrap align-items-center mb-4">
-   <div class="col-lg-5">
-     <div class="card-image">
-       <img src="'.($c->getProduct()->getImages())[0].'" alt="cloth" class="img-fluid">
-     </div>
-   </div>
-   <div class="col-lg-4">
-     <div class="card-detail">
-       <h3 class="card-title text-uppercase">
-         <a href="#">'.$c->getProduct()->getName().'</a>
-       </h3>
-       <div class="card-price">
-         <span class="money text-primary" data-currency-usd="$1200.00">$'.$singlePrice.'</span>
-       </div>
-     </div>
-   </div>
- </div>
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-md-3">
+      <div class="cart-info d-flex flex-wrap align-items-center mb-4">
+        <div class="col-lg-5">
+          <div class="card-image">
+            <img src="'.($c->getProduct()->getImages())[0].'" alt="cloth" class="img-fluid">
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-detail">
+            <h3 class="card-title text-uppercase">
+              <a href="#">'.$c->getProduct()->getName().'</a>
+            </h3>
+            <div class="card-price">
+              <span class="money text-primary" data-currency-usd="$1200.00">$'.$singlePrice.'</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-7">
+      <div class="row d-flex">
+        <div class="col-lg-6">
+          <div class="qty-field">
+            <div class="qty-number d-flex">
+              <div class="quntity-button incriment-button" data-product-id="'.$c->getProduct()->getId().'">+</div>
+              <input class="spin-number-output bg-light no-margin" type="text" value="'.$c->getQuantity().'" data-product-id="'.$c->getProduct()->getId().'">
+              <div class="quntity-button decriment-button" data-product-id="'.$c->getProduct()->getId().'">-</div>
+            </div>
+            <div class="regular-price"></div>
+            <div class="quantity-output text-center bg-primary"></div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="total-price">
+            <span class="money text-primary">$'.$subTotal.'</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-2">
+      <div class="cart-remove">
+        <form id="subbmitForm'.$c->getProduct()->getId().'" method="post" action="cart.php">
+          <input type="hidden" name="productId" value="'.$c->getProduct()->getId().'">
+          <input type="hidden" name="quantity" value="'.$c->getQuantity().'">
+          <button type="submit" name="remove" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;">
+            <input type="hidden" name="idRemove" value="'.$c->getId().'"/>
+            <svg class="close" width="38px">
+              <use xlink:href="#close"></use>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="col-lg-6 col-md-7">
- <div class="row d-flex">
-   <div class="col-lg-6">
-     <div class="qty-field">
-       <div class="qty-number d-flex">
-         <div class="quntity-button incriment-button">+</div>
-         <input class="spin-number-output bg-light no-margin" type="text" value="'.$c->getQuantity().'">
-         <div class="quntity-button decriment-button">-</div>
-       </div>
-       <div class="regular-price"></div>
-       <div class="quantity-output text-center bg-primary"></div>
-     </div>
-   </div>
-   <div class="col-lg-4">
-     <div class="total-price">
-       <span class="money text-primary">$'.$subTotal.'</span>
-     </div>
-   </div>   
- </div>             
-</div>
-<div class="col-lg-1 col-md-2">
- <div class="cart-remove">
- <form method="post" action="cart.php">
- <button type="submit" name="remove" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;">
-  <input type="hidden" name="idRemove" value="'.$c->getId().'"/>
-     <svg class="close" width="38px">
-       <use xlink:href="#close"></use>
-     </svg>
-   
-   </button>
-   </form>
-
- </div>
-</div>
-</div>
-</div>
-';}
+';
+}
 
 
 
@@ -204,6 +215,9 @@ function shfaq(ShopingCart $c){
 
 <?php 
 
+
+
+
 $total = 0;
 foreach($userCart as $c){
   shfaq($c);
@@ -211,6 +225,7 @@ foreach($userCart as $c){
 
 
 }
+
 
 ?>
 
@@ -246,10 +261,33 @@ foreach($userCart as $c){
               </table>
             </div>
             <div class="button-wrap">
-              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
+              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none" id="refreshButton">Update Cart</button>
               <a href="shop.php" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</a>
               <a href="checkout.php" class="btn btn-black btn-medium text-uppercase mb-3 btn-rounded-none">Proceed to checkout</a>
 
+
+              <script>
+document.getElementById('refreshButton').addEventListener('click', function() {
+    // Save the scroll position in localStorage
+    localStorage.setItem('scrollPosition', window.scrollY);
+    
+    // Refresh the page
+    location.reload();
+});
+
+window.addEventListener('load', function() {
+    // Retrieve the scroll position from localStorage
+    const scrollPosition = localStorage.getItem('scrollPosition');
+    
+    // Scroll to the saved position if it exists
+    if (scrollPosition !== null) {
+        window.scrollTo(0, parseInt(scrollPosition, 10));
+        
+        // Clear the scroll position from localStorage
+        localStorage.removeItem('scrollPosition');
+    }
+});
+                </script>
             </div>
           </div>
         </div>
@@ -284,9 +322,10 @@ foreach($userCart as $c){
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var updateCart = function(inputField, increase) {
+    document.addEventListener("DOMContentLoaded", function() {
+      var updateCart = function(inputField, increase) {
         var value = parseInt(inputField.value);
         var stockQuantity = 10; // Assuming stock quantity
         var priceElement = inputField.closest('.cart-item').querySelector('.card-price .money');
@@ -294,46 +333,69 @@ document.addEventListener("DOMContentLoaded", function() {
         var price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
 
         if (increase) {
-            if (value < stockQuantity) {
-                value++;
-            }
+          if (value < stockQuantity) {
+            value++;
+          }
         } else {
-            if (value > 1) {
-                value--;
-            }
+          if (value > 1) {
+            value--;
+          }
         }
 
         inputField.value = value;
         totalPriceElement.textContent = '$' + (price * value).toFixed(2);
-    };
 
- 
-    var quantityFields = document.querySelectorAll('.spin-number-output');
-    quantityFields.forEach(function(inputField) {
+        // Save current scroll position
+        var scrollPosition = window.scrollY;
+        localStorage.setItem('scrollPosition', scrollPosition);
+
+        // Call function to update the cart on the server
+        updateQuantityOnServer(inputField.dataset.productId, value);
+      };
+
+      var updateQuantityOnServer = function(productId, quantity) {
+        // Update the hidden form inputs
+        var form = document.getElementById('subbmitForm' + productId);
+        form.querySelector('input[name="quantity"]').value = quantity;
+
+        // Submit the form
+        form.submit();
+      };
+
+      var restoreScrollPosition = function() {
+        var scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+          window.scrollTo(0, parseInt(scrollPosition, 10));
+          localStorage.removeItem('scrollPosition');
+        }
+      };
+
+      restoreScrollPosition();
+
+      var quantityFields = document.querySelectorAll('.spin-number-output');
+      quantityFields.forEach(function(inputField) {
         inputField.addEventListener('change', function() {
-            updateCart(inputField, true); // Always increasing the quantity when manually changed
+          updateCart(inputField, true); // Always increasing the quantity when manually changed
         });
-    });
+      });
 
- 
-    var incrementButtons = document.querySelectorAll('.incriment-button');
-    incrementButtons.forEach(function(button) {
+      var incrementButtons = document.querySelectorAll('.incriment-button');
+      incrementButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            var inputField = button.parentElement.querySelector('.spin-number-output');
-            updateCart(inputField, true);
+          var inputField = button.parentElement.querySelector('.spin-number-output');
+          updateCart(inputField, true);
         });
-    });
+      });
 
-  
-    var decrementButtons = document.querySelectorAll('.decriment-button');
-    decrementButtons.forEach(function(button) {
+      var decrementButtons = document.querySelectorAll('.decriment-button');
+      decrementButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            var inputField = button.parentElement.querySelector('.spin-number-output');
-            updateCart(inputField, false);
+          var inputField = button.parentElement.querySelector('.spin-number-output');
+          updateCart(inputField, false);
         });
+      });
     });
-});
-</script>
+  </script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:50 GMT -->
