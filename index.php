@@ -479,6 +479,46 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
     });
   });
 </script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+ 
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    // Send product details in the server
+    $(".addItem").click(function(e) {
+      e.preventDefault();
+      
+
+     
+      var $form = $(this).closest(".form-submit");
+      var pid = $form.find(".pid").val();
+      var userid = $form.find(".user").val();
+      var pqty = $form.find(".quantity").val();
+
+     console.log(userid);
+
+     $.ajax({
+        url: 'addcart.php',
+        method: 'post',
+        data: {
+            pid: pid,
+            userid: userid,
+            pqty: pqty
+        },
+        dataType: 'json',
+        success: function(response) {
+            alert(response.message); // Shfaq mesazhin nga përgjigja e serverit
+        }
+        
+    });
+      console.log("hej");
+    });
+    
+
+    // Load total no.of items added in the cart and display in the navbar
+   
+  });
+  </script>
 
   </body>
 
