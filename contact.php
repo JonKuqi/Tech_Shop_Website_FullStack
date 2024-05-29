@@ -5,16 +5,16 @@ include('databaseConnection.php');
 if(isset($_POST['send'])){
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-      $name=$_POST['name'];
-      $email=$_POST['email'];
-      $number=$_POST['number'];
-      $subject=$_POST['subject'];
-      $message=$_POST['message'];
-      $toEmail='kaltrina.krasniqi45@gmail.com';
+      $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+      $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+      $number = filter_var($_POST['number'], FILTER_SANITIZE_STRING);
+      $subject = filter_var($_POST['subject'], FILTER_SANITIZE_STRING);
+      $message = filter_var($_POST['message'], FILTER_SANITIZE_STRING);
+      $toEmail = 'kaltrina.krasniqi45@gmail.com';
 
-      $mailHeaders="From: $email";
+      $mailHeaders = "From: $email";
 
-      if(mail($toEmail,$subject,$message,$mailHeaders)){
+      if(mail($toEmail, $subject, $message, $mailHeaders)){
         // Njoftimi me alert në JavaScript
         echo '<script>alert("Your information is received Successfully!");</script>';
       }else{
@@ -23,6 +23,7 @@ if(isset($_POST['send'])){
     } 
 }
 ?>
+
 
 
 <!DOCTYPE html>
