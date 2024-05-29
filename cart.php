@@ -314,6 +314,8 @@ window.addEventListener('load', function() {
           </div>
         </div>
       </div>
+      <br>
+      <br>
     </section>
     <?php include("includes/footer.php")?>
     
