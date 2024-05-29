@@ -36,6 +36,7 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
 
 }
 
+
 //echo '<script>'.var_dump($currentUser).'</script>';
 
 
@@ -95,69 +96,68 @@ $subTotal = $total - ($total*TAX);
 
 
 
-
-function shfaq(ShopingCart $c){
-  $singlePrice = $c->getProduct()->getPrice()+($c->getProduct()->getPrice()*$c->getProduct()->getDiscount());
-  $subTotal = $singlePrice*$c->getQuantity();
- echo '  
+function shfaq(ShopingCart $c) {
+  $singlePrice = $c->getProduct()->getPrice() + ($c->getProduct()->getPrice() * $c->getProduct()->getDiscount());
+  $subTotal = $singlePrice * $c->getQuantity();
+  echo '
 <div class="cart-item border-top border-bottom padding-small">
-<div class="row align-items-center">
-<div class="col-lg-4 col-md-3">
- <div class="cart-info d-flex flex-wrap align-items-center mb-4">
-   <div class="col-lg-5">
-     <div class="card-image">
-       <img src="'.($c->getProduct()->getImages())[0].'" alt="cloth" class="img-fluid">
-     </div>
-   </div>
-   <div class="col-lg-4">
-     <div class="card-detail">
-       <h3 class="card-title text-uppercase">
-         <a href="#">'.$c->getProduct()->getName().'</a>
-       </h3>
-       <div class="card-price">
-         <span class="money text-primary" data-currency-usd="$1200.00">$'.$singlePrice.'</span>
-       </div>
-     </div>
-   </div>
- </div>
-</div>
-<div class="col-lg-6 col-md-7">
- <div class="row d-flex">
-   <div class="col-lg-6">
-     <div class="qty-field">
-       <div class="qty-number d-flex">
-         <div class="quntity-button incriment-button">+</div>
-         <input class="spin-number-output bg-light no-margin" type="text" value="'.$c->getQuantity().'">
-         <div class="quntity-button decriment-button">-</div>
-       </div>
-       <div class="regular-price"></div>
-       <div class="quantity-output text-center bg-primary"></div>
-     </div>
-   </div>
-   <div class="col-lg-4">
-     <div class="total-price">
-       <span class="money text-primary">$'.$subTotal.'</span>
-     </div>
-   </div>   
- </div>             
-</div>
-<div class="col-lg-1 col-md-2">
- <div class="cart-remove">
- <form method="post" action="cart.php">
- <button type="submit" name="remove" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;">
-  <input type="hidden" name="idRemove" value="'.$c->getId().'"/>
-     <svg class="close" width="38px">
-       <use xlink:href="#close"></use>
-     </svg>
-   
-   </button>
-   </form>
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-md-3">
+      <div class="cart-info d-flex flex-wrap align-items-center mb-4">
+        <div class="col-lg-5">
+          <div class="card-image">
+            <img src="' . ($c->getProduct()->getImages())[0] . '" alt="cloth" class="img-fluid">
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-detail">
+            <h3 class="card-title text-uppercase">
+              <a href="#">' . $c->getProduct()->getName() . '</a>
+            </h3>
+            <div class="card-price">
+              <span class="money text-primary" data-currency-usd="$1200.00">$' . $singlePrice . '</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-7">
+      <div class="row d-flex">
+        <div class="col-lg-6">
+          <div class="qty-field">
+            <div class="qty-number d-flex">
+              <div class="quntity-button incriment-button">+</div>
+              <input class="spin-number-output bg-light no-margin" type="text" value="' . $c->getQuantity() . '">
+              <input type="hidden" class="pid" value="' . $c->getProduct()->getId() . '">
+              <div class="quntity-button decriment-button">-</div>
+            </div>
+            <div class="regular-price"></div>
+            <div class="quantity-output text-center bg-primary"></div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="total-price">
+            <span class="money text-primary">$' . $subTotal . '</span>
+          </div>
+        </div>   
+      </div>             
+    </div>
+    <div class="col-lg-1 col-md-2">
+      <div class="cart-remove">
+        <form method="post" action="cart.php">
+          <button type="submit" name="remove" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;">
+            <input type="hidden" name="idRemove" value="' . $c->getId() . '"/>
+            <svg class="close" width="38px">
+              <use xlink:href="#close"></use>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>';
+}
 
- </div>
-</div>
-</div>
-</div>
-';}
 
 
 
@@ -292,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var priceElement = inputField.closest('.cart-item').querySelector('.card-price .money');
         var totalPriceElement = inputField.closest('.cart-item').querySelector('.total-price .money');
         var price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
+        var productId = inputField.closest('.cart-item').querySelector('.pid').value;
 
         if (increase) {
             if (value < stockQuantity) {
@@ -305,17 +306,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
         inputField.value = value;
         totalPriceElement.textContent = '$' + (price * value).toFixed(2);
+
+        // Send AJAX request to update cart in the database
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "update_cart.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.status !== "success") {
+                    alert("Failed to update cart: " + response.message);
+                }
+            }
+        };
+        xhr.send("product_id=" + productId + "&quantity=" +( value-1));
     };
 
- 
     var quantityFields = document.querySelectorAll('.spin-number-output');
     quantityFields.forEach(function(inputField) {
         inputField.addEventListener('change', function() {
-            updateCart(inputField, true); // Always increasing the quantity when manually changed
+            updateCart(inputField, true);
         });
     });
 
- 
     var incrementButtons = document.querySelectorAll('.incriment-button');
     incrementButtons.forEach(function(button) {
         button.addEventListener('click', function() {
@@ -324,7 +337,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-  
     var decrementButtons = document.querySelectorAll('.decriment-button');
     decrementButtons.forEach(function(button) {
         button.addEventListener('click', function() {
@@ -332,7 +344,24 @@ document.addEventListener("DOMContentLoaded", function() {
             updateCart(inputField, false);
         });
     });
+
+    document.querySelector('.btn.btn-black.btn-medium.text-uppercase.me-2.mb-3.btn-rounded-none').addEventListener('click', function(e) {
+        var changed = false;
+        quantityFields.forEach(function(inputField) {
+            if (inputField.value != inputField.defaultValue) {
+                changed = true;
+                updateCart(inputField, true);
+                inputField.defaultValue = inputField.value;
+            }
+        });
+        if (!changed) {
+            e.preventDefault();
+        }
+    });
 });
+</script>
+
+
 </script>
   </body>
 
