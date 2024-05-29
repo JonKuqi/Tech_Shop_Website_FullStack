@@ -6,9 +6,10 @@
 	if (isset($_POST['pid'])) {
         
 	  $pid = $_POST['pid'];
-	  $userid = $_SESSION['user_id'];
+	  $userid =$_POST['userid'] ;
 	  $pqty = $_POST['pqty'];
 	
+      
 
 	  $stmt = $conn->prepare('INSERT INTO tblshopingcart (tbl_user_id, pid, quantity) VALUES (?, ?, ?)');
       $stmt->bind_param("iii", $userid, $pid, $pqty);
