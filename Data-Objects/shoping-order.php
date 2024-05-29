@@ -56,9 +56,11 @@ public function getTotalPrice(){
          <div class="col-lg-6">
            <div class="qty-field">
              <div class="qty-number d-flex">
+            
                <div class="quntity-button incriment-button">+</div>
                <input class="spin-number-output bg-light no-margin" type="text" value="'.$this->quantity.'">
                <div class="quntity-button decriment-button">-</div>
+              
              </div>
              <div class="regular-price"></div>
              <div class="quantity-output text-center bg-primary"></div>
@@ -84,7 +86,6 @@ public function getTotalPrice(){
  </div>
 
 ';
-
 
     }
 

@@ -264,7 +264,6 @@ Introducing the Pink Digital Watch: a sleek, modern timepiece that seamlessly co
     </span>
 </div>
      <div class="qty-button d-flex flex-wrap pt-3">
-        <a href="checkout.html" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</a>
         <a href="cart.php" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</a>
                    
                     </div>

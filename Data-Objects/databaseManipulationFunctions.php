@@ -104,6 +104,13 @@ function arrayUsersFromDatabase($db) {
 
 
 
+function changeQuantityOnCart($db, $productId, $quantity){
+    $stmt = $db->prepare("UPDATE tblShopingCart SET quantity = ? WHERE pid = ?");
+    $stmt->bind_param("ii", $quantity, $productId);
+    $stmt->execute();
+
+}
+
 
 
 
