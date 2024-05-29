@@ -313,24 +313,30 @@ if(isset($_POST['add-to-cart'])){
                 <div class="product-quantity">
                   <div class="stock-number text-dark"><?php echo $product->getQuantity(); ?>  in stock</div>
                   <div class="stock-button-wrap pt-3">
-                  <form method="post" action="<?php echo "single-product.php?product=".$product->getId();?>">
+                  <form class="form-submit" method="post" action="<?php echo "single-product.php?product=".$product->getId();?>" >
                     <div class="input-group product-qty">
                         <span class="input-group-btn">
                             <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="">
                               -
                             </button>
                         </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                        <input type="hidden" class="pid" value="<?php echo $product->getId();?>">
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number quantity" value="1" min="1" max="10">
                         <span class="input-group-btn">
                             <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
                                 +
                             </button>
                         </span>
                     </div>
+                  <?php  if(isset($_SESSION['logged_in'])){
+                     echo ' <input type="hidden" class="user" value="'.$_SESSION['user_id'].'">';
+                        }else{
+                        echo ' <input type="hidden" class="user" value="1">';
+                      }  ?>
                     <div class="qty-button d-flex flex-wrap pt-3">
                  
                       <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
-                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
+                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 addItem">Add to cart</button>
                  </form>                      
                     </div>
                   </div>
@@ -777,6 +783,44 @@ function incrementQuantity() {
       },
     });
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    // Send product details in the server
+    $(".addItem").click(function(e) {
+      e.preventDefault();
+      
+
+     
+      var $form = $(this).closest(".form-submit");
+      var pid = $form.find(".pid").val();
+      var userid = $form.find(".user").val();
+      var pqty = $form.find(".quantity").val();
+
+     console.log(userid);
+
+     $.ajax({
+        url: 'addcart.php',
+        method: 'post',
+        data: {
+            pid: pid,
+            userid: userid,
+            pqty: pqty
+        },
+        dataType: 'json',
+        success: function(response) {
+            alert(response.message); // Shfaq mesazhin nga përgjigja e serverit
+        }
+        
+    });
+      console.log("hej");
+    });
+    
+
+    // Load total no.of items added in the cart and display in the navbar
+   
+  });
+  </script>
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/single-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 20:00:01 GMT -->
