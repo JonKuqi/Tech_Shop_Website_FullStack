@@ -566,19 +566,22 @@ document.getElementById("sortingForm").addEventListener("submit", function(event
     });
 </script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js'></script>
-
+ 
   <script type="text/javascript">
   $(document).ready(function() {
 
     // Send product details in the server
     $(".addItem").click(function(e) {
       e.preventDefault();
-      if()
+     
+    
+      
       var $form = $(this).closest(".form-submit");
       var pid = $form.find(".pid").val();
       var userid = $form.find(".user").val();
       var pqty = $form.find(".quantity").val();
+
+     console.log(userid);
 
       $.ajax({
         url: 'addcart.php',
@@ -587,14 +590,12 @@ document.getElementById("sortingForm").addEventListener("submit", function(event
           pid: pid,
           userid: userid,
           pqty: pqty
-        },
-        success: function(response) {
-          $("#message").html(response);
-         
-         
         }
+      
       });
+      console.log("hej");
     });
+    
 
     // Load total no.of items added in the cart and display in the navbar
    
