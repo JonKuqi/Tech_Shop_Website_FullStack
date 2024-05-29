@@ -4,11 +4,11 @@ include('../../databaseConnection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
 
-    // Validimi me regex
+    // Validimi me regeXxx
     $username_pattern = '/^[a-zA-Z0-9_]{3,20}$/';
-    $password_pattern = '/^.{8,}$/';  // Passwordi duhet të ketë të paktën 8 karaktere
+    $password_pattern = '/^.{8,}$/';  // Passwordi duhet te kete te pakten 8 karaktere
 
     if (!preg_match($username_pattern, $username)) {
         echo "
