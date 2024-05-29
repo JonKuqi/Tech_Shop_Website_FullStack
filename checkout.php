@@ -172,21 +172,20 @@ if(isset($_POST['placeOrder'])){
     $stmt->bind_param("issss", $user_id, $street, $city, $country, $zip);
     $stmt->execute();
 
-}else if($currentUser->getAddress() != null && $currentUser->getId() != 1){
+}else if ($currentUser->getAddress() != null && $currentUser->getId() != 1) {
+  
   $country = $_POST['country'];
   $street = $_POST['adress'];
-   $notes = $_POST['notes'];
+  $notes = $_POST['notes'];
   $zip = $_POST['zip'];
   $city = $_POST['city'];
 
   echo "Ka mberri ketu";
 
   $user_id = $currentUser->getId();
- 
 
-
-  $stmt = $conn->prepare("UPDATE tblAdress SET street=?, city=?,state=?,zip=? WHERE tbl_user_id=?");
-  $stmt->bind_param("issss", $street, $city, $country, $zip, $user_id,);
+  $stmt = $conn->prepare("UPDATE tblAdress SET street=?, city=?, state=?, zip=? WHERE tbl_user_id=?");
+  $stmt->bind_param("ssssi", $street, $city, $country, $zip, $user_id);
   $stmt->execute();
 
 }
@@ -202,7 +201,7 @@ if ($payWithBank && ($currentUser->getPayment() == null) && ($currentUser->getId
     $stmt->bind_param("isss", $user_id, $provider, $acc_number, $expiryDate);
     $stmt->execute();
 
-}else if($payWithBank && ($currentUser->getPayment() == null) && ($currentUser->getId() != 1)){
+}else if ($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 1)) {
   $provider = $_POST['provider'];
   $acc_number = $_POST['acc_number'];
   $expiryDate = $_POST['expiryDate'];
@@ -210,9 +209,8 @@ if ($payWithBank && ($currentUser->getPayment() == null) && ($currentUser->getId
   $user_id = $currentUser->getId();
 
   $stmt = $conn->prepare("UPDATE tblUserPayment SET provider = ?, accountNumber = ?, expiryDate = ? WHERE tbl_user_id = ?");
-  $stmt->bind_param("isss", $provider, $acc_number, $expiryDate, $user_id);
+  $stmt->bind_param("sssi", $provider, $acc_number, $expiryDate, $user_id); 
   $stmt->execute();
-
 }
 
   echo '<script>alert("You have successfully ordered!");</script>';
@@ -315,7 +313,7 @@ if ($payWithBank && ($currentUser->getPayment() == null) && ($currentUser->getId
                     <div id="bank-details">
                       <input type="text" name="provider" id="provider" placeholder="Provider" value="<?php echo $userProvider; ?>">
                       <input type="text" name="acc_number" id="account_number" placeholder="Account Number" value="<?php echo $userAccountNumber; ?>">
-                      <input type="text" name="expiryDate" id="expiry_date" placeholder="Expiry Date" value="<?php echo $userExpiryDate; ?>">
+                      <input type="text" name="expiryDate" id="expiryDate" placeholder="Expiry Date" value="<?php echo $userExpiryDate; ?>">
                     </div>
                     <script>
                       document.addEventListener("DOMContentLoaded", function() {
