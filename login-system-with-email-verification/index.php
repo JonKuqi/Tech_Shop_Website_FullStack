@@ -1,7 +1,4 @@
 
-
-
-
 <?php
 if (isset($_POST['submit'])) {
     $backgroundStyle = $_POST['backgroundStyle'];
