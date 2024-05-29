@@ -5,7 +5,8 @@ session_start();
 include("includes/header.php");
 
 //include("Data-Objects/fileManipulationFunctions.php");
-$conn = null;
+//$conn = null;
+
 include("Data-Objects\databaseManipulationFunctions.php");
 include("databaseConnection.php");
 require("Website-Php-functions/errorHandler.php");
@@ -31,6 +32,9 @@ $currentUser = new User($user_id,$username,$password,$first_name,$last_name,$con
 
 
 $currentUser = setAddressAndPayment($conn, $currentUser);
+
+//echo $currentUser->getAddress()->getStreet();
+
   
 if ($currentUser->getAddress() != null) {
   $userCountry = $currentUser->getAddress()->getState();
@@ -47,6 +51,7 @@ if ($currentUser->getAddress() != null) {
 if ($currentUser->getPayment() != null) {
   $userProvider = $currentUser->getPayment()->getProvider();
   $userAccountNumber = $currentUser->getPayment()->getAccountNumber();
+
   $userExpiryDate = $currentUser->getPayment()->getExpiryDate();
 } else {
   $userProvider = "";
@@ -120,7 +125,10 @@ if(isset($_POST['placeOrder'])){
 
 }
 
-$conn = $conn;
+
+
+
+//Order ne databaze
 
 if(isset($_POST['placeOrder'])){
   $country = $_POST['country'];
@@ -148,32 +156,62 @@ if(isset($_POST['placeOrder'])){
 
 
 
-  if (($currentUser->getAddress() != null) && ($currentUser->getId() != 0)) {
-    $address = $currentUser->getAddress();
-    $city = $address->getCity();
-    $country = $address->getState();
-    $zip = $address->getZip();
+  if ($currentUser->getAddress() == null && ($currentUser->getId() != 1)) {
+    $country = $_POST['country'];
+    $street = $_POST['adress'];
+     $notes = $_POST['notes'];
+    $zip = $_POST['zip'];
+    $city = $_POST['city'];
 
-    echo "Ka mberri ketu";
-
+    
     $user_id = $currentUser->getId();
-    $street = $address->getStreet();
+   
 
 
     $stmt = $conn->prepare("INSERT INTO tblAdress (tbl_user_id, street, city, state, zip) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("issss", $user_id, $street, $city, $country, $zip);
     $stmt->execute();
 
+}else if($currentUser->getAddress() != null && $currentUser->getId() != 1){
+  $country = $_POST['country'];
+  $street = $_POST['adress'];
+   $notes = $_POST['notes'];
+  $zip = $_POST['zip'];
+  $city = $_POST['city'];
+
+  echo "Ka mberri ketu";
+
+  $user_id = $currentUser->getId();
+ 
+
+
+  $stmt = $conn->prepare("UPDATE tblAdress SET street=?, city=?,state=?,zip=? WHERE tbl_user_id=?");
+  $stmt->bind_param("issss", $street, $city, $country, $zip, $user_id,);
+  $stmt->execute();
+
 }
 
-if ($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId() != 0)) {
+if ($payWithBank && ($currentUser->getPayment() == null) && ($currentUser->getId() != 1)) {
     $provider = $_POST['provider'];
     $acc_number = $_POST['acc_number'];
     $expiryDate = $_POST['expiryDate'];
 
-    $stmt = $conn->prepare("INSERT INTO tblUserPayment (user_id, provider, acc_number, expiryDate) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("isss", $currentUser->getId(), $provider, $acc_number, $expiryDate);
+    $user_id = $currentUser->getId();
+
+    $stmt = $conn->prepare("INSERT INTO tblUserPayment (tbl_user_id, provider, accountNumber, expiryDate) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("isss", $user_id, $provider, $acc_number, $expiryDate);
     $stmt->execute();
+
+}else if($payWithBank && ($currentUser->getPayment() == null) && ($currentUser->getId() != 1)){
+  $provider = $_POST['provider'];
+  $acc_number = $_POST['acc_number'];
+  $expiryDate = $_POST['expiryDate'];
+
+  $user_id = $currentUser->getId();
+
+  $stmt = $conn->prepare("UPDATE tblUserPayment SET provider = ?, accountNumber = ?, expiryDate = ? WHERE tbl_user_id = ?");
+  $stmt->bind_param("isss", $provider, $acc_number, $expiryDate, $user_id);
+  $stmt->execute();
 
 }
 
@@ -277,7 +315,7 @@ if ($payWithBank && ($currentUser->getPayment() != null) && ($currentUser->getId
                     <div id="bank-details">
                       <input type="text" name="provider" id="provider" placeholder="Provider" value="<?php echo $userProvider; ?>">
                       <input type="text" name="acc_number" id="account_number" placeholder="Account Number" value="<?php echo $userAccountNumber; ?>">
-                      <input type="text" name="expiry_date" id="expiry_date" placeholder="Expiry Date" value="<?php echo $userExpiryDate; ?>">
+                      <input type="text" name="expiryDate" id="expiry_date" placeholder="Expiry Date" value="<?php echo $userExpiryDate; ?>">
                     </div>
                     <script>
                       document.addEventListener("DOMContentLoaded", function() {

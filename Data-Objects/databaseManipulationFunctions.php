@@ -234,7 +234,7 @@ function setAddressAndPayment($db, $user) {
         $user->setAddress($address);
     }
   
-    $stmt = $db->prepare("SELECT * FROM tbluserPayment WHERE tbl_user_id = ?");
+    $stmt = $db->prepare("SELECT * FROM tblUserPayment WHERE tbl_user_id = ?");
     $stmt->bind_param("i", $user->getId());
     $stmt->execute();
     $result = $stmt->get_result();
@@ -268,5 +268,26 @@ function isProductInUserCart($db, $userId, $productId) {
         return false;
     }
 }
+
+// function getUserAdress($db, $userId){
+
+//     $stmt = $db->prepare("SELECT * FROM tblAdress WHERE tbl_user_id = ? ");
+
+//     $stmt -> bind_param("i", $userId);
+
+//     $stmt->execute();
+
+//     $result = $stmt->get_result();
+
+
+
+//     if ($row = $result->fetch_assoc()) {
+
+//         $payment = new UserPayment($row['tbl_user_id'], $row['provider'], $row['accountNumber'], $row['expiryDate']);
+//         $user->setPayment($payment);
+//     }
+
+
+// }
 
 ?>

@@ -147,3 +147,8 @@ INSERT INTO `tbl_user` ( `first_name`, `last_name`, `contact_number`, `email`, `
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+-- 29/05/2024 Joni
+ALTER TABLE tbluserpayment
+MODIFY COLUMN expiryDate VARCHAR(30);

@@ -27,3 +27,20 @@
 6|2|1||Kosovo|Prishtina|Skenderbeu|23000|Noteees|bank|Reiffeizen|1000|2025
 7|2|1||Kosovo|Prishtina|Skenderbeu|23000|Noteees|bank|Reiffeizen|1000|2025
 8|2|2||Kosovo|Prishtina|Skenderbeu|23000|Noteees|bank|Reiffeizen|1000|2025
+25|2|3||Kosovo|Prishtina|Skenderbeu|23000|Hello|bank|Reiffeizen|100|2025
+26|2|6||Kosovo|Prishtina|Skenderbeu|23000|Hello|bank|Reiffeizen|100|2025
+25|2|3||Kosovo|Prishtina|Skenderbeu|23000|Hello|bank|Reiffeizen|100|2025
+26|2|6||Kosovo|Prishtina|Skenderbeu|23000|Hello|bank|Reiffeizen|100|2025
+25|2|3||Kosovo|Prishtina|Skenderbeu|23000|Hello|bank|Reiffeizen|100|2025
+26|2|6||Kosovo|Prishtina|Skenderbeu|23000|Hello|bank|Reiffeizen|100|2025
+25|2|3||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|100|2025
+26|2|6||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|100|2025
+25|2|3||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|100|
+26|2|6||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|100|
+25|2|3||Kosovo|Prishtina|Streeeet|23000||bank|Reiffeizen|100|
+26|2|6||Kosovo|Prishtina|Streeeet|23000||bank|Reiffeizen|100|
+25|2|3||Kosovo|Prishtina|Street |23000||bank|Reiffeizen|100|
+26|2|6||Kosovo|Prishtina|Street |23000||bank|Reiffeizen|100|
+25|2|3||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|100|
+26|2|6||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|100|
+27|2|5||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|100|
