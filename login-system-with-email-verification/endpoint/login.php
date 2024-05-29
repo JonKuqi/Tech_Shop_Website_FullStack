@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "
         <script>
             alert('Login Failed, Invalid Password! Password should be at least 8 characters long.');
-            window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+            window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
         </script>
         ";
         exit();
