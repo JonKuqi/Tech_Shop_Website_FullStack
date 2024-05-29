@@ -333,7 +333,6 @@ window.addEventListener('load', function() {
         var priceElement = inputField.closest('.cart-item').querySelector('.card-price .money');
         var totalPriceElement = inputField.closest('.cart-item').querySelector('.total-price .money');
         var price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
-        var productId = inputField.closest('.cart-item').querySelector('.pid').value;
 
         if (increase) {
           if (value < stockQuantity) {
@@ -348,66 +347,59 @@ window.addEventListener('load', function() {
         inputField.value = value;
         totalPriceElement.textContent = '$' + (price * value).toFixed(2);
 
-        // Send AJAX request to update cart in the database
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "update_cart.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.status !== "success") {
-                    alert("Failed to update cart: " + response.message);
-                }
-            }
-        };
-        xhr.send("product_id=" + productId + "&quantity=" +( value-1));
-    };
+        // Save current scroll position
+        var scrollPosition = window.scrollY;
+        localStorage.setItem('scrollPosition', scrollPosition);
 
-    var quantityFields = document.querySelectorAll('.spin-number-output');
-    quantityFields.forEach(function(inputField) {
+        // Call function to update the cart on the server
+        updateQuantityOnServer(inputField.dataset.productId, value);
+      };
+
+      var updateQuantityOnServer = function(productId, quantity) {
+        // Update the hidden form inputs
+        var form = document.getElementById('subbmitForm' + productId);
+        form.querySelector('input[name="quantity"]').value = quantity;
+
+        // Submit the form
+        form.submit();
+      };
+
+      var restoreScrollPosition = function() {
+        var scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+          window.scrollTo(0, parseInt(scrollPosition, 10));
+          localStorage.removeItem('scrollPosition');
+        }
+      };
+
+      restoreScrollPosition();
+
+      var quantityFields = document.querySelectorAll('.spin-number-output');
+      quantityFields.forEach(function(inputField) {
         inputField.addEventListener('change', function() {
-          updateCart(inputField, true);
+          updateCart(inputField, true); // Always increasing the quantity when manually changed
         });
       });
 
       var incrementButtons = document.querySelectorAll('.incriment-button');
       incrementButtons.forEach(function(button) {
-    });
-
-    var incrementButtons = document.querySelectorAll('.incriment-button');
-    incrementButtons.forEach(function(button) {
         button.addEventListener('click', function() {
           var inputField = button.parentElement.querySelector('.spin-number-output');
           updateCart(inputField, true);
         });
-    });
+      });
 
-    var decrementButtons = document.querySelectorAll('.decriment-button');
-    decrementButtons.forEach(function(button) {
+      var decrementButtons = document.querySelectorAll('.decriment-button');
+      decrementButtons.forEach(function(button) {
         button.addEventListener('click', function() {
           var inputField = button.parentElement.querySelector('.spin-number-output');
           updateCart(inputField, false);
         });
       });
-    
-    document.querySelector('.btn.btn-black.btn-medium.text-uppercase.me-2.mb-3.btn-rounded-none').addEventListener('click', function(e) {
-        var changed = false;
-        quantityFields.forEach(function(inputField) {
-            if (inputField.value != inputField.defaultValue) {
-                changed = true;
-                updateCart(inputField, true);
-                inputField.defaultValue = inputField.value;
-            }
-        });
-        if (!changed) {
-            e.preventDefault();
-        }
     });
-});
-</script>
-
-
   </script>
+
+
   </body>
 
 <!-- Mirrored from demo.templatesjungle.com/ministore/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Mar 2024 19:59:50 GMT -->
