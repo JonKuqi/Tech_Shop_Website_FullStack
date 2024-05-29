@@ -305,6 +305,7 @@ if(isset($_POST['add-to-cart'])){
               </div>
               <div class="product-price pt-3 pb-3">
                 <strong class="text-primary display-6 fw-bold"><?php echo ($product->getPrice()-($product->getPrice()*$product->getDiscount())); ?>€</strong>
+                <strong class="text-primary display-6 fw-bold" style="color:red !important;"><?php if($product->getQuantity() == 0) echo "&nbsp&nbsp&nbspSOLD"; ?></strong>
               </div>
               <p><?php echo $product->getShortDescription(); ?></p>
               <div class="cart-wrap padding-small">
@@ -336,7 +337,7 @@ if(isset($_POST['add-to-cart'])){
                     <div class="qty-button d-flex flex-wrap pt-3">
                  
                       <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
-                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 addItem">Add to cart</button>
+                      <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 addItem" disabled = "<?php if($product->getQuantity() == 0) echo "true"; ?>">Add to cart</button>
                  </form>                      
                     </div>
                   </div>

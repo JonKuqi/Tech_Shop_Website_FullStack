@@ -59,3 +59,4 @@
 28|2|1||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|2000|
 28|2|1||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|2000|
 28|2|1||Kosovo|Prishtina|Skenderbeu|23000||bank|Reiffeizen|2000|
+29|2|6|1|Kosovo|Prishtina|Skenderbeu|23000|Notes|bank|Reiffeizen|2000|
