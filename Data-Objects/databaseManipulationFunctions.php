@@ -5,7 +5,7 @@ include("shoping-order.php");
 
 
 
-function registerProduct($db, $product) {
+function registerProduct($db, &$product) {
     $stmt = $db->prepare("INSERT INTO tblProduct (sku, price, quantity, time_added, name, discount, brand, short_description, long_description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sdissdsss", 
         $product->sku, 
@@ -22,14 +22,14 @@ function registerProduct($db, $product) {
     
 }
 
-function saveArrayImages($db, $product, $imgId, $path) {
+function saveArrayImages($db, &$product, $imgId, $path) {
     $stmt = $db->prepare("INSERT INTO tblImages (imgId, pid, path) VALUES (?, ?, ?)");
     $stmt->bind_param("iis", $imgId, $product->getId(), $path);
     $stmt->execute();
  
 }
 
-function arrayProductsFromDatabase($db) {
+function &arrayProductsFromDatabase($db) {
     $query = "SELECT * FROM tblProduct";
     $result = $db->query($query);
 
@@ -173,7 +173,7 @@ function arrayShopingCartFromDatabase($db) {
         $product = null;
         $user = null;
 
-        foreach ($products as $p) {
+        foreach ($products as &$p) {
             if ($p->getId() == $row['pid']) {
                 $product = $p;
                 break;
@@ -194,6 +194,7 @@ function arrayShopingCartFromDatabase($db) {
     }
 
     $result->free();
+    unset($result);
     return $arrayShopingCart;
 }
 
