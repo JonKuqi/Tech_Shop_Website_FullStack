@@ -46,6 +46,27 @@ if (isset($_POST['register'])) {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
+        //Validimi i emri
+        if (!preg_match("/^[a-zA-Z'-]+$/", $firstName)) {
+            echo "
+            <script>
+                alert('Invalid first name format. Please use only letters.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i mbiemrit
+        if (!preg_match("/^[a-zA-Z'-]+$/", $lastName)) {
+            echo "
+            <script>
+                alert('Invalid last name format. Please use only letters.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
 
         $conn->autocommit(false); // Disable autocommit mode
 
