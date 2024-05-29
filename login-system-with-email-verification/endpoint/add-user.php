@@ -51,7 +51,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('Invalid first name format. Please use only letters.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
             exit;
@@ -62,7 +62,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('Invalid last name format. Please use only letters.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
             exit;
@@ -73,7 +73,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('Invalid contact number format. Please use only numbers.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
             exit;
@@ -84,7 +84,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('Invalid email format. Please enter a valid email address.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
             exit;
@@ -95,7 +95,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('Invalid username format. Please use only letters, numbers, and underscores.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
             exit;
@@ -106,7 +106,7 @@ if (isset($_POST['register'])) {
             echo "
             <script>
                 alert('Password must be at least 8 characters long.');
-                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6/login-system-with-email-verification/index.php';
             </script>
             ";
             exit;
