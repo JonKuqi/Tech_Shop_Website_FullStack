@@ -90,6 +90,28 @@ if (isset($_POST['register'])) {
             exit;
         }
 
+        // Validimi i username it
+        if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
+            echo "
+            <script>
+                alert('Invalid username format. Please use only letters, numbers, and underscores.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        // Validimi i passit
+        if (strlen($password) < 8) {
+            echo "
+            <script>
+                alert('Password must be at least 8 characters long.');
+                window.location.href = 'http://localhost/Tech_Shop_Website_Gr.6_fund/login-system-with-email-verification/index.php';
+            </script>
+            ";
+            exit;
+        }
+
         $conn->autocommit(false); // Disable autocommit mode
 
         $stmt = $conn->prepare("SELECT `first_name`, `last_name` FROM `tbl_user` WHERE `first_name` = ? AND `last_name` = ?");
