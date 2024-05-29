@@ -4,6 +4,7 @@ include("review.php");
 include("shoping-order.php");
 
 
+
 function registerProduct($db, $product) {
     $stmt = $db->prepare("INSERT INTO tblProduct (sku, price, quantity, time_added, name, discount, brand, short_description, long_description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sdissdsss", 
@@ -246,10 +247,11 @@ function setAddressAndPayment($db, $user) {
     return $user;
 }
 
-function updateProduct($db, $id, $newQuantity){
-    $stmt = $db->prepare("UPDATE tblProduct SET quantity = ? WHERE pid = ?");
-    $stmt->bind_param("ii", $newQuantity, $id);
+function updateProduct($db, $id, $minusQuantity){
+    $stmt = $db->prepare("UPDATE tblProduct SET quantity = quantity - ? WHERE pid = ?");
+    $stmt->bind_param("ii", $minusQuantity, $id);
     $stmt->execute();
+    $stmt->close();
 }
 
 function isProductInUserCart($db, $userId, $productId) {

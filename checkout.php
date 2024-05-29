@@ -129,7 +129,6 @@ if(isset($_POST['placeOrder'])){
 
 
 //Order ne databaze
-
 if(isset($_POST['placeOrder'])){
   $country = $_POST['country'];
   $address = $_POST['adress'];
@@ -149,6 +148,8 @@ if(isset($_POST['placeOrder'])){
         $productId = $c->getProduct()->getId();
         $quantity = $c->getQuantity();
         $user_id = $currentUser->getId();
+
+        updateProduct($conn, $productId, $quantity); //I minusohet produktit sasia e bler
 
         $stmt->bind_param("iisssissssii", $shid, $user_id, $country, $city, $address, $zip, $notes, $provider, $acc_number, $expiryDate, $productId, $quantity);
         $stmt->execute();
